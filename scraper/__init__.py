@@ -19,10 +19,10 @@ class Scraper(object):
 
     def save(self, entries: list[Entry]):
 
-        dicts = [entry.__dict__ for entry in entries]
+        jsons = [entry.json() for entry in entries]
 
         with open('data.json', 'w') as f:
-            json.dump(dicts, f, default = str)
+            json.dump(jsons, f)
 
 
     def run(self, target: Target = Target.ALL):
@@ -45,7 +45,7 @@ class Scraper(object):
 
         match(target):
             case Target.CIW:
-                entries += ciw.extract(self._driver)
+                entries += ciw.scrape(self._driver)
 
         return entries
 
@@ -54,6 +54,6 @@ class Scraper(object):
 
         entries: list[Entry] = []
 
-        entries += ciw.extract(self._driver)
+        entries += ciw.scrape(self._driver)
 
         return entries

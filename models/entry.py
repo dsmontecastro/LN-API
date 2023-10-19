@@ -14,6 +14,15 @@ class Media(object):
             PRICE: {self.price}
         """
 
+    def json(self):
+        return {
+            self.format: {
+                'isbn': self.isbn,
+                'price': self.price
+            }
+        }
+
+
 class Entry(object):
 
     def __init__(self,
@@ -52,3 +61,20 @@ class Entry(object):
             credits = {self.credits}
             media = {self.media.__str__()}
         """
+
+    def json(self):
+        dict = self.__dict__
+        dict['date'] = self.date.strftime('%m-%d-%y')
+        dict['media'] = [ m.json() for m in self.media ]
+        return dict
+
+# Test = Entry(
+#     url = 'url',
+#     date = '12/02/99',
+#     title = 'title',
+#     cover = 'cover',
+#     blurb = 'blurb',
+#     genres = ['genre'],
+#     credits = ['Steve'],
+#     media = [ Media('format', '0', 'P0.00') ],
+# )
