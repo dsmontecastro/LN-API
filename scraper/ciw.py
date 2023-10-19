@@ -1,21 +1,52 @@
 from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 
-from models.entry import Entry
+from models.entry import Entry, Media
 
+
+# region : Constants -----------------------------------------------------------------------------------------
 
 URL = 'https://crossinfworld.com/Calendar.html'
 CSS = BY.CSS_SELECTOR
-    
+
+CREDITS = ['h4', 'h5', 'h6']
+DIGITALS = ['digital', 'audiobook', 'ebook']
+
+# endregion --------------------------------------------------------------------------------------------------
+
+
+# region : Helper Functions ----------------------------------------------------------------------------------
 
 def td(header: str) -> str:
     return f'td[data-table-header="{header}"]'
 
+def getCredit(name: str) -> str:
+    credits = [ i.capitalize() for i in name.split(' ') ]
+    return ' '.join(credits[1:])
 
-def extract(driver: WebDriver) -> list[Entry]:
+def getPrice(text: str, format: str = 'digital') -> str:
+
+    prices = text.replace('&', ' ').split(' ')[1:]
+
+    i = 0
+    try: i = prices.index('Digital')
+    except(ValueError): pass
+
+    price: str = ''
+    if i > 0 and format.lower() not in DIGITALS:
+        del prices[i:i+3]
+        i = 0
+
+    return prices[1]
+
+# endregion --------------------------------------------------------------------------------------------------
+
+
+
+def scrape(driver: WebDriver) -> list[Entry]:
 
     print(f'Extracting from {URL}...')
+
     entries: list[Entry] = []
 
     driver.get(URL)
@@ -27,35 +58,49 @@ def extract(driver: WebDriver) -> list[Entry]:
         head = item.find_element(CSS, 'td > a')
         href = head.get_attribute('href') or ''
 
-        entry = Entry(
-
-            url = href,
-            title = head.text,
-
-            date = item.find_element(CSS, td('Date')).text,
-            isbn = item.find_element(CSS, td('ISBN')).text,
-            medium = item.find_element(CSS, td('Format')).text,
-            genres = item.find_element(CSS, td('Genre')).text.split(', ')
-
-        )
-
         if href:
 
+            # From Calendar Page
+            title = head.text
+            date = item.find_element(CSS, td('Date')).text
+            isbn = item.find_element(CSS, td('ISBN')).text
+            format = item.find_element(CSS, td('Format')).text
+            genres = item.find_element(CSS, td('Genre')).text.split(', ')
+
+
+            # Go to Book Page
             driver.get(href)
+            info = driver.find_element(CSS, 'div.col-sm-4')
+            about = driver.find_element(CSS, 'div.col-sm-6')
+            image = driver.find_element(CSS, 'img.img-responsive.pull-left')
 
-            cover = driver.find_element(CSS, 'img.img-responsive.pull-left')
-
-            story = driver.find_element(CSS, 'div.col-sm-6')
-            blurb = story.find_element(CSS, 'p > strong').text
-    
-            for p in story.find_elements(CSS, 'p'):
-                blurb += p.text + '\n'
-
-            entry.image = cover.get_attribute('src') or ''
-            entry.blurb = blurb
             
+            cover = image.get_attribute('src') or ''
+        
+            blurb: str = ''
+            for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
+
+            credits = [ getCredit(about.find_element(CSS, i).text) for i in CREDITS ]
+
+            prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
+            price = getPrice(prices)
+
+    
+            entries.append(
+                Entry(
+                    url = href,
+                    date = date,
+                    title = title,
+                    cover = cover,
+                    blurb = blurb,
+                    genres = genres,
+                    credits = credits,
+                    media = [ Media(format, isbn, price) ],
+                )
+            )
+
+            # Back to Calendar
             driver.back()
 
-        entries.append(entry)
 
     return entries
