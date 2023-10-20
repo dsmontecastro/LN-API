@@ -56,9 +56,9 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
         # Calendar Page
         head = item.find_element(CSS, 'td > a')
-        href = head.get_attribute('href') or ''
+        url = head.get_attribute('href') or ''
 
-        if href:
+        if url:
 
             # From Calendar Page
             title = head.text
@@ -69,7 +69,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
 
             # Go to Book Page
-            driver.get(href)
+            driver.get(url)
             info = driver.find_element(CSS, 'div.col-sm-4')
             about = driver.find_element(CSS, 'div.col-sm-6')
             image = driver.find_element(CSS, 'img.img-responsive.pull-left')
@@ -88,7 +88,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
     
             entries.append(
                 Entry(
-                    url = href,
+                    url = url,
                     date = date,
                     title = title,
                     cover = cover,
