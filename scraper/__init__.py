@@ -4,8 +4,9 @@ from selenium.webdriver import Firefox, FirefoxOptions
 from models.targets import Target
 from models.entry import Entry
 
-# Individual Scrapers
+# Scrape Target Handlers
 from . import ciw
+from . import jnc
 
 
 class Scraper(object):
@@ -37,7 +38,8 @@ class Scraper(object):
             entries += self._scrapeAll()
 
         else: entries += self._scrape(target)
-    
+
+        print(f'Total: {len(entries)} entries')
         self.save(entries)
 
 
@@ -50,6 +52,8 @@ class Scraper(object):
         match(target):
             case Target.CIW:
                 entries += ciw.scrape(self._driver)
+            case Target.JNC:
+                entries += jnc.scrape(self._driver)
 
         return entries
 
@@ -59,5 +63,6 @@ class Scraper(object):
         entries: list[Entry] = []
 
         entries += ciw.scrape(self._driver)
+        entries += jnc.scrape(self._driver)
 
         return entries
