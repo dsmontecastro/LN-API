@@ -17,6 +17,10 @@ class Scraper(object):
 
     def quit(self): self._driver.quit()
 
+    def test(self, target: Target):
+        entries = self._scrape(target)
+        self.save(entries)
+
     def save(self, entries: list[Entry]):
 
         jsons = [entry.json() for entry in entries]

@@ -15,8 +15,11 @@ class Program:
 
     def quit(self):
         self.scraper.quit()
+    
+    def test(self, target: Target):
+        self.scraper.test(target)
 
 
 if __name__ == '__main__':
     app = Program()
-    app.run()
+    app.test(Target.JNC)
