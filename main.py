@@ -23,3 +23,4 @@ class Program:
 if __name__ == '__main__':
     app = Program()
     app.test(Target.JNC)
+    app.quit()
