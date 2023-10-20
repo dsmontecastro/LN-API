@@ -1,3 +1,4 @@
+from dateutil.parser import parse as dparse
 from datetime import datetime, date as Date
 
 class Media(object):
@@ -48,7 +49,8 @@ class Entry(object):
         self.media: list[Media] = media
     
         # Requires processing
-        self.date: Date = datetime.strptime(date, '%m/%d/%y').date()
+        self.date = dparse(date).date()
+
 
     def __str__(self):
         return f"""
