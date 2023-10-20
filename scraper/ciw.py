@@ -46,27 +46,27 @@ def getPrice(text: str, format: str = 'digital') -> str:
 def scrape(driver: WebDriver) -> list[Entry]:
 
     print(f'Extracting from {URL}...')
-
     entries: list[Entry] = []
-
     driver.get(URL)
+
+    # Load all Items
     driver.find_element(CSS, 'option[value="100"]').click()
 
+    # Process all Items
     for item in driver.find_elements(CSS, 'tbody > *'):
 
         # Calendar Page
         head = item.find_element(CSS, 'td > a')
         url = head.get_attribute('href') or ''
 
-        if url:
+        if url: # If URL for Book Page is valid
 
-            # From Calendar Page
+            # Get following from Calendar Page
             title = head.text
             date = item.find_element(CSS, td('Date')).text
             isbn = item.find_element(CSS, td('ISBN')).text
             format = item.find_element(CSS, td('Format')).text
             genres = item.find_element(CSS, td('Genre')).text.split(', ')
-
 
             # Go to Book Page
             driver.get(url)
@@ -74,18 +74,21 @@ def scrape(driver: WebDriver) -> list[Entry]:
             about = driver.find_element(CSS, 'div.col-sm-6')
             image = driver.find_element(CSS, 'img.img-responsive.pull-left')
 
-            
+            # Image: Cover
             cover = image.get_attribute('src') or ''
-        
+
+            # About: Blurb
             blurb: str = ''
             for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
 
+            # About: Credits
             credits = [ getCredit(about.find_element(CSS, i).text) for i in CREDITS ]
 
+            # Info: Price(s)
             prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
             price = getPrice(prices)
 
-    
+            # Finalize Entry
             entries.append(
                 Entry(
                     url = url,
