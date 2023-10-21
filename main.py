@@ -5,8 +5,8 @@ from models.targets import Target
 
 class Program:
 
-    def __init__(self):
-        self.scraper = Scraper()
+    def __init__(self, headless = True):
+        self.scraper = Scraper(headless)
         # self.db = DB()
 
     def run(self):
@@ -21,6 +21,6 @@ class Program:
 
 
 if __name__ == '__main__':
-    app = Program()
+    app = Program(headless = False)
     app.test(Target.JNC)
     app.quit()

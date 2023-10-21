@@ -11,9 +11,9 @@ from . import jnc
 
 class Scraper(object):
 
-    def __init__(self):
+    def __init__(self, headless = True):
         options = FirefoxOptions()
-        options.add_argument('--headless')
+        if headless: options.add_argument('--headless')
         self._driver = Firefox(options = options)
 
     def quit(self): self._driver.quit()
