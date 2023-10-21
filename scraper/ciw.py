@@ -9,6 +9,7 @@ from models.entry import Entry, Media
 URL = 'https://crossinfworld.com/Calendar.html'
 CSS = BY.CSS_SELECTOR
 
+# CSS Shortcuts
 CREDITS = ['h4', 'h5', 'h6']
 DIGITALS = ['digital', 'audiobook', 'ebook']
 
@@ -17,14 +18,14 @@ DIGITALS = ['digital', 'audiobook', 'ebook']
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
-def td(header: str) -> str:
+def _td(header: str) -> str:
     return f'td[data-table-header="{header}"]'
 
-def getCredit(name: str) -> str:
+def _getCredit(name: str) -> str:
     credits = [ i.capitalize() for i in name.split(' ') ]
     return ' '.join(credits[1:])
 
-def getPrice(text: str, format: str = 'digital') -> str:
+def _getPrice(text: str, format: str = 'digital') -> str:
 
     prices = text.replace('&', ' ').split(' ')[1:]
 
@@ -32,7 +33,6 @@ def getPrice(text: str, format: str = 'digital') -> str:
     try: i = prices.index('Digital')
     except(ValueError): pass
 
-    price: str = ''
     if i > 0 and format.lower() not in DIGITALS:
         del prices[i:i+3]
         i = 0
@@ -40,7 +40,6 @@ def getPrice(text: str, format: str = 'digital') -> str:
     return prices[1]
 
 # endregion --------------------------------------------------------------------------------------------------
-
 
 
 def scrape(driver: WebDriver) -> list[Entry]:
@@ -63,10 +62,10 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
             # Get following from Calendar Page
             title = head.text
-            date = item.find_element(CSS, td('Date')).text
-            isbn = item.find_element(CSS, td('ISBN')).text
-            format = item.find_element(CSS, td('Format')).text
-            genres = item.find_element(CSS, td('Genre')).text.split(', ')
+            date = item.find_element(CSS, _td('Date')).text
+            isbn = item.find_element(CSS, _td('ISBN')).text
+            format = item.find_element(CSS, _td('Format')).text
+            genres = item.find_element(CSS, _td('Genre')).text.split(', ')
 
             # Go to Book Page
             driver.get(url)
@@ -82,11 +81,11 @@ def scrape(driver: WebDriver) -> list[Entry]:
             for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
 
             # About: Credits
-            credits = [ getCredit(about.find_element(CSS, i).text) for i in CREDITS ]
+            credits = [ _getCredit(about.find_element(CSS, i).text) for i in CREDITS ]
 
-            # Info: Price(s)
+            # Info: Price
             prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
-            price = getPrice(prices)
+            price = _getPrice(prices, format)
 
             # Finalize Entry
             entries.append(
