@@ -4,3 +4,4 @@ class Target(Enum):
     ALL = ''
     CIW = 'ciw'
     JNC = 'jnc'
+    KOD = 'kod'

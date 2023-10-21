@@ -22,5 +22,5 @@ class Program:
 
 if __name__ == '__main__':
     app = Program(headless = False)
-    app.test(Target.JNC)
+    app.test(Target.KOD)
     app.quit()
