@@ -1,9 +1,11 @@
+import string
+
 from selenium.webdriver.common.by import By as BY
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as Waiter
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from models.entry import Entry, Media
 
@@ -36,21 +38,24 @@ class Book(object):
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
-def getCredits(authors: str) -> list[str]:
+def _getCredits(authors: str) -> list[str]:
     authors = authors.replace('By ', '~').replace(', ', '~').replace(' and ', '~').strip()
     return [ author for author in authors.split('~') if author ]
 
-def getDate(date: str) -> str:
+def _getDate(date: str) -> str:
     strs = date.replace('on ', '').split(' ')
     return ' '.join(strs[1:])
 
-def getTitle(title: str) -> str:
+def _getGenre(tag: str) -> str:
+    return string.capwords(tag.lower())
+
+def _getTitle(title: str) -> str:
     par = 0
     try: par = title.index(' (')
     except ValueError: par = len(title)
     return title[:par]
 
-def addMedia(elem: WebElement, date: str, media: list[Media]):
+def _addMedia(elem: WebElement, date: str, media: list[Media]):
 
     rows = elem.find_elements(CSS, F_ROW)
 
@@ -89,7 +94,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
     for day in days:
 
         children = day.find_elements(PTH, './div')
-        date = getDate(children[0].find_element(CSS, 'span.rc-daily-calendar-day-text').text)
+        date = _getDate(children[0].find_element(CSS, 'span.rc-daily-calendar-day-text').text)
 
         for url in children[1].find_elements(CSS, 'div.rc-calendar-item-wrapper > a'):
             url = url.get_attribute('href')
@@ -109,8 +114,8 @@ def scrape(driver: WebDriver) -> list[Entry]:
             EC.visibility_of_any_elements_located((CSS, 'body > div > div > div > div.not-found'))
         )
 
-        # Create ENTRY if not
-        except TimeoutError:
+        # Create ENTRY if valid
+        except TimeoutException:
 
             # TOP Elements
             top: WebElement = wait.until(
@@ -123,9 +128,9 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
             # Section: Book Info
             info = top.find_element(CSS, 'div.name-author-wrapper-product')
-            title = getTitle(info.find_element(CSS, 'h2.product-title').text)
+            title = _getTitle(info.find_element(CSS, 'h2.product-title').text)
             blurb = info.find_element(CSS, 'p.series-desktop-header-info-description').text
-            credits = getCredits(info.find_element(CSS, 'span.series-desktop-header-info-author').text)
+            credits = _getCredits(info.find_element(CSS, 'span.series-desktop-header-info-author').text)
 
 
             # BOT Elements
@@ -135,12 +140,12 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
             # Section: Tags
             tags = bot.find_elements(CSS, TAGS)
-            genres = [ tag.text for tag in tags ]
+            genres = [ _getGenre(tag.text) for tag in tags ]
 
             # Section: Formats
             media: list[Media] = []
             formats = bot.find_elements(CSS, FORMATS)
-            for format in formats: addMedia(format, date, media)
+            for format in formats: _addMedia(format, date, media)
 
 
             # Finalize Entry
