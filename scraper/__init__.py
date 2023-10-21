@@ -26,7 +26,7 @@ class Scraper(object):
 
         jsons = [entry.json() for entry in entries]
 
-        with open('data.json', 'w') as f:
+        with open('test.json', 'w') as f:
             json.dump(jsons, f)
 
 
