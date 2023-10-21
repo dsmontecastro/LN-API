@@ -98,7 +98,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
     # Process all Book URLs
     entries: list[Entry] = []
-    for book in books[2:3]:
+    for book in books:
 
         date = book.date
         url = book.url
