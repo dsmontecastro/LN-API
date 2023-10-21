@@ -21,14 +21,6 @@ TITLE = 'div.product-desktop-rating-table-title-wrapper'
 VALUE = 'div.product-desktop-rating-table-value-wrapper'
 TEXT = 'span.product-desktop-rating-table-title'
 
-# class Item(object):
-#     def __init__(self, url = '', date = ''):
-#         self.url: str = url
-#         self.date: str = date
-
-#     def __str__(self):
-#         return f'{self.url}:  @{self.date}'
-
 # endregion --------------------------------------------------------------------------------------------------
 
 
