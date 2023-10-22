@@ -79,6 +79,8 @@ class Scraper(object):
                 entries += jnc.scrape(self._driver)
             case Target.KOD:
                 entries += kod.scrape(self._driver)
+            case Target.SEA:
+                entries += sea.scrape(self._driver)
 
         return entries
 
@@ -90,5 +92,6 @@ class Scraper(object):
         entries += ciw.scrape(self._driver)
         entries += jnc.scrape(self._driver)
         entries += kod.scrape(self._driver)
+        entries += sea.scrape(self._driver)
 
         return entries

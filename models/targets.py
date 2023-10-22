@@ -5,3 +5,4 @@ class Target(Enum):
     CIW = 'ciw'
     JNC = 'jnc'
     KOD = 'kod'
+    SEA = 'sea'
