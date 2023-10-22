@@ -21,6 +21,8 @@ class Program:
 
 
 if __name__ == '__main__':
-    app = Program(headless = False)
-    app.test(Target.KOD)
+    proxy = ''
+    app = Program(proxy = proxy, headless = False)
+    # app.test(Target.ALL)
+    app.test(Target.SEA)
     app.quit()
