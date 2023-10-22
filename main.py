@@ -5,8 +5,8 @@ from models.targets import Target
 
 class Program:
 
-    def __init__(self, headless = True):
-        self.scraper = Scraper(headless)
+    def __init__(self, proxy = '', headless = True):
+        self.scraper = Scraper(proxy, headless)
         # self.db = DB()
 
     def run(self):
