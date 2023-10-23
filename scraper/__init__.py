@@ -5,7 +5,7 @@ from selenium.webdriver import Firefox, FirefoxProfile, FirefoxOptions
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 from models.entry import Entry
-from models.targets import Target
+from models.table import Tables
 from . import ciw, jnc, kod, sea
 
 
@@ -41,8 +41,8 @@ class Scraper(object):
 
     def quit(self): self._driver.quit()
 
-    def test(self, target: Target):
-        entries = self._scrape(target)
+    def test(self, table: Tables):
+        entries = self._scrape(table)
         self.save(entries)
 
     def save(self, entries: list[Entry]):
@@ -53,14 +53,14 @@ class Scraper(object):
             json.dump(jsons, f)
 
 
-    def run(self, target: Target = Target.ALL):
+    def run(self, table: Tables = Tables.ALL):
 
         entries: list[Entry] = []
 
-        if target == Target.ALL:
+        if table == Tables.ALL:
             entries += self._scrapeAll()
 
-        else: entries += self._scrape(target)
+        else: entries += self._scrape(table)
 
         print(f'Total: {len(entries)} entries')
         self.save(entries)
@@ -68,18 +68,18 @@ class Scraper(object):
 
     # Scraper Commands
     
-    def _scrape(self, target: Target) -> list[Entry]:
+    def _scrape(self, target: Tables) -> list[Entry]:
 
         entries: list[Entry] = []
 
         match(target):
-            case Target.CIW:
+            case Tables.CIW:
                 entries += ciw.scrape(self._driver)
-            case Target.JNC:
+            case Tables.JNC:
                 entries += jnc.scrape(self._driver)
-            case Target.KOD:
+            case Tables.KOD:
                 entries += kod.scrape(self._driver)
-            case Target.SEA:
+            case Tables.SEA:
                 entries += sea.scrape(self._driver)
 
         return entries

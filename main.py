@@ -1,6 +1,6 @@
 from scraper import Scraper
 
-from models.targets import Target
+from models.table import Tables
 
 
 class Program:
@@ -16,13 +16,13 @@ class Program:
     def quit(self):
         self.scraper.quit()
     
-    def test(self, target: Target):
-        self.scraper.test(target)
+    def test(self, table: Tables):
+        self.scraper.test(table)
 
 
 if __name__ == '__main__':
     proxy = ''
     app = Program(proxy = proxy, headless = False)
     # app.test(Target.ALL)
-    app.test(Target.SEA)
+    app.test(Tables.SEA)
     app.quit()
