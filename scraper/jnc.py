@@ -5,10 +5,12 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 
 from models.entry import Entry, Media
+from models.table import Tables
 
 
 # region : Constants & Classes -------------------------------------------------------------------------------
 
+TABLE = Tables.JNC
 URL = 'https://j-novel.club/calendar?type=novel'
 CSS = BY.CSS_SELECTOR
 
@@ -98,6 +100,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
                     genres = genres,
                     credits = credits,
                     media = [ Media(format, '', '') ],
+                    table = TABLE
                 )
             )
 

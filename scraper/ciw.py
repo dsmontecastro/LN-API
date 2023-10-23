@@ -2,10 +2,12 @@ from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from models.entry import Entry, Media
+from models.table import Tables
 
 
 # region : Constants -----------------------------------------------------------------------------------------
 
+TABLE = Tables.CIW
 URL = 'https://crossinfworld.com/Calendar.html'
 CSS = BY.CSS_SELECTOR
 
@@ -90,6 +92,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
             # Finalize Entry
             entries.append(
                 Entry(
+                    table = TABLE,
                     url = url,
                     date = date,
                     title = title,

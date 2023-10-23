@@ -8,10 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
 from models.entry import Entry, Media
+from models.table import Tables
 
 
 # region : Constants -----------------------------------------------------------------------------------------
 
+TABLE = Tables.KOD
 URL = 'https://kodansha.us/calendar?type=book'
 CSS = BY.CSS_SELECTOR
 PTH = BY.XPATH
@@ -159,6 +161,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
                     genres = genres,
                     credits = credits,
                     media = media,
+                    table = TABLE
                 )
             )
 

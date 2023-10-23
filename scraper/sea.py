@@ -8,10 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
 from models.entry import Entry, Media
+from models.table import Tables
 
 
 # region : Constants -----------------------------------------------------------------------------------------
 
+TABLE = Tables.SEA
 URL = 'https://webcache.googleusercontent.com/search?q=cache:'  # Bypasses the actual site's CloudFlare
 CSS = BY.CSS_SELECTOR
 T_SLOW = 15
@@ -91,6 +93,7 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
                     url = url,
                     date = cols[0].text,
                     title = _getTitle(series.text, format),
+                    table = TABLE
                 )
             )
  

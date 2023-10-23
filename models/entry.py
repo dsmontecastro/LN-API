@@ -1,6 +1,9 @@
 from dateutil.parser import parse as dparse
 from datetime import datetime, date as Date
 
+from models.table import Tables
+
+
 class Media(object):
 
     def __init__(self, format: str, isbn: str, price: str):
@@ -26,7 +29,7 @@ class Media(object):
 
 class Entry(object):
 
-    def __init__(self,
+    def __init__(self, table: Tables,
         url = '',
         date = '',
         title = '',
@@ -36,6 +39,8 @@ class Entry(object):
         credits: list[str] = [],
         media: list[Media] = [],
     ):
+        
+        self.table: Tables = table
 
         # Raw Strings
         self.url: str = url
