@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Target(Enum):
+class Tables(Enum):
     ALL = ''
     CIW = 'ciw'
     JNC = 'jnc'
