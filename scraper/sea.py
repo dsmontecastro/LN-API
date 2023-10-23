@@ -12,10 +12,10 @@ from models.entry import Entry, Media
 
 # region : Constants -----------------------------------------------------------------------------------------
 
-URL = 'https://webcache.googleusercontent.com/search?q=cache:'  # Bypasses actual site's CloudFlare
+URL = 'https://webcache.googleusercontent.com/search?q=cache:'  # Bypasses the actual site's CloudFlare
 CSS = BY.CSS_SELECTOR
-TIME = 5
-WAIT = 10
+T_SLOW = 15
+T_FAST = 5
 
 class MODE(Enum):
     DIGITAL = 'https://sevenseasentertainment.com/digital/'
@@ -86,7 +86,8 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
             )
  
 
-    driver.implicitly_wait(WAIT)
+    # Throttle to avoid Google's Bot-Detection
+    driver.implicitly_wait(T_SLOW)
 
 
     # Entry Completion
@@ -103,17 +104,12 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
             driver.get(URL + url)
 
             # Check if Book Page leads to a 404
-            try: Waiter(driver, timeout = TIME).until(
+            try: Waiter(driver, timeout = T_FAST).until(
                 EC.visibility_of_element_located((CSS, 'body > a'))
             )
 
             # Proceed if Book Page is valid
             except TimeoutException:
-
-            # # Bypass 
-            # try: Waiter(driver, timeout = TIME).until(
-            #     EC.visibility_of_element_located((CSS, 'body > a'))
-            # )
 
                 page = driver.find_element(CSS, 'div.container > div#content > div')
                 cover = page.find_element(CSS, 'div#volume-cover > img')
@@ -141,6 +137,6 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
 
                 final.append(entry)
             
-        driver.implicitly_wait(WAIT)
+        driver.implicitly_wait(T_SLOW)
 
     return final
