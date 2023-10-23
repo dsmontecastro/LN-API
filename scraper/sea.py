@@ -48,9 +48,18 @@ def _parsePar(info: str) -> list[str]:
 
 
 def scrape(driver: WebDriver) -> list[Entry]:
+
     entries: list[Entry] = []
-    entries += _scrape(driver, MODE.DIGITAL)
-    entries += _scrape(driver, MODE.PHYSICAL)
+
+    try: entries += _scrape(driver, MODE.DIGITAL)
+    except TimeoutException:
+        print('Error: SEA.DIGITAL has failed.')
+
+    try: entries += _scrape(driver, MODE.PHYSICAL)
+    except TimeoutException:
+        print('Error: SEA.PHYSICAL has failed.')
+
+    print(f'Total: {len(entries)}')
     return entries
 
 
