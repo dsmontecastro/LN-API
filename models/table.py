@@ -1,8 +1,8 @@
 from enum import Enum
 
 class Tables(Enum):
-    ALL = ''
-    CIW = 'ciw'
-    JNC = 'jnc'
-    KOD = 'kod'
-    SEA = 'sea'
+    ALL = '_'
+    CIW = 'Cross Infinite World'
+    JNC = 'J-Novel Club'
+    KOD = 'Kodansha'
+    SEA = 'Seven Seas'
