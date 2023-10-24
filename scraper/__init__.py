@@ -6,7 +6,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 from models.entry import Entry
 from models.table import Tables
-from . import ciw, jnc, kod, sea
+from . import ciw, jnc, kod, sea, yen
 
 
 class Scraper(object):
@@ -81,6 +81,8 @@ class Scraper(object):
                 entries += kod.scrape(self._driver)
             case Tables.SEA:
                 entries += sea.scrape(self._driver)
+            case Tables.YEN:
+                entries += yen.scrape(self._driver)
 
         return entries
 
@@ -93,5 +95,6 @@ class Scraper(object):
         entries += jnc.scrape(self._driver)
         entries += kod.scrape(self._driver)
         entries += sea.scrape(self._driver)
+        entries += yen.scrape(self._driver)
 
         return entries

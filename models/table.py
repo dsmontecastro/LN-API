@@ -6,3 +6,4 @@ class Tables(Enum):
     JNC = 'J-Novel Club'
     KOD = 'Kodansha'
     SEA = 'Seven Seas'
+    YEN = 'Yen Press'
