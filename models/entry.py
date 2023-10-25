@@ -39,7 +39,6 @@ class Entry(object):
         credits: list[str] = [],
         media: list[Media] = [],
     ):
-        
         self.table: Tables = table
 
         # Raw Strings
@@ -73,6 +72,7 @@ class Entry(object):
         dict = self.__dict__
         dict['date'] = self.date.strftime('%m-%d-%y')
         dict['media'] = [ m.json() for m in self.media ]
+        dict['table'] = self.table.value
         return dict
 
 # Test = Entry(
@@ -84,4 +84,5 @@ class Entry(object):
 #     genres = ['genre'],
 #     credits = ['Steve'],
 #     media = [ Media('format', '0', 'P0.00') ],
+#     table = Tables.ALL
 # )
