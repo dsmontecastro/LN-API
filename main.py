@@ -4,14 +4,14 @@ from database.db import DB
 from models.table import Tables
 
 
-class Program:
+class App:
 
     def __init__(self, proxy = '', headless = True):
         self.scraper = Scraper(proxy, headless)
         self.db = DB()
 
     def run(self):
-        print('Running program...')
+        print('Running app...')
         self.scraper.run()
 
     def quit(self):
@@ -23,7 +23,6 @@ class Program:
 
 if __name__ == '__main__':
     proxy = ''
-    app = Program(proxy = proxy, headless = False)
-    # app.test(Target.ALL)
-    app.test(Tables.SEA)
+    app = App(proxy = proxy, headless = True)
+    app.test(Tables.ALL)
     app.quit()
