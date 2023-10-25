@@ -36,6 +36,7 @@ class Scraper(object):
 
         options.profile = profile
         self._driver = Firefox(options = options)
+        self._driver.maximize_window()
     
         print('Driver successfully created!')
 
