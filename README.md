@@ -1,4 +1,4 @@
 TO-DO:
-* Build all other Scrapers
-* Create MongoDB module
-* Create Flask module
+* Test Scraper._scrape_all()
+* Finish MongoDB module + make Book model
+* Create Flask module/s
