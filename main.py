@@ -1,4 +1,5 @@
 from scraper import Scraper
+from database.db import DB
 
 from models.table import Tables
 
@@ -7,7 +8,7 @@ class Program:
 
     def __init__(self, proxy = '', headless = True):
         self.scraper = Scraper(proxy, headless)
-        # self.db = DB()
+        self.db = DB()
 
     def run(self):
         print('Running program...')
