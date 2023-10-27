@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+{% set TITLE = 'LN-API' %}
+
+<head>
+
+    <meta charset='UTF-8'>
+
+    <!-- <title> {{ title }} </title> -->
+    {% if title %}
+    <title> {{ TITLE }} - {{ title }} </title>
+    {% else %}
+    <title> {{ TITLE }} </title>
+    {% endif %}
+
+    <!-- Enable SASS Features -->
+    {% assets 'style' %}
+    <link rel='stylesheet' type='text/css' href='{{ ASSET_URL }}' />
+    {% endassets %}
+
+</head>
+
+
+<body class='row'>
+
+    <div class='row max'>
+
+        <nav id='nav' class='col'>
+
+            <h1 id='nav-head'> {{ TITLE }} </h1>
+
+            <hr width='85%' color='white' />
+
+            <ul id='nav-list'>
+
+                {% for route in routes %}
+
+                {% if route.rule.startswith('/table') %}
+                <li>
+                    <a href='{{ route }}'>
+                        {{ route.endpoint.split('.')[1].upper() }}
+                    </a>
+                </li>
+                {% endif %}
+
+                {% endfor %}
+
+                <!-- 
+                <li>
+                    <a>
+                        Test 2
+                    </a>
+                </li> -->
+
+            </ul>
+
+            <button id='nav-login' class='login'>
+                Login
+            </button>
+
+        </nav>
+
+        <div id='main' class='max'>
+            {% block main %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+</body>
+
+
+</html>
