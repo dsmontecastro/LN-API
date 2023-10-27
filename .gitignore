@@ -1,6 +1,20 @@
+# Hidden Files
 .venv
 .vscode
+.coverage
 .pytest_cache
+.webassets-cache
 
+# PyCache
+*.pyc
 __pycache__
+
+# Flask
+dist
+build
+htmlcov
+instance
+*.egg-info
+
+# Test
 test.json
