@@ -2,19 +2,20 @@
 <html lang='en'>
 
 {% set TITLE = 'LN-API' %}
+{% set PATH = request.path %}
+{% set URL = request.url %}
 
 <head>
 
     <meta charset='UTF-8'>
 
-    <!-- <title> {{ title }} </title> -->
     {% if title %}
     <title> {{ TITLE }} - {{ title }} </title>
     {% else %}
     <title> {{ TITLE }} </title>
     {% endif %}
 
-    <!-- Enable SASS Features -->
+    <!-- Enables SASS Features -->
     {% assets 'style' %}
     <link rel='stylesheet' type='text/css' href='{{ ASSET_URL }}' />
     {% endassets %}
@@ -22,19 +23,15 @@
 </head>
 
 
-<body class='row'>
+<body>
 
-    <div class='row max'>
+    <nav id='nav'>
 
-        <nav id='nav' class='col'>
+        <a id='nav-head' href='/'> {{ TITLE }} </a>
 
-            <h1 id='nav-head'> {{ TITLE }} </h1>
+        <ul id='nav-list'>
 
-            <hr width='85%' color='white' />
-
-            <ul id='nav-list'>
-
-                {% for route in routes %}
+            {% for route in routes %}
 
             {% set href = '/table/' + route.lower() %}
             {% set class = 'active' if (href == PATH) else '' %}
@@ -43,33 +40,27 @@
 
                 <a href='{{ href }}' class='{{ class }}'>
                     {{ route }}
-                    </a>
+                </a>
 
-                </li>
-                {% endif %}
+            </li>
 
-                {% endfor %}
+            {% endfor %}
 
-                <!-- 
-                <li>
-                    <a>
-                        Test 2
-                    </a>
-                </li> -->
+        </ul>
 
-            </ul>
+        <div id='nav-login'>
 
-            <button id='nav-login' class='login'>
+            <button id='login-button'>
                 Login
             </button>
 
-        </nav>
-
-        <div id='main' class='max'>
-            {% block main %}
-            {% endblock %}
         </div>
 
+    </nav>
+
+    <div id='main'>
+        {% block main %}
+        {% endblock %}
     </div>
 
 </body>
