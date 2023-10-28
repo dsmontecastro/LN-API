@@ -62,15 +62,17 @@ def add_blueprints(app: Flask):
 
 def add_context(app: Flask):
 
+    from models.table import Tables
+
     @app.context_processor
     def utility_processor():
     
         root = request.base_url
-        routes = list(app.url_map.iter_rules())
+        routes = [ table.name for table in Tables ]
     
         return {
             'root': root,
-            'routes': routes,
+            'routes': routes[1:],
         }
 
 

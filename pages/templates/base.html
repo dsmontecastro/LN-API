@@ -36,11 +36,15 @@
 
                 {% for route in routes %}
 
-                {% if route.rule.startswith('/table') %}
-                <li>
-                    <a href='{{ route }}'>
-                        {{ route.endpoint.split('.')[1].upper() }}
+            {% set href = '/table/' + route.lower() %}
+            {% set class = 'active' if (href == PATH) else '' %}
+
+            <li class='{{ class }}'>
+
+                <a href='{{ href }}' class='{{ class }}'>
+                    {{ route }}
                     </a>
+
                 </li>
                 {% endif %}
 
