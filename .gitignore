@@ -16,5 +16,8 @@ htmlcov
 instance
 *.egg-info
 
+# S/CSS
+pages/static/css
+
 # Test
 test.json
