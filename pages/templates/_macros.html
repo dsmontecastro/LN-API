@@ -1,0 +1,4 @@
+{% macro get_img(name) %}
+{% set path = '/img/' + name %}
+{{ url_for('static', filename = path) }}
+{% endmacro %}
