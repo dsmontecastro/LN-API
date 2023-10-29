@@ -68,7 +68,7 @@ def add_context(app: Flask):
     def utility_processor():
     
         root = request.base_url
-        routes = [ table.name for table in Tables ]
+        routes = [ table for table in Tables ]
     
         return {
             'root': root,
