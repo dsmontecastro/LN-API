@@ -5,7 +5,7 @@ TO-DO:
   * Create Book model (?)
 
 * Pages (Flask)
-  * Make Nav-Icons & Finalize Nav
+  * Make Nav-Item Icons & Finalize Nav
   * Make Template/Table & Table-Endpoints
   * Make API-Endpoints
 
