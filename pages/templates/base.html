@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang='en'>
 
+{% from '_macros.html' import get_img %}
+
 {% set TITLE = 'LN-API' %}
-{% set PATH = request.path %}
-{% set URL = request.url %}
+{% set LOGO = get_img('logo.svg') %}
 
 <head>
 
     <meta charset='UTF-8'>
+    <link rel='icon' type='image/svg+xml' href='{{ LOGO }}'>
 
     {% if title %}
     <title> {{ TITLE }} - {{ title }} </title>
@@ -25,38 +27,7 @@
 
 <body>
 
-    <nav id='nav'>
-
-        <a id='nav-head' href='/'> {{ TITLE }} </a>
-
-        <ul id='nav-list'>
-
-            {% for route in routes %}
-
-            {% set href = '/table/' + route.lower() %}
-            {% set class = 'active' if (href == PATH) else '' %}
-
-            <li class='{{ class }}'>
-
-                <a href='{{ href }}' class='{{ class }}'>
-                    {{ route }}
-                </a>
-
-            </li>
-
-            {% endfor %}
-
-        </ul>
-
-        <div id='nav-login'>
-
-            <button id='login-button'>
-                Login
-            </button>
-
-        </div>
-
-    </nav>
+    {% include 'nav.html' %}
 
     <div id='main'>
         {% block main %}

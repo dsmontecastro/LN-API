@@ -1,0 +1,53 @@
+{% from '_macros.html' import get_img %}
+
+{% set PATH = request.path %}
+
+
+<nav id='nav'>
+
+    <a id='nav-head' href='/' title='Home'>
+        <img src='{{ LOGO }}' alt='Home' height='100%' width='100%' />
+    </a>
+
+    <ul id='nav-list'>
+
+        {% for route in routes %}
+
+        {% set code = route.name %}
+        {% set title = route.value %}
+
+        {% set href = '/table/' + code.lower() %}
+        {% set is_active = 'active' if (href == PATH) else '' %}
+
+        <li class='{{ is_active }}'>
+
+            <a class='{{ is_active }}' href='{{ href }}' title='{{ title }}'>
+
+                {% for i in range(code|length) %}
+
+                <p> {{ code[i] }} </p>
+
+                {% endfor %}
+
+            </a>
+
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+    <button id='nav-login'>
+        <hr width='100%' color='white' />
+        <img src='{{ get_img("login.svg") }}' alt='login' />
+    </button>
+
+    <!-- <div id='nav-login'>
+
+        <button>
+            <img src='{{ get_img("login.svg") }}' alt='login' />
+        </button>
+
+    </div> -->
+
+</nav>

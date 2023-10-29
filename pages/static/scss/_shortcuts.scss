@@ -1,0 +1,27 @@
+.fill {
+    width: 100%;
+    height: 100%;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.max {
+    flex-grow: 1;
+}
+
+.min {
+    flex-shrink: 1;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+}
