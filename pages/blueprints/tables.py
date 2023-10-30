@@ -10,8 +10,9 @@ tables = Blueprint('table', __name__, url_prefix = '/table', template_folder = '
 def table(code: str):
 
     table = Tables[code.upper()]
+
     name = table.name
-    title = table.value
+    title = table.value['title']
 
     print(name, title)
 

@@ -19,15 +19,19 @@
         {% set href = '/table/' + code.lower() %}
         {% set is_active = 'active' if (href == PATH) else '' %}
 
-        <li class='{{ is_active }}'>
+        {% set props = route.value %}
+        {% set title = props['title'] %}
+        {% set symbol = props['symbol'] %}
+
+        <li>
 
             <a class='{{ is_active }}' href='{{ href }}' title='{{ title }}'>
 
-                {% for i in range(code|length) %}
+                <span class='{{ is_active }}'>
+                    <strong> {{ symbol }} </strong>
+                </span>
 
-                <p> {{ code[i] }} </p>
-
-                {% endfor %}
+                <p> {{ code }} </p>
 
             </a>
 
