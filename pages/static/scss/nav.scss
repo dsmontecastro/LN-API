@@ -2,7 +2,7 @@ nav {
 
     @extend .col;
 
-    width: 5%;
+    width: 7.5%;
     min-width: 75px;
 
     padding: 1% 0 1% 0;
@@ -11,17 +11,21 @@ nav {
 
     #nav-head {
 
-        display: inline-block;
+        @extend .center;
+        display: flex;
 
         height: 15%;
-        margin: 5% 0 5% 0;
+        margin: 5% auto;
 
         color: white;
-        line-height: 15%;
         font-size: x-large;
         text-align: center;
         text-decoration: none;
-        vertical-align: middle;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
 
     }
 
@@ -36,14 +40,16 @@ nav {
 
         li {
 
-            height: 10%;
+            height: 12%;
             margin: auto;
+            padding: 2.5% 0;
 
             font-size: large;
 
             a {
 
                 @extend .center;
+                @extend .row;
                 display: flex;
 
                 width: 100%;
@@ -63,25 +69,36 @@ nav {
                     background-color: darken($color, 10%);
                 }
 
+                span {
+
+                    @extend .center;
+                    display: flex;
+
+                    width: 3vw;
+                    height: 3vw;
+
+                    color: $color;
+                    background-color: $accent;
+
+                    border-radius: 50%;
+
+                    &.active {
+                        background-color: white;
+                    }
+
+                }
+
 
                 p {
 
-                    width: 20%;
-                    height: 100%;
+                    width: 15%;
+                    margin: 5% 0 5% 10%;
 
+                    font-size: x-small;
                     font-family: monospace;
 
-                    &:nth-child(1) {
-                        margin-top: 30%;
-                    }
-
-                    &:nth-child(2) {
-                        margin-top: 60%;
-                    }
-
-                    &:nth-child(3) {
-                        margin-top: 90%;
-                    }
+                    writing-mode: vertical-lr;
+                    text-orientation: upright;
 
                 }
 
@@ -100,6 +117,7 @@ nav {
         margin-top: auto;
         text-align: center;
 
+        color: white;
         border-color: transparent;
         background-color: transparent;
 
@@ -108,7 +126,10 @@ nav {
             width: 50%;
             height: 50%;
 
-            margin-top: 20% 0 0 0;
+            margin-top: 15%;
+            margin-right: 5%;
+
+            cursor: pointer;
 
         }
 

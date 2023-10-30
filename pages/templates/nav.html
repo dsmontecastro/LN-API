@@ -6,7 +6,7 @@
 <nav id='nav'>
 
     <a id='nav-head' href='/' title='Home'>
-        <img src='{{ LOGO }}' alt='Home' height='100%' width='100%' />
+        <img src='{{ LOGO }}' alt='Home' />
     </a>
 
     <ul id='nav-list'>
@@ -14,8 +14,6 @@
         {% for route in routes %}
 
         {% set code = route.name %}
-        {% set title = route.value %}
-
         {% set href = '/table/' + code.lower() %}
         {% set is_active = 'active' if (href == PATH) else '' %}
 
@@ -43,15 +41,7 @@
 
     <button id='nav-login'>
         <hr width='100%' color='white' />
-        <img src='{{ get_img("login.svg") }}' alt='login' />
+        <img src='{{ get_img("login.svg") }}' alt='Login' />
     </button>
-
-    <!-- <div id='nav-login'>
-
-        <button>
-            <img src='{{ get_img("login.svg") }}' alt='login' />
-        </button>
-
-    </div> -->
 
 </nav>
