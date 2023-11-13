@@ -24,6 +24,10 @@ class DB():
         self._table.insert_one(entry.json())
 
     def add_entries(self, entries: list[Entry]):
+        print(f'Adding entries... [{len(entries)}]')
+    
+        # self._table.insert_many([ entry.json() for entry in entries ])
+    
         jsons = [ entry.json() for entry in entries ]
         self._table.insert_many(jsons)
 
