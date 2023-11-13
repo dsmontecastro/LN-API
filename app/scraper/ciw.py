@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.wait import WebDriverWait as Waiter
+from selenium.common.exceptions import TimeoutException
 
 from models.entry import Entry, Media
 from models.table import Tables
@@ -12,7 +14,7 @@ URL = 'https://crossinfworld.com/Calendar.html'
 CSS = BY.CSS_SELECTOR
 
 # CSS Shortcuts
-CREDITS = ['h4', 'h5', 'h6']
+WAIT = 10
 DIGITALS = ['digital', 'audiobook', 'ebook']
 
 # endregion --------------------------------------------------------------------------------------------------
@@ -71,6 +73,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
             # Go to Book Page
             driver.get(url)
+
             info = driver.find_element(CSS, 'div.col-sm-4')
             about = driver.find_element(CSS, 'div.col-sm-6')
             image = driver.find_element(CSS, 'img.img-responsive.pull-left')
@@ -83,7 +86,8 @@ def scrape(driver: WebDriver) -> list[Entry]:
             for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
 
             # About: Credits
-            credits = [ _getCredit(about.find_element(CSS, i).text) for i in CREDITS ]
+            headings = about.find_elements(CSS, ':not(p)')
+            credits = [ _getCredit(heading.text) for heading in headings ]
 
             # Info: Price
             prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
