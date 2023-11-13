@@ -6,7 +6,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 from models.entry import Entry
 from models.table import Tables
-from . import _db, ciw, jnc, kod, sea, yen
+from . import ciw, jnc, kod, sea, yen
 
 
 class Scraper(object):
@@ -45,19 +45,6 @@ class Scraper(object):
 
     def quit(self): self._driver.quit()
 
-    def test(self, table: Tables):
-        entries = self._scrape(table)
-        self.save(entries)
-
-
-    def save(self, entries: list[Entry]):
-
-        jsons = [entry.json() for entry in entries]
-
-        with open('test.json', 'w') as f:
-            json.dump(jsons, f)
-
-
     def run(self, table: Tables = Tables.ALL) -> list[Entry]:
 
         entries: list[Entry] = []
@@ -69,7 +56,6 @@ class Scraper(object):
 
         print(f'Total: {len(entries)} entries')
         return entries
-        # self.save(entries)
 
 
     # Scraper Commands

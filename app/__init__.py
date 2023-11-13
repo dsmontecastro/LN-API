@@ -1,5 +1,4 @@
-from . import _db
-from scraper import Scraper
+from . import database, scraper
 
 from models.table import Tables
 
@@ -7,13 +6,14 @@ from models.table import Tables
 class App:
 
     def __init__(self, proxy = '', headless = True):
-        self._scraper = Scraper(proxy, headless)
-        self._db = _db.DB()
+        self._scraper = scraper.Scraper(proxy, headless)
+        self._db = database.DB()
     
     def run(self, table: Tables = Tables.ALL):
         print('Running app...')
-        print(f'Target: {table}')
-        entries = self._scraper.run()
+        print(f'Table: {table.value['title']}')
+
+        entries = self._scraper.run(table)
         self._db.add_entries(entries)
 
     def quit(self):
@@ -22,12 +22,3 @@ class App:
 
     def test(self, tables: list[Tables]):
         for table in tables: self.run(table)
-
-
-if __name__ == '__main__':
-    app = App(proxy = '', headless = True)
-
-    tables = [ Tables.CIW, Tables.KOD ]
-    app.test(tables)
-
-    app.quit()
