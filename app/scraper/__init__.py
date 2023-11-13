@@ -6,16 +6,19 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 from models.entry import Entry
 from models.table import Tables
-from . import ciw, jnc, kod, sea, yen
+from . import _db, ciw, jnc, kod, sea, yen
 
 
 class Scraper(object):
 
     def __init__(self, proxy = '', headless = True):
-
-        self.agent = UserAgent()
+        self.init(proxy, headless)
+    
+    def init(self, proxy = '', headless = True):
 
         print('Creating driver...')
+
+        self.agent = UserAgent()
     
         options = FirefoxOptions()
         if headless: options.add_argument('--headless')
@@ -46,6 +49,7 @@ class Scraper(object):
         entries = self._scrape(table)
         self.save(entries)
 
+
     def save(self, entries: list[Entry]):
 
         jsons = [entry.json() for entry in entries]
@@ -54,7 +58,7 @@ class Scraper(object):
             json.dump(jsons, f)
 
 
-    def run(self, table: Tables = Tables.ALL):
+    def run(self, table: Tables = Tables.ALL) -> list[Entry]:
 
         entries: list[Entry] = []
 
@@ -64,7 +68,8 @@ class Scraper(object):
         else: entries += self._scrape(table)
 
         print(f'Total: {len(entries)} entries')
-        self.save(entries)
+        return entries
+        # self.save(entries)
 
 
     # Scraper Commands

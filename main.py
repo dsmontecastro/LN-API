@@ -1,5 +1,5 @@
 from database.db import DB
-from scraper import Scraper
+from app.scraper import Scraper
 
 from models.table import Tables
 
