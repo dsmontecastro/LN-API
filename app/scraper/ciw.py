@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.wait import WebDriverWait as Waiter
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.remote.webelement import WebElement
 
 from models.entry import Entry, Media
 from models.table import Tables
@@ -49,37 +48,60 @@ def _getPrice(text: str, format: str = 'digital') -> str:
 def scrape(driver: WebDriver) -> list[Entry]:
 
     print(f'Extracting from {URL}...')
-    entries: list[Entry] = []
     driver.get(URL)
 
-    # Load all Items
+    # Expand Calendar
     driver.find_element(CSS, 'option[value="100"]').click()
 
-    # Process all Items
-    for item in driver.find_elements(CSS, 'tbody > *'):
 
-        # Calendar Page
-        head = item.find_element(CSS, 'td > a')
-        url = head.get_attribute('href') or ''
+    # Process all Calendar Items into Books
+    books: list[Entry] = []
+    items: list[WebElement] = driver.find_elements(CSS, 'tbody > *')
+    for item in items:
 
-        if url: # If URL for Book Page is valid
+        try:
 
-            # Get following from Calendar Page
-            title = head.text
-            date = item.find_element(CSS, _td('Date')).text
-            isbn = item.find_element(CSS, _td('ISBN')).text
-            format = item.find_element(CSS, _td('Format')).text
-            genres = item.find_element(CSS, _td('Genre')).text.split(', ')
+            # Calendar Page
+            head = item.find_element(CSS, 'td > a')
+            url = head.get_attribute('href') or ''
+
+            if url: # If URL for Book Page is valid
+        
+                isbn = item.find_element(CSS, _td('ISBN')).text
+                format = item.find_element(CSS, _td('Format')).text
+
+                # Get following from Calendar Page
+                books.append(
+                    Entry(
+                        table = TABLE,
+                        url = url,
+                        title = head.text,
+                        date = item.find_element(CSS, _td('Date')).text,
+                        genres = item.find_element(CSS, _td('Genre')).text.split(', '),
+                        media = [ Media(format, isbn, '') ],
+                    )
+                )
+        
+        except:
+            pass
+
+
+    # Process all found Books into Entries
+    entries: list[Entry] = []
+    for book in books:
+
+        try:
 
             # Go to Book Page
-            driver.get(url)
+            driver.get(book.url)
 
             info = driver.find_element(CSS, 'div.col-sm-4')
             about = driver.find_element(CSS, 'div.col-sm-6')
             image = driver.find_element(CSS, 'img.img-responsive.pull-left')
 
-            # Image: Cover
-            cover = image.get_attribute('src') or ''
+            # Info: Price
+            prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
+            price = _getPrice(prices, book.media[0].format)
 
             # About: Blurb
             blurb: str = ''
@@ -89,27 +111,19 @@ def scrape(driver: WebDriver) -> list[Entry]:
             headings = about.find_elements(CSS, ':not(p)')
             credits = [ _getCredit(heading.text) for heading in headings ]
 
-            # Info: Price
-            prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
-            price = _getPrice(prices, format)
+            # Image: Cover
+            cover = image.get_attribute('src') or ''
+
 
             # Finalize Entry
-            entries.append(
-                Entry(
-                    table = TABLE,
-                    url = url,
-                    date = date,
-                    title = title,
-                    cover = cover,
-                    blurb = blurb,
-                    genres = genres,
-                    credits = credits,
-                    media = [ Media(format, isbn, price) ],
-                )
-            )
-
-            # Back to Calendar
-            driver.back()
+            book.blurb = blurb
+            book.cover = cover
+            book.credits = credits
+            book.media[0].price = price
+            entries.append(book)
+        
+        except:
+            pass
 
 
     return entries
