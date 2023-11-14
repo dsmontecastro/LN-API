@@ -1,7 +1,7 @@
 from dateutil.parser import parse as dparse
 from datetime import datetime, date as Date
 
-from models.table import Tables
+from .table import Tables
 
 
 class Media(object):

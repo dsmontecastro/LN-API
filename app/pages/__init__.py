@@ -62,7 +62,7 @@ def add_blueprints(app: Flask):
 
 def add_context(app: Flask):
 
-    from models.table import Tables
+    from database.models.table import Tables
 
     @app.context_processor
     def utility_processor():
