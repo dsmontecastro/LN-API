@@ -1,15 +1,28 @@
+from enum import Enum
 from dateutil.parser import parse as dparse
 from datetime import datetime, date as Date
 
 from .table import Tables
 
+class Fields(Enum):
+    URL = '_id'
+    TABLE = 'table'
+    DATE = 'date'
+    TITLE = 'title'
+    COVER = 'cover'
+    GENRES = 'genres'
+    CREDITS = 'credits'
+    FORMAT = 'format'
+    PRICE = 'price'
+    ISBN = 'isbn'
+
 
 class Media(object):
 
     def __init__(self, format: str, isbn: str, price: str):
-        self.isbn = isbn
+        self.format = format.lower()
+        self.isbn = isbn.lower()
         self.price = price
-        self.format = format
 
     def __str__(self):
         return f"""
