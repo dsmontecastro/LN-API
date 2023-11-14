@@ -26,7 +26,7 @@ class DB():
 
     def add_entry(self, entry: Entry):
     
-        log.info(f'> Insert: {entry.title}')
+        log.info(f'> Inserted: {entry.title}')
     
         result = self.__table.insert_one(entry.json())
 
@@ -35,7 +35,7 @@ class DB():
 
     def add_entries(self, entries: list[Entry]):
     
-        log.info(f'> Insert: {len(entries)}')
+        log.info(f'> Inserts: {len(entries)}')
 
         jsons = [ entry.json() for entry in entries ]
 

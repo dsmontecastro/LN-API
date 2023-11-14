@@ -5,7 +5,7 @@ from selenium.webdriver.common.proxy import Proxy, ProxyType
 from models.entry import Entry
 from models.table import Tables
 
-from logger import log
+from ..logger import log
 from . import ciw, jnc, kod, sea, yen
 
 
@@ -35,7 +35,7 @@ class Scraper(object):
         })
 
         options.profile = profile
-        self._driver = Firefox(options = options)
+        self._driver = Firefox(options)
         self._driver.maximize_window()
     
         log.info('> Driver successfully created!')
