@@ -69,10 +69,18 @@ class Entry(object):
         """
 
     def json(self):
+
         dict = self.__dict__
+
+        # Requires Processing
         dict['date'] = self.date.strftime('%m-%d-%y')
         dict['media'] = [ m.json() for m in self.media ]
-        dict['table'] = self.table.value
+        dict['table'] = self.table.value.title
+
+        # Use <url> attribute as JSON <_id>
+        dict['_id'] = dict['url']
+        del dict['url']
+
         return dict
 
 # Test = Entry(
