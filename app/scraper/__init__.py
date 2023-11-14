@@ -43,6 +43,7 @@ class Scraper(object):
     
         print('Driver successfully created!')
 
+
     def quit(self): self._driver.quit()
 
     def run(self, table: Tables = Tables.ALL) -> list[Entry]:
@@ -50,7 +51,9 @@ class Scraper(object):
         entries: list[Entry] = []
 
         if table == Tables.ALL:
-            entries += self._scrapeAll()
+            for table in Tables:
+                entries += self._scrape(table)
+
 
         else: entries += self._scrape(table)
 
@@ -75,18 +78,5 @@ class Scraper(object):
                 entries += sea.scrape(self._driver)
             case Tables.YEN:
                 entries += yen.scrape(self._driver)
-
-        return entries
-
-    
-    def _scrapeAll(self) -> list[Entry]:
-
-        entries: list[Entry] = []
-
-        entries += ciw.scrape(self._driver)
-        entries += jnc.scrape(self._driver)
-        entries += kod.scrape(self._driver)
-        entries += sea.scrape(self._driver)
-        entries += yen.scrape(self._driver)
 
         return entries
