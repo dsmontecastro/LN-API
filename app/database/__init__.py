@@ -2,7 +2,7 @@ import os, pymongo as mongo
 from dotenv import load_dotenv
 
 from ..common.logger import log
-from .models.entry import Entry
+from .models.entry import Entry, Fields
 
 
 class DB():
@@ -47,4 +47,26 @@ class DB():
         return [result.modified_count, result.upserted_id]
 
 
-    def get_entry(self): print('WIP')
+    def get_entry(self, url):
+        return self.__table.find_one({'_id': url})
+
+    def get_entries(self, field: Fields, value: str):
+
+        table = self.__table
+
+        match(field):
+
+            case Fields.DATE:
+                return table.find({ field: { '$gte': value } })
+
+            case Fields.CREDITS | Fields.GENRES:
+                return table.find({ field: { '$in': value } })
+
+            case Fields.FORMAT | Fields.ISBN:
+                return table.find({ 'media': { field : value.lower() } })
+
+            case Fields.PRICE:
+                return table.find({ 'media': { field: { '$gte': value } } })
+
+            case _:
+                return table.find({ field: value})
