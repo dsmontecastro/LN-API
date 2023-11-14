@@ -2,6 +2,7 @@ import string
 
 from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import WebDriverException
 
 from models.entry import Entry, Media
@@ -29,7 +30,7 @@ class Book(object):
 # endregion --------------------------------------------------------------------------------------------------
 
 
-def scrape(driver: WebDriver) -> list[Entry]:
+def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     # Load Page
     driver.get(URL)
@@ -45,16 +46,21 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
     # Retrieve all Items
     books: list[Book] = []
-    for book in body.find_elements(CSS, 'div.fhkbwa > a'):
+    items: list[WebElement] = body.find_elements(CSS, 'div.fhkbwa > a')
+    for item in items:
 
         try: 
 
-            url = book.get_attribute('href')
-            volume = book.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text
-            format = book.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
+            url = item.get_attribute('href')
+            volume = item.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text
+            format = item.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
 
-            # Create Item only if URL is valid and Format is not 'partial'
-            if url and 'part' not in format.lower():
+            # Create Item only if:
+            # > URL is valid
+            # > Format is not 'partial'
+            # > Books List has not hit the limit
+
+            if url and 'part' not in format.lower() and len(books) < limit:
                 books.append(Book(url, format, volume))
 
         except Exception as e:

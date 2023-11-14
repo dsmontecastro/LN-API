@@ -78,7 +78,7 @@ def _addMedia(elem: WebElement, date: str, media: list[Media]):
 # endregion --------------------------------------------------------------------------------------------------
 
 
-def scrape(driver: WebDriver) -> list[Entry]:
+def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     entries: list[Entry] = []
     driver.get(URL)
@@ -101,9 +101,17 @@ def scrape(driver: WebDriver) -> list[Entry]:
             children = day.find_elements(PTH, './div')
             date = _getDate(children[0].find_element(CSS, 'span.rc-daily-calendar-day-text').text)
 
-            for url in children[1].find_elements(CSS, 'div.rc-calendar-item-wrapper > a'):
-                url = url.get_attribute('href')
-                if url: books.append(Book(url, date))
+            if len(books) < limit:
+
+                urls: list[WebElement] = children[1].find_elements(CSS, 'div.rc-calendar-item-wrapper > a')
+
+                for url in urls:
+                    url = str(url.get_attribute('href'))
+                    if url and len(books) < limit:
+                        books.append(Book(url, date))
+            
+            else: break
+
 
         except Exception as e:
             log.exception('Error: Failed to process item.')
@@ -135,7 +143,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
                 # Section: Poster
                 poster = top.find_element(CSS, 'div.product-poster-wrapper img')
-                cover = poster.get_attribute('src') or ''
+                cover = str(poster.get_attribute('src'))
 
                 # Section: Book Info
                 info = top.find_element(CSS, 'div.name-author-wrapper-product')

@@ -47,7 +47,7 @@ def _getPrice(text: str, format: str = 'digital') -> str:
 # endregion --------------------------------------------------------------------------------------------------
 
 
-def scrape(driver: WebDriver) -> list[Entry]:
+def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     # Load & Expand Calendar
     driver.get(URL)
@@ -57,13 +57,13 @@ def scrape(driver: WebDriver) -> list[Entry]:
     # Process all Calendar Items into Books
     books: list[Entry] = []
     items: list[WebElement] = driver.find_elements(CSS, 'tbody > *')
-    for item in items:
+    for item in items[:limit]:
 
         try:
 
             # Calendar Page
             head = item.find_element(CSS, 'td > a')
-            url = head.get_attribute('href') or ''
+            url = str(head.get_attribute('href'))
 
             if url: # If URL for Book Page is valid
         
@@ -113,7 +113,7 @@ def scrape(driver: WebDriver) -> list[Entry]:
             credits = [ _getCredit(heading.text) for heading in headings ]
 
             # Image: Cover
-            cover = image.get_attribute('src') or ''
+            cover = str(image.get_attribute('src'))
 
 
             # Finalize Entry

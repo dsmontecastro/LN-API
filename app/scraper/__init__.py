@@ -44,15 +44,15 @@ class Scraper(object):
     def quit(self): self._driver.quit()
 
 
-    def run(self, table: Tables = Tables.ALL) -> list[Entry]:
+    def run(self, table: Tables = Tables.ALL, limit: int = 0) -> list[Entry]:
 
         entries: list[Entry] = []
 
         if table == Tables.ALL:
             for table in Tables:
-                entries += self._scrape(table)
+                entries += self.__scrape(table, limit)
 
-        else: entries += self._scrape(table)
+        else: entries += self.__scrape(table, limit)
 
         log.info(f'> Total: {len(entries)} entries')
         return entries
@@ -60,20 +60,20 @@ class Scraper(object):
 
     # Scraper Commands
     
-    def _scrape(self, target: Tables) -> list[Entry]:
+    def __scrape(self, target: Tables, limit: int) -> list[Entry]:
 
         entries: list[Entry] = []
 
         match(target):
             case Tables.CIW:
-                entries += ciw.scrape(self._driver)
+                entries += ciw.scrape(self._driver, limit)
             case Tables.JNC:
-                entries += jnc.scrape(self._driver)
+                entries += jnc.scrape(self._driver, limit)
             case Tables.KOD:
-                entries += kod.scrape(self._driver)
+                entries += kod.scrape(self._driver, limit)
             case Tables.SEA:
-                entries += sea.scrape(self._driver)
+                entries += sea.scrape(self._driver, limit)
             case Tables.YEN:
-                entries += yen.scrape(self._driver)
+                entries += yen.scrape(self._driver, limit)
 
         return entries

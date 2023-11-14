@@ -76,7 +76,7 @@ def _getPrice(text: str) -> str:
 
 
 
-def scrape(driver: WebDriver) -> list[Entry]:
+def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     # Load Page
     driver.get(URL)

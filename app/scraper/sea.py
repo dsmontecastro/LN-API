@@ -3,7 +3,7 @@ from enum import Enum
 from selenium.webdriver.common.by import By as BY
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
-# from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
@@ -51,22 +51,22 @@ def _parsePar(info: str) -> list[str]:
 
 
 
-def scrape(driver: WebDriver) -> list[Entry]:
+def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     entries: list[Entry] = []
 
-    try: entries += _scrape(driver, MODE.DIGITAL)
+    try: entries += _scrape(driver, limit, MODE.DIGITAL)
     except TimeoutException:
         log.exception('Error: SEA.DIGITAL has failed.')
 
-    try: entries += _scrape(driver, MODE.PHYSICAL)
+    try: entries += _scrape(driver, limit, MODE.PHYSICAL)
     except TimeoutException:
         log.exception('Error: SEA.PHYSICAL has failed.')
 
     return entries
 
 
-def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
+def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
 
     # Load Page
     driver.get(URL + mode.value)
@@ -77,7 +77,8 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
 
     # Entry Pre-processing
     entries: list[Entry] = []
-    for item in main.find_elements(CSS, 'tr#volumes'):
+    items: list[WebElement] = main.find_elements(CSS, 'tr#volumes')
+    for item in items[:limit]:
 
         try:
 

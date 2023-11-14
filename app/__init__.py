@@ -17,11 +17,11 @@ class App:
         log.info('Application Created!\n')
 
 
-    def run(self, table: Tables = Tables.ALL):
+    def run(self, table: Tables = Tables.ALL, limit: int = 0):
 
         log.info(f'Running app on [{table.value.title}]')
 
-        entries = self._scraper.run(table)
+        entries = self._scraper.run(table, limit)
         self._db.add_entries(entries)
     
         log.info('Run finished.\n')
