@@ -24,24 +24,27 @@ class DB():
     def quit(self): self.__client.close()
 
 
+    def add_entries(self, entries: list[Entry]):
+
+        for entry in entries:
+
+            log.info(f'> Upserting: {entry.url}')
+
+            id = self.add_entry(entry)
+
+            log.info(f'> Validation: {id}')
+
+
     def add_entry(self, entry: Entry):
     
-        log.info(f'> Inserted: {entry.title}')
-    
-        result = self.__table.insert_one(entry.json())
+        log.info(f'>> Upserted: {entry.title}')
 
-        return result.inserted_id
+        filter = {'_id': entry.url}
+        update = entry.json()
 
+        result = self.__table.replace_one(filter, update, upsert = True)
 
-    def add_entries(self, entries: list[Entry]):
-    
-        log.info(f'> Inserts: {len(entries)}')
-
-        jsons = [ entry.json() for entry in entries ]
-
-        result = self.__table.insert_many(jsons)
-
-        return result.inserted_ids
+        return [result.modified_count, result.upserted_id]
 
 
     def get_entry(self): print('WIP')
