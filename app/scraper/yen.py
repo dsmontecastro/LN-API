@@ -10,6 +10,8 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from models.entry import Entry, Media
 from models.table import Tables
 
+from ..logger import log
+
 
 # region : Constants & Classes -------------------------------------------------------------------------------
 
@@ -76,8 +78,7 @@ def _getPrice(text: str) -> str:
 
 def scrape(driver: WebDriver) -> list[Entry]:
 
-    print(f'Extracting from {URL}...')
-
+    # Load Page
     driver.get(URL)
     body = driver.find_element(CSS, 'div.calendar-wrapper')
     calendar = body.find_element(CSS, 'div.calendar-slider')
@@ -93,129 +94,140 @@ def scrape(driver: WebDriver) -> list[Entry]:
         EC.visibility_of_element_located((CSS, ACTIVE))
     )
 
+
     i = 0
     urls: set[str] = set()
     while i < MONTHS:
 
-        print(month.find_element(CSS, 'h3').text)
+        try:
 
-        # Scroll-To and Click MONTH button
-        driver.execute_script('arguments[0].scrollIntoView();', heading)
-        sleep(5)
-        month.click()
+            # Scroll-To and Click MONTH button
+            driver.execute_script('arguments[0].scrollIntoView();', heading)
+            sleep(5)
+            month.click()
 
-        # Scroll-Down to load all Pages
-        driver.execute_script(SCROLL_DOWN)
-        sleep(10)
+            # Scroll-Down to load all Pages
+            driver.execute_script(SCROLL_DOWN)
+            sleep(10)
 
-        # Get all Book Page URLs
-        for page in driver.find_elements(CSS, 'div.releases-append > div.book-section > div > a'):
+            # Get all Book Page URLs
+            for page in driver.find_elements(CSS, 'div.releases-append > div.book-section > div > a'):
 
-            # Check if FORMAT is some book (Novel/Audio)
-            format = page.find_element(CSS, 'span.upper').text
-            if format.lower() == 'audio' or format.lower() == 'novels':
+                # Check if FORMAT is some book (Novel/Audio)
+                format = page.find_element(CSS, 'span.upper').text
+                if format.lower() == 'audio' or format.lower() == 'novels':
 
-                # Check if Book Page URL is valid
-                url = _attr(page, 'href')
-                if url:
-                    urls.add(url)
-                    i = MONTHS
+                    # Check if Book Page URL is valid
+                    url = _attr(page, 'href')
+                    if url:
+                        urls.add(url)
+                        i = MONTHS
 
-        # Move to next month
-        while True:
+            # Move to next month
+            while True:
 
-            try:
+                try:
 
-                # Find remaining Months excluding current/active
-                months = calendar.find_elements(CSS, f'{ACTIVE} ~ div')
+                    # Find remaining Months excluding current/active
+                    months = calendar.find_elements(CSS, f'{ACTIVE} ~ div')
 
-                if len(months) > 0: month = months[0]   # Get next existing Month
-                else: i = MONTHS                        # Break Outer-Loop
-                break                                   # Break Inner-Loop
+                    if len(months) > 0: month = months[0]   # Get next existing Month
+                    else: i = MONTHS                        # Break Outer-Loop
+                    break                                   # Break Inner-Loop
 
-            # Refresh stale HTML elements
-            except StaleElementReferenceException:
-                body = driver.find_element(CSS, 'div.calendar-wrapper')
-                calendar = body.find_element(CSS, 'div.calendar-slider')
-                heading = driver.find_element(CSS, 'div.releases-heading')
-    
-        i += 1
+                # Refresh stale HTML elements
+                except StaleElementReferenceException:
+                    body = driver.find_element(CSS, 'div.calendar-wrapper')
+                    calendar = body.find_element(CSS, 'div.calendar-slider')
+                    heading = driver.find_element(CSS, 'div.releases-heading')
+        
+            i += 1
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
 
     # Process all Book Pages
     entries: list[Entry] = []
     for url in list(urls)[:3]:
 
-        driver.get(url)
+        try:
 
-        if not driver.title.lower().startswith('page not found'):
+            driver.get(url)
 
-            sleep(10)
+            if not driver.title.lower().startswith('page not found'):
 
-            print(f'@{driver.current_url}')
-            page = driver.find_element(CSS, 'div.books-page')
-            info = page.find_element(CSS, 'section.book-cover > div.content-heading > div.book-info')
-            heading = page.find_element(CSS, 'section.series-heading > div.wrapper-1595 > div.heading-content')
+                sleep(10)
 
-            # Heading Elements
-            title = heading.find_element(CSS, 'h1.heading').text
-            names = heading.find_elements(CSS, 'div.story-details > p > span')
-            credits = _getCredits(names)
+                print(f'@{driver.current_url}')
+                page = driver.find_element(CSS, 'div.books-page')
+                info = page.find_element(CSS, 'section.book-cover > div.content-heading > div.book-info')
+                heading = page.find_element(CSS, 'section.series-heading > div.wrapper-1595 > div.heading-content')
 
-            # Detail Elements
-            details = page.find_element(CSS, 'section.book-details')
-            detail = details.find_element(CSS, 'div.detail.active')
-            isbns = details.find_elements(PTH, '//span[text()="ISBN"]/following-sibling::p')
+                # Heading Elements
+                title = heading.find_element(CSS, 'h1.heading').text
+                names = heading.find_elements(CSS, 'div.story-details > p > span')
+                credits = _getCredits(names)
 
-            # Detail: Date
-            release = detail.find_element(PTH, '//span[text()="Release Date"]/following-sibling::p')
-            date = _attr(release)
+                # Detail Elements
+                details = page.find_element(CSS, 'section.book-details')
+                detail = details.find_element(CSS, 'div.detail.active')
+                isbns = details.find_elements(PTH, '//span[text()="ISBN"]/following-sibling::p')
 
-            # Detail: Genres
-            tags = detail.find_elements(CSS, 'div.txt-hold > div.desktop-only > a')
-            genres = [ _attr(tag) for tag in tags]
+                # Detail: Date
+                release = detail.find_element(PTH, '//span[text()="Release Date"]/following-sibling::p')
+                date = _attr(release)
 
-            # Info: Cover
-            image = info.find_element(CSS, 'div.series-cover > div.book-cover-img > img')
-            cover = _attr(image, 'src')
+                # Detail: Genres
+                tags = detail.find_elements(CSS, 'div.txt-hold > div.desktop-only > a')
+                genres = [ _attr(tag) for tag in tags]
 
-            # Info: Blurb
-            blurbs = info.find_elements(CSS, 'div.content-heading-txt > *')
-            blurb = '\n'.join([ blurb.text for blurb in blurbs ])
+                # Info: Cover
+                image = info.find_element(CSS, 'div.series-cover > div.book-cover-img > img')
+                cover = _attr(image, 'src')
 
-            # Info: Formats
-            buy = info.find_element(CSS, 'div.buy-info')
-            prices = buy.find_elements(CSS, 'div.deliver-info > p')
-            formats = buy.find_elements(CSS, 'div.tabs > span')
+                # Info: Blurb
+                blurbs = info.find_elements(CSS, 'div.content-heading-txt > *')
+                blurb = '\n'.join([ blurb.text for blurb in blurbs ])
 
-            # Mixed: Media
-            media: list[Media] = []
-            for i in range(len(formats)):
-                try:
-                    media.append(
-                        Media(
-                            isbn = _attr(isbns[i]),
-                            format = _attr(formats[i]).lower(),
-                            price = _getPrice(_attr(prices[i])),
+                # Info: Formats
+                buy = info.find_element(CSS, 'div.buy-info')
+                prices = buy.find_elements(CSS, 'div.deliver-info > p')
+                formats = buy.find_elements(CSS, 'div.tabs > span')
+
+                # Mixed: Media
+                media: list[Media] = []
+                for i in range(len(formats)):
+                    try:
+                        media.append(
+                            Media(
+                                isbn = _attr(isbns[i]),
+                                format = _attr(formats[i]).lower(),
+                                price = _getPrice(_attr(prices[i])),
+                            )
                         )
+
+                    except (IndexError, NoSuchElementException): continue
+
+
+                entries.append(
+                    Entry(
+                        url = url,
+                        date = date,
+                        title = _getTitle(title),
+                        cover = cover,
+                        blurb = blurb,
+                        genres = genres,
+                        credits = credits,
+                        media = media,
+                        table = TABLE
                     )
-
-                except (IndexError, NoSuchElementException): continue
-
-
-            entries.append(
-                Entry(
-                    url = url,
-                    date = date,
-                    title = _getTitle(title),
-                    cover = cover,
-                    blurb = blurb,
-                    genres = genres,
-                    credits = credits,
-                    media = media,
-                    table = TABLE
                 )
-            )
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
 
     return entries

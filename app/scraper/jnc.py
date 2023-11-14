@@ -7,6 +7,8 @@ from selenium.common.exceptions import WebDriverException
 from models.entry import Entry, Media
 from models.table import Tables
 
+from ..logger import log
+
 
 # region : Constants & Classes -------------------------------------------------------------------------------
 
@@ -29,8 +31,7 @@ class Book(object):
 
 def scrape(driver: WebDriver) -> list[Entry]:
 
-    print(f'Extracting from {URL}...')
-
+    # Load Page
     driver.get(URL)
     body = driver.find_element(CSS, 'div.f1owoso1')
     button = body.find_elements(CSS, 'div.f1bj9jk4')[-1]
@@ -46,62 +47,74 @@ def scrape(driver: WebDriver) -> list[Entry]:
     books: list[Book] = []
     for book in body.find_elements(CSS, 'div.fhkbwa > a'):
 
-        url = book.get_attribute('href')
-        volume = book.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text
-        format = book.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
+        try: 
 
-        # Create Item only if URL is valid and Format is not 'partial'
-        if url and 'part' not in format.lower():
-            books.append(Book(url, format, volume))
+            url = book.get_attribute('href')
+            volume = book.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text
+            format = book.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
+
+            # Create Item only if URL is valid and Format is not 'partial'
+            if url and 'part' not in format.lower():
+                books.append(Book(url, format, volume))
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
 
     # Process all Items
     entries: list[Entry] = []
     for book in books:
 
-        format = book.format
-        url = book.url
-        driver.get(url)
+        try:
 
-        # Check if Book Page exists
-        if not driver.current_url.endswith('404'):
+            format = book.format
+            url = book.url
+            driver.get(url)
 
-            # Primary Sections
-            title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {book.volume}'
-            main = driver.find_element(CSS, 'div.f1vdb00x.novel > div > div.f1k2es0r')
-            side = driver.find_elements(CSS, 'div.fcoxyrb > div.aside-buttons')
+            # Check if Book Page exists
+            if not driver.current_url.endswith('404'):
 
-            # Main Elements
-            date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
-            cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
-            blurb = main.find_element(CSS, 'p').text
+                # Primary Sections
+                title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {book.volume}'
+                main = driver.find_element(CSS, 'div.f1vdb00x.novel > div > div.f1k2es0r')
+                side = driver.find_elements(CSS, 'div.fcoxyrb > div.aside-buttons')
 
-            # Side: Credits
-            credits: list[str] = []
-            for aside in side[:-1]:
-                credit = aside.find_element(CSS, 'a > div > div.text').text
-                credits.append(credit)
+                # Main Elements
+                date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
+                cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
+                blurb = main.find_element(CSS, 'p').text
 
-            # Side: Genres
-            genres: list[str] = []
-            for tag in side[-1].find_elements(CSS, 'a')[1:]:
-                genre = tag.find_element(CSS, 'div > div.text').text
-                genres.append(string.capwords(genre))
+                # Side: Credits
+                credits: list[str] = []
+                for aside in side[:-1]:
+                    credit = aside.find_element(CSS, 'a > div > div.text').text
+                    credits.append(credit)
+
+                # Side: Genres
+                genres: list[str] = []
+                for tag in side[-1].find_elements(CSS, 'a')[1:]:
+                    genre = tag.find_element(CSS, 'div > div.text').text
+                    genres.append(string.capwords(genre))
 
 
-            # Finalize Entry
-            entries.append(
-                Entry(
-                    url = url,
-                    date = date,
-                    title = title,
-                    cover = cover,
-                    blurb = blurb,
-                    genres = genres,
-                    credits = credits,
-                    media = [ Media(format, '', '') ],
-                    table = TABLE
+                # Finalize Entry
+                entries.append(
+                    Entry(
+                        url = url,
+                        date = date,
+                        title = title,
+                        cover = cover,
+                        blurb = blurb,
+                        genres = genres,
+                        credits = credits,
+                        media = [ Media(format, '', '') ],
+                        table = TABLE
+                    )
                 )
-            )
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
     return entries

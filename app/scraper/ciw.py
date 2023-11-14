@@ -5,6 +5,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from models.entry import Entry, Media
 from models.table import Tables
 
+from ..logger import log
+
 
 # region : Constants -----------------------------------------------------------------------------------------
 
@@ -47,10 +49,8 @@ def _getPrice(text: str, format: str = 'digital') -> str:
 
 def scrape(driver: WebDriver) -> list[Entry]:
 
-    print(f'Extracting from {URL}...')
+    # Load & Expand Calendar
     driver.get(URL)
-
-    # Expand Calendar
     driver.find_element(CSS, 'option[value="100"]').click()
 
 
@@ -81,9 +81,10 @@ def scrape(driver: WebDriver) -> list[Entry]:
                         media = [ Media(format, isbn, '') ],
                     )
                 )
-        
-        except:
-            pass
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
 
     # Process all found Books into Entries
@@ -121,9 +122,10 @@ def scrape(driver: WebDriver) -> list[Entry]:
             book.credits = credits
             book.media[0].price = price
             entries.append(book)
-        
-        except:
-            pass
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
 
     return entries

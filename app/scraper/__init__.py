@@ -1,22 +1,19 @@
-import json
-
 from fake_useragent import UserAgent
 from selenium.webdriver import Firefox, FirefoxProfile, FirefoxOptions
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 
 from models.entry import Entry
 from models.table import Tables
+
+from logger import log
 from . import ciw, jnc, kod, sea, yen
 
 
 class Scraper(object):
 
     def __init__(self, proxy = '', headless = True):
-        self.init(proxy, headless)
-    
-    def init(self, proxy = '', headless = True):
 
-        print('Creating driver...')
+        log.info('> Creating driver...')
 
         self.agent = UserAgent()
     
@@ -41,10 +38,11 @@ class Scraper(object):
         self._driver = Firefox(options = options)
         self._driver.maximize_window()
     
-        print('Driver successfully created!')
+        log.info('> Driver successfully created!')
 
 
     def quit(self): self._driver.quit()
+
 
     def run(self, table: Tables = Tables.ALL) -> list[Entry]:
 
@@ -54,10 +52,9 @@ class Scraper(object):
             for table in Tables:
                 entries += self._scrape(table)
 
-
         else: entries += self._scrape(table)
 
-        print(f'Total: {len(entries)} entries')
+        log.info(f'> Total: {len(entries)} entries')
         return entries
 
 

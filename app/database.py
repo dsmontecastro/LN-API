@@ -2,6 +2,8 @@ import os, pymongo as mongo
 from dotenv import load_dotenv
 
 from models.entry import Entry
+from .logger import log
+
 
 class DB():
 
@@ -23,12 +25,23 @@ class DB():
 
 
     def add_entry(self, entry: Entry):
-        self.__table.insert_one(entry.json())
+    
+        log.info(f'> Insert: {entry.title}')
+    
+        result = self.__table.insert_one(entry.json())
+
+        return result.inserted_id
 
 
     def add_entries(self, entries: list[Entry]):
+    
+        log.info(f'> Insert: {len(entries)}')
+
         jsons = [ entry.json() for entry in entries ]
-        self.__table.insert_many(jsons)
+
+        result = self.__table.insert_many(jsons)
+
+        return result.inserted_ids
 
 
     def get_entry(self): print('WIP')

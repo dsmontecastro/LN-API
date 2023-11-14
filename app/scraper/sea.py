@@ -10,6 +10,8 @@ from selenium.webdriver.support.wait import WebDriverWait as Waiter
 from models.entry import Entry, Media
 from models.table import Tables
 
+from ..logger import log
+
 
 # region : Constants -----------------------------------------------------------------------------------------
 
@@ -55,23 +57,20 @@ def scrape(driver: WebDriver) -> list[Entry]:
 
     try: entries += _scrape(driver, MODE.DIGITAL)
     except TimeoutException:
-        print('Error: SEA.DIGITAL has failed.')
+        log.exception('Error: SEA.DIGITAL has failed.')
 
     try: entries += _scrape(driver, MODE.PHYSICAL)
     except TimeoutException:
-        print('Error: SEA.PHYSICAL has failed.')
+        log.exception('Error: SEA.PHYSICAL has failed.')
 
-    print(f'Total: {len(entries)}')
     return entries
 
 
 def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
 
-
+    # Load Page
     driver.get(URL + mode.value)
     medium = mode.name.lower()
-    print(f'Extracting from {driver.current_url} ({medium})...')
-
 
     # Load all Entries
     main = driver.find_element(CSS, 'table#releasedates > tbody')
@@ -80,22 +79,28 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
     entries: list[Entry] = []
     for item in main.find_elements(CSS, 'tr#volumes'):
 
-        cols = item.find_elements(CSS, 'td')
-        format = cols[2].text
+        try:
 
-        series = cols[1].find_element(CSS, 'a')
-        url = series.get_attribute('href')
+            cols = item.find_elements(CSS, 'td')
+            format = cols[2].text
 
-        # Check if URL exists and Format is Light/Novel
-        if url and 'novel' in format.lower():
-            entries.append(
-                Entry(
-                    url = url,
-                    date = cols[0].text,
-                    title = _getTitle(series.text, format),
-                    table = TABLE
+            series = cols[1].find_element(CSS, 'a')
+            url = series.get_attribute('href')
+
+            # Check if URL exists and Format is Light/Novel
+            if url and 'novel' in format.lower():
+                entries.append(
+                    Entry(
+                        url = url,
+                        date = cols[0].text,
+                        title = _getTitle(series.text, format),
+                        table = TABLE
+                    )
                 )
-            )
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
  
 
     # Throttle to avoid Google's Bot-Detection
@@ -105,50 +110,54 @@ def _scrape(driver: WebDriver, mode: MODE) -> list[Entry]:
     # Entry Completion
     final: list[Entry] = []
     for entry in entries:
-        
-        url = entry.url
-        date = entry.date
-        print(f'{date}: {url}')
 
-        if url: # Check if URL exists
+        try:
 
-            # Go to Book Page
-            driver.get(URL + url)
+            url = entry.url
 
-            # Check if Book Page leads to a 404
-            try: Waiter(driver, timeout = T_FAST).until(
-                EC.visibility_of_element_located((CSS, 'body > a'))
-            )
+            if url: # Check if URL exists
 
-            # Proceed if Book Page is valid
-            except TimeoutException:
+                # Go to Book Page
+                driver.get(URL + url)
 
-                page = driver.find_element(CSS, 'div.container > div#content > div')
-                cover = page.find_element(CSS, 'div#volume-cover > img')
-                metas = page.find_element(CSS, 'div#volume-meta')
+                # Check if Book Page leads to a 404
+                try: Waiter(driver, timeout = T_FAST).until(
+                    EC.visibility_of_element_located((CSS, 'body > a'))
+                )
 
-                # Meta Elements
-                pars = metas.find_elements(CSS, 'p')
-                creators = metas.find_elements(CSS, 'span.creator')
+                # Proceed if Book Page is valid
+                except TimeoutException:
 
-                # Info: Media
-                info = _parsePar(pars[0].text)
-                media = _getMedia(info, medium)
+                    page = driver.find_element(CSS, 'div.container > div#content > div')
+                    cover = page.find_element(CSS, 'div#volume-cover > img')
+                    metas = page.find_element(CSS, 'div#volume-meta')
 
-                # Crew: Credits
-                crew = _parsePar(pars[1].text)
-                credits = [ creator.text for creator in creators ]
-                credits += [ crew[i] for i in range(len(crew)) if i % 2 == 1 ]
+                    # Meta Elements
+                    pars = metas.find_elements(CSS, 'p')
+                    creators = metas.find_elements(CSS, 'span.creator')
+
+                    # Info: Media
+                    info = _parsePar(pars[0].text)
+                    media = _getMedia(info, medium)
+
+                    # Crew: Credits
+                    crew = _parsePar(pars[1].text)
+                    credits = [ creator.text for creator in creators ]
+                    credits += [ crew[i] for i in range(len(crew)) if i % 2 == 1 ]
 
 
-                # Finalize Entry
-                entry.blurb = f'{pars[4].text}\n{pars[5].text}'
-                entry.cover = cover.get_attribute('src') or ''
-                entry.credits = credits
-                entry.media = [ media ]
+                    # Finalize Entry
+                    entry.blurb = f'{pars[4].text}\n{pars[5].text}'
+                    entry.cover = cover.get_attribute('src') or ''
+                    entry.credits = credits
+                    entry.media = [ media ]
 
-                final.append(entry)
-            
-        driver.implicitly_wait(T_SLOW)
+                    final.append(entry)
+                
+            driver.implicitly_wait(T_SLOW)
+
+        except Exception as e:
+            log.exception('Error: Failed to process item.')
+            log.exception(f'Message: {e}')
 
     return final

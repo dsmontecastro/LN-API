@@ -1,24 +1,41 @@
-from . import database, scraper
-
 from models.table import Tables
+
+from .logger import log
+from .database import DB
+from .scraper import Scraper
 
 
 class App:
 
     def __init__(self, proxy = '', headless = True):
-        self._scraper = scraper.Scraper(proxy, headless)
-        self._db = database.DB()
     
+        log.info('Creating app...')
+
+        self._scraper = Scraper(proxy, headless)
+        self._db = DB()
+
+        log.info('Appliction Created!')
+
+
     def run(self, table: Tables = Tables.ALL):
-        print('Running app...')
-        print(f'Table: {table.value['title']}')
+
+        log.info(f'Running app on [{table.value.title}]')
 
         entries = self._scraper.run(table)
         self._db.add_entries(entries)
+    
+        log.info('Run finished.')
+
 
     def quit(self):
+
+        log.info('Closing app...')
+
         self._scraper.quit()
         self._db.quit()
+
+        log.info('Application closed.')
+
 
     def test(self, tables: list[Tables]):
         for table in tables: self.run(table)
