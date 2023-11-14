@@ -1,33 +1,18 @@
 import os
-from flask import Flask, g, request
+from flask import Flask, request
 
+from ..database import DB
+db = DB()
 
 def create_app(config = None):
 
     app = Flask(__name__, instance_relative_config = True)
-    app.config.from_mapping(
-        SECRET_KEY = 'dev',
-        # DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
-
-
-    if config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(config)
-
-
-    # ensure the instance folder exists
-    try: os.makedirs(app.instance_path)
-    except OSError: pass
+    app.config.from_prefixed_env()
 
     # Extensions
     add_assets(app)
     add_blueprints(app)
     add_context(app)
-    # add_database(app)
     
 
     return app
@@ -51,15 +36,6 @@ def add_assets(app: Flask):
     scss.build()
 
 
-def add_blueprints(app: Flask):
-
-    # from blueprints.index import index
-    from .blueprints import index, tables
-
-    app.register_blueprint(index.index)
-    app.register_blueprint(tables.tables)
-
-
 def add_context(app: Flask):
 
     from database.models.table import Tables
@@ -75,8 +51,12 @@ def add_context(app: Flask):
             'routes': routes[1:],
         }
 
+def add_blueprints(app: Flask):
 
-# def add_database(app: Flask):
+    from .blueprints import index, tables
+
+    app.register_blueprint(index.index)
+    app.register_blueprint(tables.tables)
 
 
 # endregion --------------------------------------------------------------------------------------------------
