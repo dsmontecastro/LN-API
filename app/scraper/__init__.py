@@ -2,11 +2,11 @@ from fake_useragent import UserAgent
 from selenium.webdriver import Firefox, FirefoxProfile, FirefoxOptions
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 
-from models.entry import Entry
-from models.table import Tables
+from ..common.logger import log
+from ..database.models.entry import Entry
+from ..database.models.table import Tables
 
-from ..logger import log
-from . import ciw, jnc, kod, sea, yen
+from .targets import ciw, jnc, kod, sea, yen
 
 
 class Scraper(object):

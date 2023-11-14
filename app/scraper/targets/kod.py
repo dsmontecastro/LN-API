@@ -7,10 +7,9 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
-from models.entry import Entry, Media
-from models.table import Tables
-
-from ..logger import log
+from ...common.logger import log
+from ...database.models.table import Tables
+from ...database.models.entry import Entry, Media
 
 
 # region : Constants -----------------------------------------------------------------------------------------

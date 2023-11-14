@@ -1,8 +1,8 @@
-from models.table import Tables
-
-from .logger import log
-from .database import DB
 from .scraper import Scraper
+from .common.logger import log
+
+from .database import DB
+from .database.models.table import Tables
 
 
 class App:

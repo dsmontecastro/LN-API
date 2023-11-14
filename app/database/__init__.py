@@ -1,8 +1,8 @@
 import os, pymongo as mongo
 from dotenv import load_dotenv
 
-from models.entry import Entry
-from .logger import log
+from ..common.logger import log
+from .models.entry import Entry
 
 
 class DB():
@@ -36,8 +36,8 @@ class DB():
 
 
     def add_entry(self, entry: Entry):
-    
-        log.info(f'>> Upserted: {entry.title}')
+
+        log.info(f'>> Upserted: {entry.title:.25s}')
 
         filter = {'_id': entry.url}
         update = entry.json()

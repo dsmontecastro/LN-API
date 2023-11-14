@@ -5,10 +5,9 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import WebDriverException
 
-from models.entry import Entry, Media
-from models.table import Tables
-
-from ..logger import log
+from ...common.logger import log
+from ...database.models.table import Tables
+from ...database.models.entry import Entry, Media
 
 
 # region : Constants & Classes -------------------------------------------------------------------------------
