@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Table():
     def __init__(self, symbol: str, title: str):
         self.symbol: str = symbol
@@ -14,3 +15,6 @@ class Tables(Enum):
     KOD = Table('K', 'Kodansha')
     SEA = Table('7', 'Seven Seas Ent.')
     YEN = Table('¥', 'Yen Press')
+
+
+ln_tables = [ table for table in Tables ][2:]
