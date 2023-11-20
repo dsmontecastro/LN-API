@@ -1,8 +1,8 @@
-import os
+# import os
 from flask import Flask, request
 
-from ..database import DB
-db = DB()
+from . import singletons   # initializes module as singleton
+# db = DB()
 
 def create_app(config = None):
 
@@ -38,17 +38,17 @@ def add_assets(app: Flask):
 
 def add_context(app: Flask):
 
-    from database.models.table import Tables
+    from ..database.models.table import ln_tables
 
     @app.context_processor
     def utility_processor():
     
         root = request.base_url
-        routes = [ table for table in Tables ]
+        routes = ln_tables
     
         return {
             'root': root,
-            'routes': routes[1:],
+            'routes': routes,
         }
 
 def add_blueprints(app: Flask):
