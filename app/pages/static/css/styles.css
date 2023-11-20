@@ -52,9 +52,8 @@ body {
       list-style: none;
       list-style-position: inside; }
       body nav #nav-list li {
-        height: 12%;
+        height: 15%;
         margin: auto;
-        padding: 2.5% 0;
         font-size: large; }
         body nav #nav-list li a {
           display: flex;
