@@ -50,23 +50,24 @@ class DB():
     def get_entry(self, url):
         return self.__table.find_one({'_id': url})
 
-    def get_entries(self, field: Fields, value: str):
+    def get_entries(self, field: Fields, value: str = ''):
 
         table = self.__table
+        key: str = field.value
 
         match(field):
 
             case Fields.DATE:
-                return table.find({ field: { '$gte': value } })
+                return table.find({ key: { '$gte': value } })
 
             case Fields.CREDITS | Fields.GENRES:
-                return table.find({ field: { '$in': value } })
+                return table.find({ key: { '$in': value } })
 
             case Fields.FORMAT | Fields.ISBN:
-                return table.find({ 'media': { field : value.lower() } })
+                return table.find({ 'media': { key : value.lower() } })
 
             case Fields.PRICE:
-                return table.find({ 'media': { field: { '$gte': value } } })
+                return table.find({ 'media': { key: { '$gte': value } } })
 
             case _:
-                return table.find({ field: value})
+                return table.find({ key: value })
