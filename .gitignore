@@ -1,4 +1,5 @@
 # Hidden Files
+.env
 .venv
 .vscode
 .coverage
