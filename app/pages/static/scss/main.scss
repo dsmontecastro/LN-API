@@ -30,8 +30,7 @@ body {
 
         @extend .max;
 
-        margin: 1%;
-        background-color: $color;
+        @import 'tables.scss';
 
     }
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id='table'>
+
+    <div id='header'>
+
+        {{ table }}
+
+        <!-- <p> {{ table }} </p> -->
+
+    </div>
+
+    <div id='entries'>
+        Items: {{ entries | length }}
+    </div>
+
+</div>
+
+{% endblock %}
