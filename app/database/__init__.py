@@ -1,5 +1,6 @@
 import os, pymongo as mongo
 from dotenv import load_dotenv
+from typing import Any
 
 from ..common.logger import log
 from .models.entry import Entry, Fields
@@ -28,11 +29,11 @@ class DB():
 
         for entry in entries:
 
-            log.info(f'> Upserting: {entry.url}')
+            log.debug(f'> Upserting: {entry.url}')
 
             id = self.add_entry(entry)
 
-            log.info(f'> Validation: {id}')
+            log.debug(f'> Validation: {id}')
 
 
     def add_entry(self, entry: Entry):
@@ -47,27 +48,34 @@ class DB():
         return [result.modified_count, result.upserted_id]
 
 
-    def get_entry(self, url):
-        return self.__table.find_one({'_id': url})
+    def query(self, params: dict[str, Any]):
 
-    def get_entries(self, field: Fields, value: str = ''):
+        query: dict[str, Any] = {}
 
-        table = self.__table
-        key: str = field.value
+        limit = params.pop('limit')
 
-        match(field):
+        for key in params.keys():
 
-            case Fields.DATE:
-                return table.find({ key: { '$gte': value } })
+            value = params[key]
+            field = Fields[key.upper()]
 
-            case Fields.CREDITS | Fields.GENRES:
-                return table.find({ key: { '$in': value } })
+            match(field):
 
-            case Fields.FORMAT | Fields.ISBN:
-                return table.find({ 'media': { key : value.lower() } })
+                case Fields.DATE:
+                    query[key] = { '$gte': value }
 
-            case Fields.PRICE:
-                return table.find({ 'media': { key: { '$gte': value } } })
+                case Fields.CREDITS | Fields.GENRES:
+                    query[key] = { '$in': value }
 
-            case _:
-                return table.find({ key: value })
+                case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
+    
+                    if not 'media' in query: query['media'] = []
+    
+                    query['media'].append({
+                        'media': { '$elemMatch' : { key: value } }
+                    })
+    
+                case _: query[key] = value
+
+        results = self.__table.find(query).limit(limit)
+        return list(results)
