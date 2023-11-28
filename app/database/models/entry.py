@@ -33,10 +33,9 @@ class Media(object):
 
     def json(self):
         return {
-            self.format: {
-                'isbn': self.isbn,
-                'price': self.price
-            }
+            'format': self.format,
+            'price': self.price,
+            'isbn': self.isbn
         }
 
 
@@ -95,15 +94,3 @@ class Entry(object):
         del dict['url']
 
         return dict
-
-# Test = Entry(
-#     url = 'url',
-#     date = '12/02/99',
-#     title = 'title',
-#     cover = 'cover',
-#     blurb = 'blurb',
-#     genres = ['genre'],
-#     credits = ['Steve'],
-#     media = [ Media('format', '0', 'P0.00') ],
-#     table = Tables.ALL
-# )
