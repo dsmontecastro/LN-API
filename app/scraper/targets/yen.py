@@ -159,7 +159,6 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
                 sleep(10)
 
-                print(f'@{driver.current_url}')
                 page = driver.find_element(CSS, 'div.books-page')
                 info = page.find_element(CSS, 'section.book-cover > div.content-heading > div.book-info')
                 heading = page.find_element(CSS, 'section.series-heading > div.wrapper-1595 > div.heading-content')
