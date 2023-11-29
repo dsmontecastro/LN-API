@@ -1,5 +1,6 @@
 import os, pymongo as mongo
 from dotenv import load_dotenv
+from re import compile, IGNORECASE
 from typing import Any
 
 from ..common.logger import log
@@ -59,23 +60,42 @@ class DB():
             value = params[key]
             field = Fields[key.upper()]
 
+
             match(field):
 
                 case Fields.DATE:
                     query[key] = { '$gte': value }
 
+
                 case Fields.CREDITS | Fields.GENRES:
-                    query[key] = { '$in': value }
+                    values = map(self.__ignore_case, value)
+                    query[key] = { '$in': list(values) }
+
 
                 case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
     
-                    if not 'media' in query: query['media'] = []
-    
-                    query['media'].append({
-                        'media': { '$elemMatch' : { key: value } }
-                    })
-    
-                case _: query[key] = value
+                    if not field.value in query:
+                        query['media'] = { '$elemMatch': {} }
+
+                    if field == Fields.PRICE:
+                        query['media']['$elemMatch'][key] = {
+                            '$lte': value
+                        }
+
+                    else:
+                        query['media']['$elemMatch'][key] = {
+                            '$regex': value,  '$options': 'i'
+                        }
+
+
+                case _:
+                    value = str(value).replace('_', ' ')
+                    query[key] = { '$regex': value,  '$options': 'i' }
+
 
         results = self.__table.find(query).limit(limit)
         return list(results)
+
+
+    def __ignore_case(self, string: str):
+        return compile(string, flags = IGNORECASE)
