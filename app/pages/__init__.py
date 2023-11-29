@@ -53,11 +53,10 @@ def add_context(app: Flask):
 
 def add_blueprints(app: Flask):
 
-    from .blueprints import index, api, tables
+    from .blueprints import index, api
 
     app.register_blueprint(index.index)
     app.register_blueprint(api.api)
-    app.register_blueprint(tables.tables)
 
 
 # endregion --------------------------------------------------------------------------------------------------

@@ -14,7 +14,7 @@
         {% for route in routes %}
 
         {% set code = route.name %}
-        {% set href = '/table/' + code.lower() %}
+        {% set href = '/show/' + code.lower() %}
         {% set is_active = 'active' if (href == PATH) else '' %}
 
         {% set props = route.value %}
