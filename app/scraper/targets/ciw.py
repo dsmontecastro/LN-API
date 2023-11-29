@@ -108,7 +108,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
             for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
 
             # About: Credits
-            headings = about.find_elements(CSS, ':not(p)')
+            headings = about.find_elements(CSS, ':not(p)')[:-1]
             credits = [ _getCredit(heading.text) for heading in headings ]
 
             # Image: Cover
