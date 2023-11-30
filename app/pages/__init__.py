@@ -1,19 +1,15 @@
-# import os
 from flask import Flask, request
-
-from . import singletons   # initializes module as singleton
-# db = DB()
 
 def create_app(config = None):
 
     app = Flask(__name__, instance_relative_config = True)
     app.config.from_prefixed_env()
+    load_singletons()
 
     # Extensions
     add_assets(app)
     add_blueprints(app)
     add_context(app)
-    
 
     return app
 
@@ -36,6 +32,14 @@ def add_assets(app: Flask):
     scss.build()
 
 
+def add_blueprints(app: Flask):
+
+    from .blueprints import index, api
+
+    app.register_blueprint(index.index)
+    app.register_blueprint(api.api)
+
+
 def add_context(app: Flask):
 
     from ..database.models.table import ln_tables
@@ -51,12 +55,8 @@ def add_context(app: Flask):
             'routes': routes,
         }
 
-def add_blueprints(app: Flask):
 
-    from .blueprints import index, api
-
-    app.register_blueprint(index.index)
-    app.register_blueprint(api.api)
-
+def load_singletons():
+    from . import singletons
 
 # endregion --------------------------------------------------------------------------------------------------
