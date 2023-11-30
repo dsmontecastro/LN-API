@@ -9,8 +9,6 @@ from ..database.models.table import Tables
 from .targets import ciw, jnc, kod, sea, yen
 
 
-log_level = 'TRACE'
-
 class Scraper(object):
 
     def __init__(self, proxy = '', headless = True):
@@ -20,7 +18,6 @@ class Scraper(object):
         self.agent = UserAgent()
     
         options = FirefoxOptions()
-        options.add_argument(log_level)
         if headless: options.add_argument('--headless')
 
         profile = FirefoxProfile()
