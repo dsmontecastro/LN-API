@@ -1,14 +1,10 @@
 TO-DO:
+* Finalize SHOW Pages
+  * Grid Viewing
+  * Search Tags
+  * Tag Sorting
 
-* Database
-  * Create MongoDB modules
-  * Create Book model (?)
-
-* Pages (Flask)
-  * Make Nav-Item Icons & Finalize Nav
-  * Make Template/Table & Table-Endpoints
-  * Make API-Endpoints
-
-* Scraper
-  * Test Scraper._scrape_all()
-  * Find a way to instance it
+* Add Admin Pages
+  * Login
+  * Update
+  * Stats
