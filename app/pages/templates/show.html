@@ -6,16 +6,27 @@
 
     <div id='header'>
 
-        {{ table }}
-
-        <!-- <p> {{ table }} </p> -->
+        ({{ entries | length }}) {{ table }}
 
     </div>
+
 
     <div id='entries'>
-        Items: {{ entries | length }}
+
+        {% for entry in entries %}
+
+        {% set name = entry.title %}
+        <img class='entry' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+
+        {% endfor %}
+
     </div>
+
 
 </div>
 
 {% endblock %}
+
+<script>
+    const items = entries
+</script>
