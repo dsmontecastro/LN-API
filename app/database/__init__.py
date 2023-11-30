@@ -4,7 +4,7 @@ from re import compile, IGNORECASE
 from typing import Any
 
 from ..common.logger import log
-from .models.entry import Entry, Fields
+from .models.entry import Entry, Fields, Opts
 
 
 class DB():
@@ -30,7 +30,7 @@ class DB():
 
         for entry in entries:
 
-            log.debug(f'> Upserting: {entry.url}')
+            log.debug(f'> Upserting: { entry.url }')
 
             id = self.add_entry(entry)
 
@@ -51,15 +51,19 @@ class DB():
 
     def query(self, params: dict[str, Any]):
 
-        query: dict[str, Any] = {}
+        limit: int = params.pop(Opts.LIMIT.value)
+        sort_by: str = params.pop(Opts.SORT_BY.value)
 
-        limit = params.pop('limit')
+        order: int = 1
+        if not bool(params.pop(Opts.ORDER.value)): order = -1
+
+
+        query: dict[str, Any] = {}
 
         for key in params.keys():
 
             value = params[key]
             field = Fields[key.upper()]
-
 
             match(field):
 
@@ -93,7 +97,9 @@ class DB():
                     query[key] = { '$regex': value,  '$options': 'i' }
 
 
-        results = self.__table.find(query).limit(limit)
+        results = self.__table.find(query)
+        results.sort(sort_by, order).limit(limit)
+
         return list(results)
 
 

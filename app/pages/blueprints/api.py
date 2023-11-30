@@ -63,15 +63,20 @@ def page(mode: str, table_code: str):
 
 # region : URL Parameter Handler -----------------------------------------------------------------------------
 
-from app.database.models.entry import Fields
+from app.database.models.entry import Fields, Opts
 
-LIMIT = 'limit'
+LIMIT = Opts.LIMIT.value
+ORDER = Opts.ORDER.value
+SORT_BY = Opts.SORT_BY.value
 
 def get_params(table: str) -> dict[Any, Any]:
 
     params = {}
 
-    params[LIMIT] = request.args.getlist(LIMIT) or 0
+    params[LIMIT] = int(request.args.get(LIMIT) or '0')
+    params[ORDER] = bool(request.args.get(ORDER)) or True
+    params[SORT_BY] = str(request.args.get(SORT_BY)) or Fields.URL.value
+
     params[Fields.TABLE.value] = table
 
     for field in Fields:
