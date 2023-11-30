@@ -4,6 +4,11 @@ from datetime import datetime, date as Date
 
 from .table import Tables
 
+class Opts(Enum):
+    LIMIT = 'limit'
+    ORDER = 'order'
+    SORT_BY = 'sort_by'
+
 class Fields(Enum):
     URL = '_id'
     TABLE = 'table'
