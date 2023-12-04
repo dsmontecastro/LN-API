@@ -16,12 +16,17 @@ def create_app(config = None):
 
 # region : App Extensions ------------------------------------------------------------------------------------
 
+
+def load_singletons():
+    from . import singletons
+
+
 def add_assets(app: Flask):
 
     from flask_assets import Environment, Bundle
 
     scss = Bundle(
-        'scss/main.scss',
+        'scss/body.scss',
         depends = 'scss/*.scss',
         output  = 'css/styles.css',
         filters = ['libsass']

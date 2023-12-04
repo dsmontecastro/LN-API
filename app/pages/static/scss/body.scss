@@ -1,0 +1,35 @@
+// Thematic Variables
+$color: #3A4149;
+$accent: #D5D7D9;
+
+@import '_shortcuts.scss';
+
+body {
+
+    @extend .row;
+
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+
+    background-color: white;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+
+    @import 'nav.scss';
+    @import 'main.scss';
+
+}
+
+
+* {
+    box-sizing: border-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}

@@ -44,12 +44,12 @@ def page(mode: str, table_code: str):
 
             case MODE.SHOW:
                 return render_template(
-                    'show.html',
+                    'main.html',
                     table = table_name,
                     entries = entries
                 )
 
-            
+
             case _:
                 raise( TemplateNotFound(
                     name = 'Invalid URL',
