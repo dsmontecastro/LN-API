@@ -23,14 +23,14 @@ api = Blueprint('api', __name__, template_folder = 'templates')
 
 @api.route('/<string:mode>/<string:table_code>')
 def page(mode: str, table_code: str):
-
-    table = Tables[table_code.upper()]
-    table_name = table.value.title
-
-    params = get_params(table_name)
-    entries = db.query(params)
     
     try: 
+
+        table = Tables[table_code.upper()]
+        table_name = table.value.title
+
+        params = get_params(table_name)
+        entries = db.query(params)
 
         match(MODE[mode.upper()]):
 
@@ -56,7 +56,7 @@ def page(mode: str, table_code: str):
                     message = 'Given MODE does not exist...'
                 ))
 
-    except TemplateNotFound: abort(404)
+    except (KeyError, TemplateNotFound): abort(404)
 
 # endregion --------------------------------------------------------------------------------------------------
 
