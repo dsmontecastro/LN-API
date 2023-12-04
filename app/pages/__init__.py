@@ -1,4 +1,6 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
+from werkzeug.exceptions import HTTPException
+
 
 def create_app(config = None):
 
@@ -10,6 +12,7 @@ def create_app(config = None):
     add_assets(app)
     add_blueprints(app)
     add_context(app)
+    add_error_handling(app)
 
     return app
 
@@ -61,7 +64,17 @@ def add_context(app: Flask):
         }
 
 
-def load_singletons():
-    from . import singletons
+def add_error_handling(app: Flask):
+
+    @app.errorhandler(Exception)
+    def error(error: Exception):
+
+        code: int = 500
+
+        if isinstance(error, HTTPException):
+            code = error.code or 500
+
+        return render_template('home.html', code = code)
+
 
 # endregion --------------------------------------------------------------------------------------------------
