@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id='main'>
+
+    <div id='header'>
+
+        {% if code %} ERROR: {{ code }}
+        {% else %} Home
+        {% endif %}
+
+    </div>
+
+
+    <div id='api'>
+
+        <div id='instructions'>
+
+            API Instructions:
+
+            <p> {{ request.url_root }}/{mode}/{table} </p>
+
+        </div>
+
+        <div id='queries'>
+
+            Queries:
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}
