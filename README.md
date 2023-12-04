@@ -1,7 +1,5 @@
 TO-DO:
 
-* Test Scraper Logging
-
 * Add Error Pages
 
 * Add Admin Pages

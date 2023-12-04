@@ -1,8 +1,9 @@
 import logging
 from selenium.webdriver.remote.remote_connection import LOGGER
 
-LOGGER.setLevel(logging.ERROR)  # Disable Selenium-based Logging
-# logging.getLogger('selenium.webdriver.remote.remote_connection').setLevel(logging.ERROR)
+# Disable Selenium-based Logging
+logging.getLogger('selenium').setLevel(logging.CRITICAL)
+logging.getLogger('urllib3').setLevel(logging.CRITICAL)
 
 
 NAME = 'base_logger'
