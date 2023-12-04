@@ -18,4 +18,4 @@ instance
 *.egg-info
 
 # S/CSS
-app/pages/static/css/styles.css
+app/pages/static/css
