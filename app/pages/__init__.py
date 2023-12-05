@@ -70,11 +70,13 @@ def add_error_handling(app: Flask):
     def error(error: Exception):
 
         code: int = 500
+        message: str = ''
 
         if isinstance(error, HTTPException):
             code = error.code or 500
+            message = error.description or ''
 
-        return render_template('home.html', code = code)
+        return render_template('home.html', code = code, message = message)
 
 
 # endregion --------------------------------------------------------------------------------------------------
