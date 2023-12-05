@@ -77,6 +77,7 @@ def get_params(table: str) -> dict[Any, Any]:
     params[ORDER] = bool(request.args.get(ORDER)) or True
     params[SORT_BY] = str(request.args.get(SORT_BY)) or Fields.URL.value
 
+    if table == 'All Tables': table = ''
     params[Fields.TABLE.value] = table
 
     for field in Fields:
