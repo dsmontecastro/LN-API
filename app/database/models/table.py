@@ -9,12 +9,12 @@ class Table():
 
 class Tables(Enum):
     ERR = Table('', '')
-    ALL = Table('_', 'All Tables')
     CIW = Table('✖', 'Cross Infinite World')
     JNC = Table('j', 'J-Novel Club')
     KOD = Table('K', 'Kodansha')
     SEA = Table('7', 'Seven Seas Ent.')
     YEN = Table('¥', 'Yen Press')
+    ALL = Table('∀', 'All Tables')
 
 
-ln_tables = [ table for table in Tables ][2:]
+ln_tables = [ table for table in Tables ][1:]
