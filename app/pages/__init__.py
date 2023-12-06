@@ -42,10 +42,11 @@ def add_assets(app: Flask):
 
 def add_blueprints(app: Flask):
 
-    from .blueprints import index, api
+    from .blueprints import api, entry, index
 
-    app.register_blueprint(index.index)
     app.register_blueprint(api.api)
+    app.register_blueprint(entry.entry)
+    app.register_blueprint(index.index)
 
 
 def add_context(app: Flask):
@@ -75,8 +76,10 @@ def add_error_handling(app: Flask):
         if isinstance(error, HTTPException):
             code = error.code or 500
             message = error.description or ''
+        
+        else: message = type(error).__name__
 
-        return render_template('home.html', code = code, message = message)
+        return render_template('blueprints/home.html', code = code, message = message)
 
 
 # endregion --------------------------------------------------------------------------------------------------
