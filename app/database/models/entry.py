@@ -10,16 +10,30 @@ class Opts(Enum):
     SORT_BY = 'sort_by'
 
 class Fields(Enum):
-    URL = '_id'
-    TABLE = 'table'
+
+    URL = 'url'
     DATE = 'date'
+    TABLE = 'table'
     TITLE = 'title'
-    COVER = 'cover'
-    GENRES = 'genres'
     CREDITS = 'credits'
+    GENRES = 'genres'
     FORMAT = 'format'
     PRICE = 'price'
     ISBN = 'isbn'
+
+    @classmethod
+    def queries(cls):
+        return {
+            cls.TITLE.value: '{string}',
+            cls.DATE.value: '{YYYY-MM-DD}',
+            cls.TITLE.value: '{string}',
+            cls.CREDITS.value[:-1]: '{string} (repeatable)',
+            cls.GENRES.value[:-1]: '{string} (repeatable)',
+            cls.FORMAT.value: '{string}',
+            cls.PRICE.value: '${X.X}',
+            cls.ISBN.value: '{ISBN-Code}'
+        }
+
 
 
 class Media(object):
@@ -75,7 +89,7 @@ class Entry(object):
 
     def __str__(self):
         return f"""
-            @{self.date.strftime('%m-%d-$y')}
+            @{self.date.strftime('%m-%d-%y')}
             url = {self.url}
             title = {self.title}
             cover = {self.cover}
@@ -88,14 +102,8 @@ class Entry(object):
     def json(self):
 
         dict = self.__dict__
-
-        # Requires Processing
-        dict['date'] = self.date.strftime('%m-%d-%y')
+        dict['date'] = self.date.strftime('%Y-%m-%d')
         dict['media'] = [ m.json() for m in self.media ]
         dict['table'] = self.table.value.title
-
-        # Use <url> attribute as JSON <_id>
-        dict['_id'] = dict['url']
-        del dict['url']
 
         return dict

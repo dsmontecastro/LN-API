@@ -41,7 +41,7 @@ class DB():
 
         log.info(f'>> Upserted: {entry.title:.25s}')
 
-        filter = {'_id': entry.url}
+        filter = { 'url': entry.url }
         update = entry.json()
 
         result = self.__table.replace_one(filter, update, upsert = True)
