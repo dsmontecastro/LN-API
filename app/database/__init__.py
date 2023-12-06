@@ -9,7 +9,7 @@ from .models.entry import Entry, Fields, Opts
 
 class DB():
 
-    db_name = 'local_db'
+    db_name = 'ln-api'
     table_name = 'entries'
 
     def __init__(self):
