@@ -11,7 +11,6 @@ class Opts(Enum):
 
 class Fields(Enum):
 
-    URL = 'url'
     DATE = 'date'
     TABLE = 'table'
     TITLE = 'title'
@@ -27,8 +26,8 @@ class Fields(Enum):
             cls.TITLE.value: '{string}',
             cls.DATE.value: '{YYYY-MM-DD}',
             cls.TITLE.value: '{string}',
-            cls.CREDITS.value[:-1]: '{string} (repeatable)',
-            cls.GENRES.value[:-1]: '{string} (repeatable)',
+            cls.CREDITS.value: '{string} (repeatable)',
+            cls.GENRES.value: '{string} (repeatable)',
             cls.FORMAT.value: '{string}',
             cls.PRICE.value: '${X.X}',
             cls.ISBN.value: '{ISBN-Code}'

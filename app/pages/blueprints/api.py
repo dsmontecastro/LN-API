@@ -75,30 +75,26 @@ def get_params(table: str) -> dict[Any, Any]:
 
     params[LIMIT] = int(request.args.get(LIMIT) or '0')
     params[ORDER] = bool(request.args.get(ORDER)) or True
-    params[SORT_BY] = str(request.args.get(SORT_BY)) or Fields.URL.value
+    params[SORT_BY] = str(request.args.get(SORT_BY)) or Fields.DATE.value
 
     if table == 'All Tables': table = ''
     params[Fields.TABLE.value] = table
 
-    for field in Fields:
+    for field in Fields.queries().keys():
 
-        match(field):
+        match(Fields[field.upper()]):
 
             case Fields.GENRES | Fields.CREDITS:
 
-                param = field.value
-                value = request.args.getlist(param)
+                value = request.args.getlist(field)
 
                 if value:
                     values = map(replace_underscore, value)
-                    params[param] = list(values)
+                    params[field] = list(values)
 
             case _:
-
-                param = field.value
-                value = request.args.get(param)
-
-                if value: params[param] = value
+                value = request.args.get(field)
+                if value: params[field] = value
 
     return params
 
