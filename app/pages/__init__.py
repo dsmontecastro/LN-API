@@ -51,16 +51,16 @@ def add_blueprints(app: Flask):
 def add_context(app: Flask):
 
     from ..database.models.table import ln_tables
+    from ..database.models.entry import Fields
 
     @app.context_processor
     def utility_processor():
-    
-        root = request.base_url
+
         routes = ln_tables
     
         return {
-            'root': root,
             'routes': routes,
+            'queries': Fields.queries()
         }
 
 
