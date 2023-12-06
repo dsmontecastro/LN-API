@@ -11,7 +11,7 @@ from ...database.models.table import Tables
 
 # region : Blueprint -----------------------------------------------------------------------------------------
 
-api = Blueprint('api', __name__, template_folder = 'templates')
+api = Blueprint('api', __name__, url_prefix = '/api/', template_folder = 'templates')
 
 @api.route('/<string:mode>/<string:table_code>')
 def page(mode: str, table_code: str):
@@ -42,7 +42,7 @@ def page(mode: str, table_code: str):
 
             case MODE.SHOW:
                 return render_template(
-                    'main.html',
+                    'blueprints/api.html',
                     table = table_name,
                     entries = entries
                 )

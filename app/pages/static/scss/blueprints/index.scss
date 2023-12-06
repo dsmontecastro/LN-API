@@ -1,0 +1,100 @@
+#description {
+
+    @extend .center;
+    display: flex;
+
+    width: 97.5%;
+    min-height: 0;
+
+    margin: 1% 1%;
+    padding: 1% 0;
+
+    border-radius: 3%;
+    background-color: black;
+
+    color: white;
+    font-size: smaller;
+
+    strong {
+        margin: 0;
+        font-size: 2em;
+        vertical-align: middle;
+    }
+
+}
+
+
+#api {
+
+    @extend .row;
+    flex-grow: 1;
+
+    justify-content: space-between;
+    gap: 3%;
+
+    width: 100%;
+    max-height: 90vh;
+    min-height: 50vh;
+
+
+    div {
+
+        width: 100%;
+        margin: 1% 1%;
+        padding: 3% 0;
+
+        border-radius: 5%;
+        background-color: $color;
+
+        p {
+            margin: 2% 0;
+            font-size: large;
+            color: $accent;
+        }
+
+    }
+
+
+    #routes,
+    #filters {
+
+        @extend .col;
+        flex: 1 1 auto;
+        align-items: center;
+
+        table {
+
+            width: 100%;
+            height: 90%;
+
+            margin: 1% auto;
+            padding: 0 15%;
+
+            th,
+            td {
+
+                padding: 1.5% 0;
+                text-align: center;
+                background-color: slategray;
+
+                P {
+                    margin: 0;
+                    color: $accent;
+                    font-size: medium;
+                }
+
+                a {
+
+                    &:link {
+                        color: $accent;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

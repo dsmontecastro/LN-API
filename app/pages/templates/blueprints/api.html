@@ -2,7 +2,9 @@
 
 {% block main %}
 
-<div id='main'>
+{% set URL = request.root_url %}
+
+<div id='show' class='main'>
 
     <div id='header'>
 
@@ -16,7 +18,11 @@
         {% for entry in entries %}
 
         {% set name = entry.title %}
-        <img class='entry' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+        {% set href = '/entry/show/' + entry._id | string %}
+
+        <a href='{{ href }}'>
+            <img src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+        </a>
 
         {% endfor %}
 
