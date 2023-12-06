@@ -7,6 +7,8 @@ from .database.models.table import Tables
 
 class App:
 
+    MAX_LIMIT = 9999
+
     def __init__(self, proxy = '', headless = True):
     
         log.info('Creating app...')
@@ -17,7 +19,9 @@ class App:
         log.info('Application Created!\n')
 
 
-    def run(self, table: Tables = Tables.ALL, limit: int = 0):
+    def run(self, table: Tables = Tables.ALL, limit: int = MAX_LIMIT):
+
+        if limit <= 0: limit = self.MAX_LIMIT
 
         log.info(f'Running app on [{table.value.title}]')
 
