@@ -1,20 +1,11 @@
 from flask import Blueprint, request, render_template, abort
 from jinja2 import TemplateNotFound
 from typing import Any
-from enum import Enum
 
+from ._mode import MODE
 from ..singletons import db
 from ...common.logger import log
 from ...database.models.table import Tables
-
-
-# region : Constants -----------------------------------------------------------------------------------------
-
-class MODE(Enum):
-    API = 'api'
-    SHOW = 'show'
-
-# endregion --------------------------------------------------------------------------------------------------
 
 
 # region : Blueprint -----------------------------------------------------------------------------------------
@@ -32,9 +23,10 @@ def page(mode: str, table_code: str):
         params = get_params(table_name)
         entries = db.query(params)
 
+
         match(MODE[mode.upper()]):
 
-            case MODE.API:
+            case MODE.JSON:
 
                 return {
                     'count': len(entries),
