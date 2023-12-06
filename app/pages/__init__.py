@@ -30,7 +30,7 @@ def add_assets(app: Flask):
 
     scss = Bundle(
         'scss/body.scss',
-        depends = 'scss/*.scss',
+        depends = 'scss/**/*.scss',
         output  = 'css/styles.css',
         filters = ['libsass']
     )
@@ -79,7 +79,7 @@ def add_error_handling(app: Flask):
         
         else: message = type(error).__name__
 
-        return render_template('blueprints/home.html', code = code, message = message)
+        return render_template('blueprints/index.html', code = code, message = message)
 
 
 # endregion --------------------------------------------------------------------------------------------------

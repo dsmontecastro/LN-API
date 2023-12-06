@@ -6,5 +6,5 @@ index = Blueprint('index', __name__, template_folder = 'templates')
 @index.route('/')
 @index.route('/home')
 def _index():
-    try: return render_template('blueprints/home.html')
+    try: return render_template('blueprints/index.html')
     except TemplateNotFound: abort(404)
