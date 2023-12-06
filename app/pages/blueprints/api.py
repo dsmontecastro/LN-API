@@ -1,5 +1,6 @@
-from flask import Blueprint, request, render_template, abort
+from flask import Blueprint, Response, abort, render_template, request
 from jinja2 import TemplateNotFound
+from json import dumps as to_json
 from typing import Any
 
 from ._mode import MODE
@@ -28,10 +29,15 @@ def page(mode: str, table_code: str):
 
             case MODE.JSON:
 
-                return {
+                results = {
                     'count': len(entries),
                     'entries': entries
                 }
+
+                return Response(
+                    to_json(results, default = str),
+                    mimetype = 'application/json'
+                )
 
 
             case MODE.SHOW:
