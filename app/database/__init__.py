@@ -1,7 +1,9 @@
 import os, pymongo as mongo
+from bson.objectid import ObjectId
+
+from typing import Any
 from dotenv import load_dotenv
 from re import compile, IGNORECASE
-from typing import Any
 
 from ..common.logger import log
 from .models.entry import Entry, Fields, Opts
@@ -47,6 +49,16 @@ class DB():
         result = self.__table.replace_one(filter, update, upsert = True)
 
         return [result.modified_count, result.upserted_id]
+
+
+    def get_entry(self, id: str):
+
+        try:
+            filter = { '_id': ObjectId(id) }
+            result = self.__table.find_one(filter)
+            return result
+
+        except: return None
 
 
     def query(self, params: dict[str, Any]):
