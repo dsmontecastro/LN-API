@@ -1,12 +1,10 @@
 TO-DO:
 
-* Add Error Pages
-
 * Add Admin Pages
   * Login
   * Update
   * Stats
 
-* Finalize SHOW Pages
+* Add SHOW JS
   * Search Tags
   * Tag Sorting
