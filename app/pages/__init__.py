@@ -29,7 +29,7 @@ def add_assets(app: Flask):
     from flask_assets import Environment, Bundle
 
     scss = Bundle(
-        'scss/body.scss',
+        'scss/base.scss',
         depends = 'scss/**/*.scss',
         output  = 'css/styles.css',
         filters = ['libsass']
