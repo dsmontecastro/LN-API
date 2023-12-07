@@ -30,7 +30,7 @@ def add_assets(app: Flask):
 
     scss = Bundle(
         'scss/base.scss',
-        depends = 'scss/**/*.scss',
+        depends = ['scss/*.scss', 'scss/**/*.scss'],
         output  = 'css/styles.css',
         filters = ['libsass']
     )
