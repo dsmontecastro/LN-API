@@ -11,9 +11,76 @@
     </div>
 
 
-    <div id='details'>
+    <div id='entry-body'>
 
-        {{ entry.cover }}
+        <img class='cover' src='{{ entry.cover }}' alt='{{ entry.title }}' />
+
+        <div id='info'>
+
+            <div id='text'>
+
+                <div id='details'>
+
+                    <div id='major'>
+                        <p> Release Date: {{ entry.date }} </p>
+                        <a href='{{ entry.url }}'> Original Site </a>
+                    </div>
+
+                    <div id='credits'>
+                        {% for person in entry.credits %}
+                        <div class='person'>
+                            {{ person }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id='genres'>
+                        {% for genre in entry.genres %}
+                        <div class='genre' href=''>
+                            {{ genre }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div id='blurb'>
+                    {{ entry.blurb }}
+                </div>
+
+            </div>
+
+
+            <div id='media'>
+
+                <p> Media: </p>
+
+                <div id='rows'>
+
+                    {% for m in entry.media %}
+
+                    {% set price = m.price %}
+                    {% if not price %}
+                    {% set price = '$-.-' %}
+                    {% endif %}
+
+                    {% set isbn = m.isbn %}
+                    {% if not isbn %}
+                    {% set isbn = '-' %}
+                    {% endif %}
+
+                    <div class='medium'>
+                        ISBN: {{ isbn }}
+                        <br /> {{ m.format | capitalize }}: {{ price }}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
