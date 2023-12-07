@@ -8,6 +8,7 @@ nav {
 
     background-color: $color;
 
+
     #nav-head {
 
         @extend .center;
@@ -24,9 +25,23 @@ nav {
         img {
             width: 100%;
             height: 100%;
+            border-width: 5%;
         }
 
     }
+
+
+    hr {
+
+        width: 85%;
+        height: 5px;
+        margin: 15% auto 10% auto;
+
+        color: white;
+        background-color: white;
+
+    }
+
 
     #nav-list {
 
