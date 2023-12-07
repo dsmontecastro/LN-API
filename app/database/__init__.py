@@ -1,4 +1,4 @@
-import os, pymongo as mongo
+import os, datetime, pymongo as mongo
 from bson.objectid import ObjectId
 
 from typing import Any
@@ -71,6 +71,9 @@ class DB():
 
 
         query: dict[str, Any] = {}
+        
+        query[Fields.DATE.value] = { '$gte': datetime.datetime.now().strftime('%Y-%m-%d') }
+
 
         for key in params.keys():
 
