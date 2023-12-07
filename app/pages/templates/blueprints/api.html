@@ -22,7 +22,8 @@
         {% set href = '/entry/show/' + entry._id | string %}
 
         <a href='{{ href }}'>
-            <img src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+            <img class='cover' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+            {{ entry.date }}
         </a>
 
         {% endfor %}

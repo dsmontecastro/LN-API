@@ -13,20 +13,27 @@
     grid-template-columns: repeat(6, 1fr);
 
 
-    img {
-
-        @extend .center;
-        display: flex;
+    a {
 
         width: 100%;
         height: 100%;
-        padding: 0 5%;
+        padding-top: 3%;
 
-        color: $accent;
         text-align: center;
 
-        object-fit: scale-down;
+        color: $accent;
         background-color: $color;
+
+
+        img.cover {
+
+            width: 100%;
+            height: 90%;
+
+            padding: 0 5%;
+            margin-bottom: 3%;
+
+        }
 
     }
 
