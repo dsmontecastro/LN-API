@@ -30,6 +30,7 @@
 
             margin: 1% 0;
             padding-right: 5%;
+            text-align: right;
             font-size: xx-large;
 
             box-shadow: inset -5px -5px $color;
@@ -39,6 +40,20 @@
         @import 'blueprints/index.scss';
         @import 'blueprints/entry.scss';
         @import 'blueprints/api.scss';
+
+    }
+
+
+    img {
+
+        @extend .center;
+        display: flex;
+
+        color: $accent;
+        text-align: center;
+
+        object-fit: contain;
+        background-color: $color;
 
     }
 
