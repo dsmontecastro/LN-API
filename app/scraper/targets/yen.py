@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 
 from ...common.logger import log
 from ...database.models.table import Tables
-from ...database.models.entry import Entry, Media
+from ...database.models.entry import Entry, Media, Person
 
 
 # region : Constants & Classes -------------------------------------------------------------------------------
@@ -47,19 +47,18 @@ class Book(object):
 def _attr(elem: WebElement, attr: str = 'innerText') -> str:
     return elem.get_attribute(attr) or ''
 
-def _getCredits(elems: list[WebElement]) -> list[str]:
+
+def _getCredits(elems: list[WebElement]) -> list[Person]:
     
-    credits = []
+    credits: list[Person] = []
 
     for elem in elems:
-        name = elem.text
-        if name not in credits: credits.append(name)
+        [ position, name ] = elem.text.split(': ')
+        if position == 'Translated by': position = 'Translator'
+        if name not in credits: credits.append(Person(name, position))
         
     return credits
 
-def _getTitle(title: str) -> str:
-    title = re.sub(r'\((.*?)\)', '', title)
-    return title.replace('  ', ' ')
 
 def _getPrice(text: str) -> str:
 
@@ -70,6 +69,11 @@ def _getPrice(text: str) -> str:
     except ValueError: pass
 
     return prices[index]
+
+
+def _getTitle(title: str) -> str:
+    title = re.sub(r'\((.*?)\)', '', title)
+    return title.replace('  ', ' ')
 
 # endregion --------------------------------------------------------------------------------------------------
 
@@ -114,7 +118,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
                 # Check if FORMAT is some book (Novel/Audio)
                 format = page.find_element(CSS, 'span.upper').text
-                if format.lower() == 'audio' or format.lower() == 'novels':
+                if (format.lower() == 'audio' or format.lower() == 'novels') and len(urls) < limit:
 
                     # Check if Book Page URL is valid
                     url = _attr(page, 'href')
@@ -165,7 +169,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
                 # Heading Elements
                 title = heading.find_element(CSS, 'h1.heading').text
-                names = heading.find_elements(CSS, 'div.story-details > p > span')
+                names = heading.find_elements(CSS, 'div.story-details > p')
                 credits = _getCredits(names)
 
                 # Detail Elements

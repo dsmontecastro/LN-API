@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
 from ...common.logger import log
 from ...database.models.table import Tables
-from ...database.models.entry import Entry, Media
+from ...database.models.entry import Entry, Media, Person
 
 
 # region : Constants -----------------------------------------------------------------------------------------
@@ -29,10 +29,25 @@ class MODE(Enum):
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
+def _getCrew(par: str) -> list[Person]:
+
+    people: list[Person] = []
+    items = par.split('\n')
+
+    for item in items:
+        [ position, name ] = item.split(': ')
+        people.append(Person(name, position))
+
+    return people
+
+
 def _getTitle(title: str, format: str) -> str:
     return title.replace(f' ({format})', '')
 
-def _getMedia(info: list[str], format: str) -> Media:
+
+def _getMedia(par: str, format: str) -> Media:
+
+    info = par.replace('\n', ': ').split(': ')
 
     price_index = info.index('Price') + 1
     isbn_index = info.index('ISBN') + 1
@@ -42,9 +57,6 @@ def _getMedia(info: list[str], format: str) -> Media:
         isbn = info[isbn_index],
         price = info[price_index]
     )
-
-def _parsePar(info: str) -> list[str]:
-    return info.replace('\n', ': ').split(': ')
 
 # endregion --------------------------------------------------------------------------------------------------
 
@@ -129,25 +141,24 @@ def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
                 except TimeoutException:
 
                     page = driver.find_element(CSS, 'div.container > div#content > div')
+                    meta = page.find_elements(CSS, 'div#volume-meta > p')
                     cover = page.find_element(CSS, 'div#volume-cover > img')
-                    metas = page.find_element(CSS, 'div#volume-meta')
-
-                    # Meta Elements
-                    pars = metas.find_elements(CSS, 'p')
-                    creators = metas.find_elements(CSS, 'span.creator')
 
                     # Info: Media
-                    info = _parsePar(pars[0].text)
-                    media = _getMedia(info, medium)
+                    media = _getMedia(meta[0].text, medium)
 
-                    # Crew: Credits
-                    crew = _parsePar(pars[1].text)
-                    credits = [ creator.text for creator in creators ]
-                    credits += [ crew[i] for i in range(len(crew)) if i % 2 == 1 ]
+                    # Meta: Blurb
+                    blurb = f'{meta[4].text}\n'
+                    for m in meta[5:]: blurb += m.text
 
+                    # Meta: Credits
+                    credits: list[Person] = []
+                    authors = meta[0].find_elements(CSS, 'span')
+                    credits = [ Person(author.text, 'Story/Art') for author in authors ]
+                    credits += _getCrew(meta[1].text)
 
                     # Finalize Entry
-                    entry.blurb = f'{pars[4].text}\n{pars[5].text}'
+                    entry.blurb = blurb
                     entry.cover = cover.get_attribute('src') or ''
                     entry.credits = credits
                     entry.media = [ media ]

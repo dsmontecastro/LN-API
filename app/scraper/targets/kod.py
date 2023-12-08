@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
 from ...common.logger import log
 from ...database.models.table import Tables
-from ...database.models.entry import Entry, Media
+from ...database.models.entry import Entry, Media, Person
 
 
 # region : Constants -----------------------------------------------------------------------------------------
@@ -41,9 +41,9 @@ class Book(object):
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
-def _getCredits(authors: str) -> list[str]:
+def _getCredits(authors: str) -> list[Person]:
     authors = authors.replace('By ', '~').replace(', ', '~').replace(' and ', '~').strip()
-    return [ author for author in authors.split('~') if author ]
+    return [ Person(author, 'author') for author in authors.split('~') if author ]
 
 def _getDate(date: str) -> str:
     strs = date.replace('on ', '').split(' ')
