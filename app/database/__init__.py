@@ -12,7 +12,7 @@ from .models.entry import Entry, Fields, Opts
 class DB():
 
     db_name = 'ln-api'
-    table_name = 'entries'
+    table_name = 'books'
 
     def __init__(self):
 
