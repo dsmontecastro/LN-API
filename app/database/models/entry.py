@@ -4,6 +4,7 @@ from datetime import datetime, date as Date
 
 from .media import Media
 from .table import Tables
+from .person import Person
 
 class Opts(Enum):
     LIMIT = 'limit'
@@ -44,8 +45,8 @@ class Entry(object):
         cover = '',
         blurb = '',
         genres: list[str] = [],
-        credits: list[str] = [],
         media: list[Media] = [],
+        credits: list[Person] = []
     ):
         self.table: Tables = table
 
@@ -55,10 +56,10 @@ class Entry(object):
         self.cover: str = cover
         self.blurb: str = blurb
 
-        # List of Strings
+        # Lists
         self.genres: list[str] = genres
-        self.credits: list[str] = credits
         self.media: list[Media] = media
+        self.credits: list[Person] = credits
     
         # Requires processing
         self.date = dparse(date).date()
@@ -79,8 +80,10 @@ class Entry(object):
     def json(self):
 
         dict = self.__dict__
-        dict['date'] = self.date.strftime('%Y-%m-%d')
+
         dict['media'] = [ m.json() for m in self.media ]
-        dict['table'] = self.table.value.title
+        dict[Fields.DATE.value] = self.date.strftime('%Y-%m-%d')
+        dict[Fields.TABLE.value] = self.table.value.title
+        dict[Fields.CREDITS.value] = [ person.json() for person in self.credits ]
 
         return dict
