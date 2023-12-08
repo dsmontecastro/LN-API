@@ -4,7 +4,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from ...common.logger import log
 from ...database.models.table import Tables
-from ...database.models.entry import Entry, Media
+from ...database.models.entry import Entry, Media, Person
 
 
 # region : Constants -----------------------------------------------------------------------------------------
@@ -25,9 +25,18 @@ DIGITALS = ['digital', 'audiobook', 'ebook']
 def _td(header: str) -> str:
     return f'td[data-table-header="{header}"]'
 
-def _getCredit(name: str) -> str:
-    credits = [ i.capitalize() for i in name.split(' ') ]
-    return ' '.join(credits[1:])
+
+def _getCredit(name: str) -> Person:
+
+    strings = [ i.capitalize() for i in name.split(' ') ]
+
+    position = strings[0]
+    if position.lower() == 'by': position = 'Author'
+
+    name = ' '.join(strings[1:])
+
+    return Person(name, position)
+
 
 def _getPrice(text: str, format: str = 'digital') -> str:
 

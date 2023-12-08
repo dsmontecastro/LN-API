@@ -7,7 +7,7 @@ from selenium.common.exceptions import WebDriverException
 
 from ...common.logger import log
 from ...database.models.table import Tables
-from ...database.models.entry import Entry, Media
+from ...database.models.entry import Entry, Media, Person
 
 
 # region : Constants & Classes -------------------------------------------------------------------------------
@@ -15,6 +15,7 @@ from ...database.models.entry import Entry, Media
 TABLE = Tables.JNC
 URL = 'https://j-novel.club/calendar?type=novel'
 CSS = BY.CSS_SELECTOR
+PTH = BY.XPATH
 
 class Book(object):
 
@@ -83,24 +84,38 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                 # Primary Sections
                 title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {book.volume}'
                 main = driver.find_element(CSS, 'div.f1vdb00x.novel > div > div.f1k2es0r')
-                side = driver.find_elements(CSS, 'div.fcoxyrb > div.aside-buttons')
+                side = driver.find_element(CSS, 'div.fcoxyrb')
 
                 # Main Elements
                 date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
                 cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
                 blurb = main.find_element(CSS, 'p').text
 
-                # Side: Credits
-                credits: list[str] = []
-                for aside in side[:-1]:
-                    credit = aside.find_element(CSS, 'a > div > div.text').text
-                    credits.append(credit)
-
                 # Side: Genres
                 genres: list[str] = []
-                for tag in side[-1].find_elements(CSS, 'a')[1:]:
+                tags = side.find_elements(CSS, 'div.aside-buttons')[-1]
+                for tag in tags.find_elements(CSS, 'a'):
                     genre = tag.find_element(CSS, 'div > div.text').text
                     genres.append(string.capwords(genre))
+
+                # Side: Credits
+                credits: list[Person] = []
+                people = side.find_elements(CSS, 'div.f3gc1kc')[:-1]
+                for person in people:
+            
+                    position: str = person.find_element(CSS, 'div > h3').text
+                    credit = person
+
+                    while True:
+                        
+                        credit = credit.find_element(PTH, 'following-sibling::div')
+                        cls = credit.get_attribute('class')
+
+                        if cls == 'aside-buttons':
+                            name = credit.find_element(CSS, 'a > div > div.text').text
+                            credits.append(Person(name, position))
+
+                        else: break
 
 
                 # Finalize Entry
