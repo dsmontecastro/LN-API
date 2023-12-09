@@ -29,23 +29,30 @@ class MODE(Enum):
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
-def _getCrew(par: str) -> list[Person]:
+def __error__(e: Exception, link: str = ''):
+    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
+    if link: log.exception(f'Link: {link}')
+
+
+def __getCrew(par: str) -> list[Person]:
 
     people: list[Person] = []
-    items = par.split('\n')
 
-    for item in items:
-        [ position, name ] = item.split(': ')
-        people.append(Person(name, position))
+    if par:
+        items = par.split('\n')
+
+        for item in items:
+            [ position, name ] = item.split(': ')
+            people.append(Person(name, position))
 
     return people
 
 
-def _getTitle(title: str, format: str) -> str:
+def __getTitle(title: str, format: str) -> str:
     return title.replace(f' ({format})', '')
 
 
-def _getMedia(par: str, format: str) -> Media:
+def __getMedia(par: str, format: str) -> Media:
 
     info = par.replace('\n', ': ').split(': ')
 
@@ -66,28 +73,30 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     entries: list[Entry] = []
 
-    try: entries += _scrape(driver, limit, MODE.DIGITAL)
+    try: entries += __preprocess(driver, limit, MODE.DIGITAL)
     except TimeoutException:
         log.exception('Error: SEA.DIGITAL has failed.')
 
-    try: entries += _scrape(driver, limit, MODE.PHYSICAL)
+    try: entries += __preprocess(driver, limit, MODE.PHYSICAL)
     except TimeoutException:
         log.exception('Error: SEA.PHYSICAL has failed.')
 
     return entries
 
 
-def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
+def __preprocess(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
 
     # Load Page
     driver.get(URL + mode.value)
-    medium = mode.name.lower()
+    log.debug(f'> {TABLE}')
+
 
     # Load all Entries
     main = driver.find_element(CSS, 'table#releasedates > tbody')
 
+
     # Entry Pre-processing
-    entries: list[Entry] = []
+    books: list[Entry] = []
     items: list[WebElement] = main.find_elements(CSS, 'tr#volumes')
     for item in items[:limit]:
 
@@ -99,38 +108,46 @@ def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
             series = cols[1].find_element(CSS, 'a')
             url = series.get_attribute('href')
 
-            # Check if URL exists and Format is Light/Novel
+            # Check if URL exists and Format is a Light/Novel
             if url and 'novel' in format.lower():
-                entries.append(
+                books.append(
                     Entry(
                         url = url,
                         date = cols[0].text,
-                        title = _getTitle(series.text, format),
+                        title = __getTitle(series.text, format),
                         table = TABLE
                     )
                 )
 
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
+        except Exception as e: __error__(e)
  
 
     # Throttle to avoid Google's Bot-Detection
     driver.implicitly_wait(T_SLOW)
 
 
-    # Entry Completion
-    final: list[Entry] = []
-    for entry in entries:
+    medium = mode.name.lower()
+    entries: list[Entry] = []
+    for book in books:
+        entry = __process(driver, medium, book)
+        if entry: entries.append(entry)
+        if len(entries) >= limit: break
+        driver.implicitly_wait(T_SLOW)
 
-        try:
+    return entries
 
-            url = entry.url
 
-            if url: # Check if URL exists
+def __process(driver: WebDriver, medium: str, entry: Entry) -> Entry | None:
+
+        url = entry.url
+
+        if url: # Check if URL exists
+
+            try:
 
                 # Go to Book Page
                 driver.get(URL + url)
+                log.debug(f'>> {driver.current_url:.50s}')
 
                 # Check if Book Page leads to a 404
                 try: Waiter(driver, timeout = T_FAST).until(
@@ -141,21 +158,25 @@ def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
                 except TimeoutException:
 
                     page = driver.find_element(CSS, 'div.container > div#content > div')
-                    meta = page.find_elements(CSS, 'div#volume-meta > p')
                     cover = page.find_element(CSS, 'div#volume-cover > img')
+                    meta = page.find_elements(CSS, 'div#volume-meta > p')
+                    metas = len(meta)
 
                     # Info: Media
-                    media = _getMedia(meta[0].text, medium)
+                    media = __getMedia(meta[0].text, medium)
 
                     # Meta: Blurb
-                    blurb = f'{meta[4].text}\n'
-                    for m in meta[5:]: blurb += m.text
+                    blurb = ''
+                    if metas > 4: blurb = f'{meta[4].text}\n'
+                    if metas > 5:
+                        for m in meta[5:]:
+                            blurb += m.text
 
                     # Meta: Credits
                     credits: list[Person] = []
                     authors = meta[0].find_elements(CSS, 'span')
                     credits = [ Person(author.text, 'Story/Art') for author in authors ]
-                    credits += _getCrew(meta[1].text)
+                    credits += __getCrew(meta[1].text)
 
                     # Finalize Entry
                     entry.blurb = blurb
@@ -163,12 +184,6 @@ def _scrape(driver: WebDriver, limit: int, mode: MODE) -> list[Entry]:
                     entry.credits = credits
                     entry.media = [ media ]
 
-                    final.append(entry)
-                
-            driver.implicitly_wait(T_SLOW)
+                    return entry
 
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
-
-    return final
+            except Exception as e:  __error__(e, url)

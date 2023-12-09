@@ -1,4 +1,5 @@
 import re
+from typing import Callable
 
 from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -44,6 +45,11 @@ class Book(object):
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
+def __error__(e: Exception, link: str = ''):
+    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
+    if link: log.exception(f'Link: {link}')
+
+
 def _attr(elem: WebElement, attr: str = 'innerText') -> str:
     return elem.get_attribute(attr) or ''
 
@@ -81,11 +87,14 @@ def _getTitle(title: str) -> str:
 
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
-    # Load Page
+    log.debug(f'> {TABLE}')
+
+    # Load Page & Root Elements
     driver.get(URL)
     body = driver.find_element(CSS, 'div.calendar-wrapper')
-    calendar = body.find_element(CSS, 'div.calendar-slider')
     heading = driver.find_element(CSS, 'div.releases-heading')
+    calendar = body.find_element(CSS, 'div.calendar-slider')
+
 
     def sleep(time = WAIT):
         try: Waiter(driver, time, time).until(lambda _: False)
@@ -118,7 +127,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
                 # Check if FORMAT is some book (Novel/Audio)
                 format = page.find_element(CSS, 'span.upper').text
-                if (format.lower() == 'audio' or format.lower() == 'novels') and len(urls) < limit:
+                if (format.lower() == 'audio' or format.lower() == 'novels'):
 
                     # Check if Book Page URL is valid
                     url = _attr(page, 'href')
@@ -146,18 +155,25 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
         
             i += 1
 
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
+        except Exception as e: __error__(e)
 
 
     # Process all Book Pages
     entries: list[Entry] = []
-    for url in list(urls)[:3]:
+    for url in urls:
+        entry = __process(driver, sleep, url)
+        if entry: entries.append(entry)
+        if len(entries) >= limit: break
+
+    return entries
+
+
+def __process(driver: WebDriver, sleep: Callable, url: str) -> Entry | None:
 
         try:
 
             driver.get(url)
+            log.debug(f'>> {driver.current_url:.50s}')
 
             if not driver.title.lower().startswith('page not found'):
 
@@ -201,6 +217,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                 # Mixed: Media
                 media: list[Media] = []
                 for i in range(len(formats)):
+
                     try:
                         media.append(
                             Media(
@@ -213,23 +230,16 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                     except (IndexError, NoSuchElementException): continue
 
 
-                entries.append(
-                    Entry(
-                        url = url,
-                        date = date,
-                        title = _getTitle(title),
-                        cover = cover,
-                        blurb = blurb,
-                        genres = genres,
-                        credits = credits,
-                        media = media,
-                        table = TABLE
-                    )
+                return Entry(
+                    url = url,
+                    date = date,
+                    title = _getTitle(title),
+                    cover = cover,
+                    blurb = blurb,
+                    genres = genres,
+                    credits = credits,
+                    media = media,
+                    table = TABLE
                 )
 
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
-
-
-    return entries
+        except Exception as e:  __error__(e, url)
