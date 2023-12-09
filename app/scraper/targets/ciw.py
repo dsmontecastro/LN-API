@@ -22,11 +22,16 @@ DIGITALS = ['digital', 'audiobook', 'ebook']
 
 # region : Helper Functions ----------------------------------------------------------------------------------
 
-def _td(header: str) -> str:
+def __error__(e: Exception, link: str = ''):
+    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
+    if link: log.exception(f'Link: {link}')
+
+
+def __td(header: str) -> str:
     return f'td[data-table-header="{header}"]'
 
 
-def _getCredit(name: str) -> Person:
+def __getCredit(name: str) -> Person:
 
     strings = [ i.capitalize() for i in name.split(' ') ]
 
@@ -38,7 +43,7 @@ def _getCredit(name: str) -> Person:
     return Person(name, position)
 
 
-def _getPrice(text: str, format: str = 'digital') -> str:
+def __getPrice(text: str, format: str = 'digital') -> str:
 
     prices = text.replace('&', ' ').split(' ')[1:]
 
@@ -57,10 +62,11 @@ def _getPrice(text: str, format: str = 'digital') -> str:
 
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
+    log.debug(f'> {TABLE}')
+
     # Load & Expand Calendar
     driver.get(URL)
     driver.find_element(CSS, 'option[value="100"]').click()
-
 
     # Process all Calendar Items into Books
     books: list[Entry] = []
@@ -75,8 +81,8 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
             if url: # If URL for Book Page is valid
         
-                isbn = item.find_element(CSS, _td('ISBN')).text
-                format = item.find_element(CSS, _td('Format')).text
+                isbn = item.find_element(CSS, __td('ISBN')).text
+                format = item.find_element(CSS, __td('Format')).text
 
                 # Get following from Calendar Page
                 books.append(
@@ -84,56 +90,62 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                         table = TABLE,
                         url = url,
                         title = head.text,
-                        date = item.find_element(CSS, _td('Date')).text,
-                        genres = item.find_element(CSS, _td('Genre')).text.split(', '),
+                        date = item.find_element(CSS, __td('Date')).text,
+                        genres = item.find_element(CSS, __td('Genre')).text.split(', '),
                         media = [ Media(format, isbn, '') ],
                     )
                 )
 
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
+        except Exception as e: __error__(e)
 
 
-    # Process all found Books into Entries
+    # Process all Books into Entries
     entries: list[Entry] = []
     for book in books:
-
-        try:
-
-            # Go to Book Page
-            driver.get(book.url)
-
-            info = driver.find_element(CSS, 'div.col-sm-4')
-            about = driver.find_element(CSS, 'div.col-sm-6')
-            image = driver.find_element(CSS, 'img.img-responsive.pull-left')
-
-            # Info: Price
-            prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
-            price = _getPrice(prices, book.media[0].format)
-
-            # About: Blurb
-            blurb: str = ''
-            for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
-
-            # About: Credits
-            headings = about.find_elements(CSS, ':not(p):not(strong)')
-            credits = [ _getCredit(heading.text) for heading in headings ]
-
-            # Image: Cover
-            cover = str(image.get_attribute('src'))
-
-
-            # Finalize Entry
-            book.blurb = blurb
-            book.cover = cover
-            book.credits = credits
-            book.media[0].price = price
-            entries.append(book)
-
-        except Exception as e:
-            log.exception('Error: Failed to process item.')
-            log.exception(f'Message: {e}')
-
-
+        entry = __process(driver, book)
+        if entry: entries.append(entry)
+        if len(entries) >= limit: break
+    
     return entries
+
+
+def __process(driver: WebDriver, entry: Entry) -> Entry | None:
+        
+        url = entry.url
+
+        if url:
+
+            try:
+
+                # Go to Book Page
+                driver.get(url)
+                log.debug(f'>> {driver.current_url:.50s}')
+
+                info = driver.find_element(CSS, 'div.col-sm-4')
+                about = driver.find_element(CSS, 'div.col-sm-6')
+                image = driver.find_element(CSS, 'img.img-responsive.pull-left')
+
+                # Info: Price
+                prices = info.find_elements(CSS, 'p')[-1].text.splitlines()[-1]
+                price = __getPrice(prices, entry.media[0].format)
+
+                # About: Blurb
+                blurb: str = ''
+                for p in about.find_elements(CSS, 'p'): blurb += p.text + '\n'
+
+                # About: Credits
+                headings = about.find_elements(CSS, ':not(p):not(strong)')
+                credits = [ __getCredit(heading.text) for heading in headings ]
+
+                # Image: Cover
+                cover = str(image.get_attribute('src'))
+
+                # Finalize Entry
+                entry.blurb = blurb
+                entry.cover = cover
+                entry.credits = credits
+                entry.media[0].price = price
+            
+                return entry
+
+            except Exception as e: __error__(e)
