@@ -1,9 +1,10 @@
 import string
 
 from selenium.webdriver.common.by import By as BY
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.support.wait import WebDriverWait as Waiter
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -28,12 +29,17 @@ class Book(object):
     def __str__(self):
         return f'{self.volume}:  @{self.url} [{self.format}]'
 
+# endregion --------------------------------------------------------------------------------------------------
+
+
+# region : Helper Functions ----------------------------------------------------------------------------------
 
 def __error__(e: Exception, link: str = ''):
     log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
     if link: log.exception(f'Link: {link}')
 
 # endregion --------------------------------------------------------------------------------------------------
+
 
 
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
@@ -43,12 +49,23 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
     # Load Page
     driver.get(URL)
     body = driver.find_element(CSS, 'div.f1owoso1')
-    button = body.find_elements(CSS, 'div.f1bj9jk4')[-1]
+
+
+    def sleep(time = 3):
+        try: Waiter(driver, time, time).until(lambda _: False)
+        except TimeoutException: pass
+
 
     # Load in all Items
     while True:
-        try: button.click()
-        except WebDriverException: break
+
+        button = body.find_element(PTH, 'div[last()]')
+        text = button.find_element(CSS, 'div.text').text
+
+        if 'later' in text.lower():
+            button.click()
+            sleep()
+        else: break
 
 
     # Retrieve all Items
@@ -59,7 +76,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
         try: 
 
             url = item.get_attribute('href')
-            volume = item.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text
+            volume = item.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text.lower()
             format = item.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
 
             # Create Item only if:
@@ -89,6 +106,7 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
         if url:
 
             format = book.format
+            volume = book.volume
 
             try:
 
@@ -100,13 +118,20 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
 
                     # Primary Sections
                     title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {book.volume}'
-                    main = driver.find_element(CSS, 'div.f1vdb00x.novel > div > div.f1k2es0r')
                     side = driver.find_element(CSS, 'div.fcoxyrb')
 
+                    # Finding Main
+                    anchors = driver.find_elements(CSS, 'div.f1vdb00x.novel h2 > a')
+                    volumes: list[WebElement] = list(filter(lambda a: volume in a.text.lower(), anchors))
+
+                    if not volumes: return None
+                    main = volumes[0].find_element(PTH, 'ancestor::div[@class="f1k2es0r"]')
+
+
                     # Main Elements
-                    date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
-                    cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
                     blurb = main.find_element(CSS, 'p').text
+                    cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
+                    date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
 
                     # Side: Genres
                     genres: list[str] = []
