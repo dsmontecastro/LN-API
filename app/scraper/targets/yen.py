@@ -1,12 +1,10 @@
 import re
-from typing import Callable
 
-from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait as Waiter
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+
+from ._common import CSS, PTH, T_FAST, T_POLL, error, sleep, wait_for
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -17,18 +15,15 @@ from ...database.models.entry import Entry, Media, Person
 
 TABLE = Tables.YEN
 URL = 'https://yenpress.com/calendar'
-CSS = BY.CSS_SELECTOR
-PTH = BY.XPATH
 
 # Selenium Shortcuts
-POLL = 5
-WAIT = 10
 MONTHS = 3
 SCROLL_UP = 'window.scrollTo(0,0)'
 SCROLL_DOWN = 'window.scrollTo(0,document.body.scrollHeight)'
 
 # CSS Shortcuts
 ACTIVE = 'div.calendar-slider > div.swiper-wrapper > div.calendar-dates.active'
+
 
 class Book(object):
 
@@ -44,11 +39,6 @@ class Book(object):
 
 
 # region : Helper Functions ----------------------------------------------------------------------------------
-
-def __error__(e: Exception, link: str = ''):
-    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
-    if link: log.exception(f'Link: {link}')
-
 
 def _attr(elem: WebElement, attr: str = 'innerText') -> str:
     return elem.get_attribute(attr) or ''
@@ -95,80 +85,71 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
     heading = driver.find_element(CSS, 'div.releases-heading')
     calendar = body.find_element(CSS, 'div.calendar-slider')
 
-
-    def sleep(time = WAIT):
-        try: Waiter(driver, time, time).until(lambda _: False)
-        except TimeoutException: pass
-
-
-    # Process the next <MONTHS> months' Book Pages
-    month: WebElement = Waiter(calendar, WAIT, POLL).until(
-        EC.visibility_of_element_located((CSS, ACTIVE))
-    )
-
-
-    i = 0
+    # Process the next <MONTHS> amount of months' Book Pages
+    month = wait_for(calendar, CSS, ACTIVE)
     urls: set[str] = set()
+    i = 0
+
     while i < MONTHS:
 
-        try:
+        # Scroll to MONTH button
+        driver.execute_script('arguments[0].scrollIntoView();', heading)
+        sleep(driver, T_POLL)
 
-            # Scroll-To and Click MONTH button
-            driver.execute_script('arguments[0].scrollIntoView();', heading)
-            sleep(5)
-            month.click()
+        # Click MONTH button, if exists
+        if month: month.click()
+        else: break
 
-            # Scroll-Down to load all Pages
-            driver.execute_script(SCROLL_DOWN)
-            sleep(10)
+        # Scroll-Down to load all Pages
+        driver.execute_script(SCROLL_DOWN)
+        sleep(driver, T_FAST)
 
-            # Get all Book Page URLs
-            for page in driver.find_elements(CSS, 'div.releases-append > div.book-section > div > a'):
 
-                # Check if FORMAT is some book (Novel/Audio)
-                format = page.find_element(CSS, 'span.upper').text
-                if (format.lower() == 'audio' or format.lower() == 'novels'):
+        # Get all Book Page URLs
+        for page in driver.find_elements(CSS, 'div.releases-append > div.book-section > div > a'):
 
-                    # Check if Book Page URL is valid
-                    url = _attr(page, 'href')
-                    if url:
-                        urls.add(url)
-                        i = MONTHS
+            # Check if FORMAT is some book (Novel/Audio)
+            format = page.find_element(CSS, 'span.upper').text
+            if (format.lower() == 'audio' or format.lower() == 'novels'):
 
-            # Move to next month
-            while True:
+                # Check if Book Page URL is valid
+                url = _attr(page, 'href')
+                if url:
+                    urls.add(url)
+                    i = MONTHS
 
-                try:
+        # Move to next month
+        while True:
 
-                    # Find remaining Months excluding current/active
-                    months = calendar.find_elements(CSS, f'{ACTIVE} ~ div')
+            try:
 
-                    if len(months) > 0: month = months[0]   # Get next existing Month
-                    else: i = MONTHS                        # Break Outer-Loop
-                    break                                   # Break Inner-Loop
+                # Find remaining Months excluding current/active
+                months = calendar.find_elements(CSS, f'{ACTIVE} ~ div')
 
-                # Refresh stale HTML elements
-                except StaleElementReferenceException:
-                    body = driver.find_element(CSS, 'div.calendar-wrapper')
-                    calendar = body.find_element(CSS, 'div.calendar-slider')
-                    heading = driver.find_element(CSS, 'div.releases-heading')
-        
-            i += 1
+                if len(months) > 0: month = months[0]   # Go to next existing Month
+                else: i = MONTHS                                    # Break Outer-Loop
+                break                                               # Break Inner-Loop
 
-        except Exception as e: __error__(e)
+            # Refresh stale HTML elements
+            except StaleElementReferenceException:
+                body = driver.find_element(CSS, 'div.calendar-wrapper')
+                calendar = body.find_element(CSS, 'div.calendar-slider')
+                heading = driver.find_element(CSS, 'div.releases-heading')
+    
+        i += 1
 
 
     # Process all Book Pages
     entries: list[Entry] = []
     for url in urls:
-        entry = __process(driver, sleep, url)
+        entry = __process(driver, url)
         if entry: entries.append(entry)
         if len(entries) >= limit: break
 
     return entries
 
 
-def __process(driver: WebDriver, sleep: Callable, url: str) -> Entry | None:
+def __process(driver: WebDriver, url: str) -> Entry | None:
 
         try:
 
@@ -177,7 +158,7 @@ def __process(driver: WebDriver, sleep: Callable, url: str) -> Entry | None:
 
             if not driver.title.lower().startswith('page not found'):
 
-                sleep(10)
+                sleep(driver, T_FAST)
 
                 page = driver.find_element(CSS, 'div.books-page')
                 info = page.find_element(CSS, 'section.book-cover > div.content-heading > div.book-info')
@@ -242,4 +223,4 @@ def __process(driver: WebDriver, sleep: Callable, url: str) -> Entry | None:
                     table = TABLE
                 )
 
-        except Exception as e:  __error__(e, url)
+        except Exception as e:  error(e, url)

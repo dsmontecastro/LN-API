@@ -1,10 +1,10 @@
 import string
 
-from selenium.webdriver.common.by import By as BY
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait as Waiter
+from selenium.common.exceptions import NoSuchElementException
+
+from ._common import CSS, PTH, error, sleep
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -15,9 +15,6 @@ from ...database.models.entry import Entry, Media, Person
 
 TABLE = Tables.JNC
 URL = 'https://j-novel.club/calendar?type=novel'
-CSS = BY.CSS_SELECTOR
-PTH = BY.XPATH
-
 
 class Book(object):
 
@@ -32,15 +29,6 @@ class Book(object):
 # endregion --------------------------------------------------------------------------------------------------
 
 
-# region : Helper Functions ----------------------------------------------------------------------------------
-
-def __error__(e: Exception, link: str = ''):
-    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
-    if link: log.exception(f'Link: {link}')
-
-# endregion --------------------------------------------------------------------------------------------------
-
-
 
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
@@ -50,12 +38,6 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
     driver.get(URL)
     body = driver.find_element(CSS, 'div.f1owoso1')
 
-
-    def sleep(time = 3):
-        try: Waiter(driver, time, time).until(lambda _: False)
-        except TimeoutException: pass
-
-
     # Load in all Items
     while True:
 
@@ -64,7 +46,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
         if 'later' in text.lower():
             button.click()
-            sleep()
+            sleep(driver)
         else: break
 
 
@@ -86,7 +68,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
             if url and 'part' not in format.lower():
                 books.append(Book(url, format, volume))
 
-        except Exception as e: __error__(e)
+        except Exception as e: error(e)
 
 
     # Process all Books into Entries
@@ -124,18 +106,17 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
                     anchors = driver.find_elements(CSS, 'div.f1vdb00x.novel h2 > a')
                     anchors = list(filter(lambda a: volume in a.text.lower(), anchors))
 
-                    log.debug(f'>> Anchors: {len(anchors)}')
-                    [ log.debug(f'>>> Text: {volume.text}') for volume in anchors ]
-
-                    if not anchors: return None
-                    main = anchors[0].find_elements(PTH, './ancestor::div[@class="f1k2es0r"]')[-1]
+                    
+                    # Check if Main exists
+                    if not anchors: raise NoSuchElementException
+                    ancestors = anchors[0].find_elements(PTH, './ancestor::div[@class="f1k2es0r"]')
+                    main = ancestors[-1]
 
 
                     # Main Elements
                     blurb = main.find_element(CSS, 'p').text
                     cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
                     date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
-                    log.debug(f'>> Date: {date}')
 
                     # Side: Genres
                     genres: list[str] = []
@@ -177,4 +158,4 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
                         table = TABLE
                     )
 
-            except Exception as e:  __error__(e, url)
+            except Exception as e:  error(e, url)
