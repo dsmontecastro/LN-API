@@ -68,7 +68,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
         else: break
 
 
-    # Retrieve all Items
+    # Retrieve all Books
     books: list[Book] = []
     items: list[WebElement] = body.find_elements(CSS, 'div.fhkbwa > a')
     for item in items:
@@ -122,16 +122,20 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
 
                     # Finding Main
                     anchors = driver.find_elements(CSS, 'div.f1vdb00x.novel h2 > a')
-                    volumes: list[WebElement] = list(filter(lambda a: volume in a.text.lower(), anchors))
+                    anchors = list(filter(lambda a: volume in a.text.lower(), anchors))
 
-                    if not volumes: return None
-                    main = volumes[0].find_element(PTH, 'ancestor::div[@class="f1k2es0r"]')
+                    log.debug(f'>> Anchors: {len(anchors)}')
+                    [ log.debug(f'>>> Text: {volume.text}') for volume in anchors ]
+
+                    if not anchors: return None
+                    main = anchors[0].find_elements(PTH, './ancestor::div[@class="f1k2es0r"]')[-1]
 
 
                     # Main Elements
                     blurb = main.find_element(CSS, 'p').text
                     cover = main.find_element(CSS, 'div.fz7z7g5 > img').get_attribute('src') or ''
                     date = main.find_element(CSS, f'div.f1ijq7jq > div.color-{format.lower()} > div.text').text
+                    log.debug(f'>> Date: {date}')
 
                     # Side: Genres
                     genres: list[str] = []
