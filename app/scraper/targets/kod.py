@@ -1,11 +1,9 @@
 import string
 
-from selenium.webdriver.common.by import By as BY
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait as Waiter
+
+from ._common import CSS, PTH, T_SLOW, error, wait_for, wait_many
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -16,11 +14,6 @@ from ...database.models.entry import Entry, Media, Person
 
 TABLE = Tables.KOD
 URL = 'https://kodansha.us/calendar?type=book'
-CSS = BY.CSS_SELECTOR
-PTH = BY.XPATH
-
-SLOW = 15
-FAST = 5
 
 # CSS Shortcuts
 DATE = 'div.rc-daily-calendar-sticky span.rc-daily-calendar-day-text'
@@ -40,11 +33,6 @@ class Book(object):
 
 
 # region : Helper Functions ----------------------------------------------------------------------------------
-
-def __error__(e: Exception, link: str = ''):
-    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
-    if link: log.exception(f'Link: {link}')
-
 
 def _getCredits(authors: str) -> list[Person]:
     authors = authors.replace('By ', '~').replace(', ', '~').replace(' and ', '~').strip()
@@ -86,17 +74,16 @@ def _addMedia(elem: WebElement, date: str, media: list[Media]):
 # endregion --------------------------------------------------------------------------------------------------
 
 
+
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
     log.debug(f'> {TABLE}')
 
     # Load Book URLs & Retrieve all Release Days
     driver.get(URL)
-    wait = Waiter(driver, timeout = SLOW)
-    wait.until(EC.visibility_of_element_located((CSS, 'div.rc-calendar-item-wrapper')))
-    days: list[WebElement] = wait.until(
-        EC.visibility_of_all_elements_located((CSS, 'div.rc-daily-calendar-container'))
-    )
+    test = wait_for(driver, CSS, 'div.rc-calendar-item-wrapper')
+    days = wait_many(driver, CSS, 'div.rc-daily-calendar-container')
+
 
     # Retreive all Book URLs from each Release Day
     books: list[Book] = []
@@ -112,20 +99,20 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                 url = str(link.get_attribute('href'))
                 if url: books.append(Book(url, date))
 
-        except Exception as e: __error__(e)
+        except Exception as e: error(e)
 
 
     # Process all Books into Entries
     entries: list[Entry] = []
     for book in books:
-        entry = __process(driver, wait, book)
+        entry = __process(driver, book)
         if entry: entries.append(entry)
         if len(entries) >= limit: break
 
     return entries
 
 
-def __process(driver: WebDriver, wait: Waiter, book: Book) -> Entry | None:
+def __process(driver: WebDriver, book: Book) -> Entry | None:
         
         url = book.url
 
@@ -139,55 +126,50 @@ def __process(driver: WebDriver, wait: Waiter, book: Book) -> Entry | None:
                 log.debug(f'>> {driver.current_url:.50s}')
 
                 # Check if site leads to a 404 Error
-                try: wait.until(
-                    EC.visibility_of_any_elements_located((CSS, 'body > div > div > div > div.not-found'))
+                err = wait_for(driver, CSS, 'body > div > div > div > div.not-found')
+                if err: return
+
+
+                # Find TOP Element, if exists
+                top = wait_for(driver, CSS, 'div.product-name-poster-wrapper')
+                if not top: return
+
+                # Section: Poster
+                poster = top.find_element(CSS, 'div.product-poster-wrapper img')
+                cover = str(poster.get_attribute('src'))
+
+                # Section: Book Info
+                info = top.find_element(CSS, 'div.name-author-wrapper-product')
+                title = _getTitle(info.find_element(CSS, 'h2.product-title').text)
+                blurb = info.find_element(CSS, 'p.series-desktop-header-info-description').text
+                credits = _getCredits(info.find_element(CSS, 'span.series-desktop-header-info-author').text)
+
+
+                # Find BOT Element, if exists
+                bot = wait_for(driver, CSS, 'div.product-desktop-rating-wrapper > div > table > tbody')
+                if not bot: return
+
+                # Section: Tags
+                tags = bot.find_elements(CSS, TAGS)
+                genres = [ _getGenre(tag.text) for tag in tags ]
+
+                # Section: Formats
+                media: list[Media] = []
+                formats = bot.find_elements(CSS, FORMATS)
+                for format in formats: _addMedia(format, date, media)
+
+
+                # Finalize Entry
+                return Entry(
+                    url = url,
+                    date = date,
+                    title = title,
+                    cover = cover,
+                    blurb = blurb,
+                    genres = genres,
+                    credits = credits,
+                    media = media,
+                    table = TABLE
                 )
 
-                # Create ENTRY if valid
-                except TimeoutException:
-
-                    # TOP Elements
-                    top: WebElement = wait.until(
-                        EC.visibility_of_element_located((CSS, 'div.product-name-poster-wrapper'))
-                    )
-
-                    # Section: Poster
-                    poster = top.find_element(CSS, 'div.product-poster-wrapper img')
-                    cover = str(poster.get_attribute('src'))
-
-                    # Section: Book Info
-                    info = top.find_element(CSS, 'div.name-author-wrapper-product')
-                    title = _getTitle(info.find_element(CSS, 'h2.product-title').text)
-                    blurb = info.find_element(CSS, 'p.series-desktop-header-info-description').text
-                    credits = _getCredits(info.find_element(CSS, 'span.series-desktop-header-info-author').text)
-
-
-                    # BOT Elements
-                    bot: WebElement = wait.until(
-                        EC.visibility_of_element_located((CSS, 'div.product-desktop-rating-wrapper > div > table > tbody'))
-                    )
-
-                    # Section: Tags
-                    tags = bot.find_elements(CSS, TAGS)
-                    genres = [ _getGenre(tag.text) for tag in tags ]
-
-                    # Section: Formats
-                    media: list[Media] = []
-                    formats = bot.find_elements(CSS, FORMATS)
-                    for format in formats: _addMedia(format, date, media)
-
-
-                    # Finalize Entry
-                    return Entry(
-                        url = url,
-                        date = date,
-                        title = title,
-                        cover = cover,
-                        blurb = blurb,
-                        genres = genres,
-                        credits = credits,
-                        media = media,
-                        table = TABLE
-                    )
-
-            except Exception as e:  __error__(e, url)
+            except Exception as e:  error(e, url)

@@ -1,6 +1,7 @@
-from selenium.webdriver.common.by import By as BY
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
+
+from ._common import CSS, error
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -11,21 +12,13 @@ from ...database.models.entry import Entry, Media, Person
 
 TABLE = Tables.CIW
 URL = 'https://crossinfworld.com/Calendar.html'
-CSS = BY.CSS_SELECTOR
 
-# CSS Shortcuts
-WAIT = 10
 DIGITALS = ['digital', 'audiobook', 'ebook']
 
 # endregion --------------------------------------------------------------------------------------------------
 
 
 # region : Helper Functions ----------------------------------------------------------------------------------
-
-def __error__(e: Exception, link: str = ''):
-    log.exception(f'Error [{e.__class__.__name__}]: Failed to process item.')
-    if link: log.exception(f'Link: {link}')
-
 
 def __td(header: str) -> str:
     return f'td[data-table-header="{header}"]'
@@ -58,6 +51,7 @@ def __getPrice(text: str, format: str = 'digital') -> str:
     return prices[1]
 
 # endregion --------------------------------------------------------------------------------------------------
+
 
 
 def scrape(driver: WebDriver, limit: int) -> list[Entry]:
@@ -96,7 +90,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
                     )
                 )
 
-        except Exception as e: __error__(e)
+        except Exception as e: error(e)
 
 
     # Process all Books into Entries
@@ -121,6 +115,7 @@ def __process(driver: WebDriver, entry: Entry) -> Entry | None:
                 driver.get(url)
                 log.debug(f'>> {driver.current_url:.50s}')
 
+                # Primary Sections
                 info = driver.find_element(CSS, 'div.col-sm-4')
                 about = driver.find_element(CSS, 'div.col-sm-6')
                 image = driver.find_element(CSS, 'img.img-responsive.pull-left')
@@ -148,4 +143,4 @@ def __process(driver: WebDriver, entry: Entry) -> Entry | None:
             
                 return entry
 
-            except Exception as e: __error__(e)
+            except Exception as e: error(e)
