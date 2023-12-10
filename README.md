@@ -1,10 +1,8 @@
 TO-DO:
 
-* Finish ENTRY template
+* Isolate Common-Function from Scrapers
 
-* Scraper:
-  * Split Target-Modules
-  * Improve Error-Handling
+* Finalize Entry-Designs and Details
 
 * Add SHOW JS
   * Search Tags

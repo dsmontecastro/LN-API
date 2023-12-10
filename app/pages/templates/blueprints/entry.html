@@ -13,68 +13,73 @@
 
     <div id='entry-body'>
 
-        <img class='cover' src='{{ entry.cover }}' alt='{{ entry.title }}' />
+
+        <img src='{{ entry.cover }}' alt='{{ entry.title }}' />
+
 
         <div id='info'>
 
-            <div id='text'>
+            <div id='details'>
 
-                <div id='details'>
-
-                    <div id='major'>
-                        <p> Release Date: {{ entry.date }} </p>
-                        <a href='{{ entry.url }}'> Original Site </a>
-                    </div>
-
-                    <div id='credits'>
-                        {% for person in entry.credits %}
-                        <div class='person'>
-                            {{ person }}
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div id='genres'>
-                        {% for genre in entry.genres %}
-                        <div class='genre' href=''>
-                            {{ genre }}
-                        </div>
-                        {% endfor %}
-                    </div>
-
+                <div id='major'>
+                    <p> Release Date: {{ entry.date }} </p>
+                    <a href='{{ entry.url }}'> Original Site </a>
                 </div>
 
-                <div id='blurb'>
-                    {{ entry.blurb }}
+                <div id='credits'>
+                    {% for person in entry.credits %}
+                    <div>
+                        <strong>{{ person.position | capitalize }}:</strong>
+                        <p>{{ person.name }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id='genres'>
+                    {% for genre in entry.genres %}
+                    {% set href = request.root_url + 'api/show/all?genre=' + genre %}
+                    <a class='genre' href='{{ href }}'>
+                        {{ genre | capitalize }}
+                    </a>
+                    {% endfor %}
                 </div>
 
             </div>
 
 
-            <div id='media'>
+            <div id='right'>
 
-                <p> Media: </p>
+                <div id='blurb'>
+                    {{ entry.blurb }}
+                </div>
 
-                <div id='rows'>
+                <div id='media'>
 
-                    {% for m in entry.media %}
+                    <p> Media </p>
 
-                    {% set price = m.price %}
-                    {% if not price %}
-                    {% set price = '$-.-' %}
-                    {% endif %}
+                    <div id='rows'>
 
-                    {% set isbn = m.isbn %}
-                    {% if not isbn %}
-                    {% set isbn = '-' %}
-                    {% endif %}
+                        {% for m in entry.media %}
 
-                    <div class='medium'>
-                        ISBN: {{ isbn }}
-                        <br /> {{ m.format | capitalize }}: {{ price }}
+                        {% set price = m.price %}
+                        {% if not price %}
+                        {% set price = '$-.-' %}
+                        {% endif %}
+
+                        {% set isbn = m.isbn %}
+                        {% if not isbn %}
+                        {% set isbn = '-' %}
+                        {% endif %}
+
+                        <div class='medium'>
+                            {{ m.format | capitalize }}: {{ price }}
+                            <br />
+                            {{ isbn }}
+                        </div>
+
+                        {% endfor %}
+
                     </div>
-
-                    {% endfor %}
 
                 </div>
 
