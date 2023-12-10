@@ -56,11 +56,9 @@ def add_context(app: Flask):
 
     @app.context_processor
     def utility_processor():
-
-        routes = ln_tables
     
         return {
-            'routes': routes,
+            'routes': ln_tables,
             'queries': Fields.queries()
         }
 
