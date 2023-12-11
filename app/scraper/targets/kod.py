@@ -36,7 +36,7 @@ class Book(object):
 
 def _getCredits(authors: str) -> list[Person]:
     authors = authors.replace('By ', '~').replace(', ', '~').replace(' and ', '~').strip()
-    return [ Person(author, 'author') for author in authors.split('~') if author ]
+    return [ Person(author, 'Author') for author in authors.split('~') if author ]
 
 
 def _getDate(date: str) -> str:
@@ -55,21 +55,30 @@ def _getTitle(title: str) -> str:
     return title[:par]
 
 
-def _addMedia(elem: WebElement, date: str, media: list[Media]):
+def _addMedia(elem: WebElement, date: str) -> Media | None:
 
+    medium: Media | None = None
+
+    date = date.replace('.', '')
     rows = elem.find_elements(CSS, F_ROW)
 
-    # Only add to MEDIA if DATES match
+    # Only add to MEDIA if DATEs match
     if date == rows[0].find_element(CSS, f'{VALUE} > {TEXT}').text:
 
-        isbn = rows[-1].find_element(CSS, f'{VALUE} > {TEXT}').text
-        isbn = rows[-1].find_element(CSS, f'{VALUE} > {TEXT}').text
-
+        # Get Format
         format = rows[0].find_element(CSS, f'{TITLE} > {TEXT}').text
         format = format.replace(' Release:', '').lower()
-        if format== 'e-book': format = 'digital'
+        if 'e-book' in format.lower(): format = 'digital'
 
-        media.append(Media( format = format, isbn = isbn, price = ''))
+        # Get ISBN
+        isbn = ''
+        for row in reversed(rows):
+            if 'isbn' in row.find_element(CSS, f'{TITLE} > {TEXT}').text.lower():
+                isbn = row.find_element(CSS, f'{VALUE} > {TEXT}').text
+
+        medium = Media(format, isbn, '')
+
+    return medium
 
 # endregion --------------------------------------------------------------------------------------------------
 
@@ -156,7 +165,9 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
                 # Section: Formats
                 media: list[Media] = []
                 formats = bot.find_elements(CSS, FORMATS)
-                for format in formats: _addMedia(format, date, media)
+                for format in formats:
+                    medium = _addMedia(format, date)
+                    if medium: media.append(medium)
 
 
                 # Finalize Entry
