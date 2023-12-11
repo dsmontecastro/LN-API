@@ -200,10 +200,14 @@ def __process(driver: WebDriver, url: str) -> Entry | None:
                 for i in range(len(formats)):
 
                     try:
+
+                        format = _attr(formats[i]).lower()
+                        if 'hardback' in format: format = 'physical'
+
                         media.append(
                             Media(
+                                format = format,
                                 isbn = _attr(isbns[i]),
-                                format = _attr(formats[i]).lower(),
                                 price = _getPrice(_attr(prices[i])),
                             )
                         )
