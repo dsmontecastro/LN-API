@@ -68,7 +68,8 @@ def _addMedia(elem: WebElement, date: str) -> Media | None:
         # Get Format
         format = rows[0].find_element(CSS, f'{TITLE} > {TEXT}').text
         format = format.replace(' Release:', '').lower()
-        if 'e-book' in format.lower(): format = 'digital'
+        if 'e-book' in format: format = 'digital'
+        if 'print' in format: format = 'physical'
 
         # Get ISBN
         isbn = ''

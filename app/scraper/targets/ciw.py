@@ -76,7 +76,10 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
             if url: # If URL for Book Page is valid
         
                 isbn = item.find_element(CSS, __td('ISBN')).text
-                format = item.find_element(CSS, __td('Format')).text
+                format = item.find_element(CSS, __td('Format')).text.lower()
+
+                if 'audio' in format: format = 'audio'
+                if 'print' in format: format = 'physical'
 
                 # Get following from Calendar Page
                 books.append(
