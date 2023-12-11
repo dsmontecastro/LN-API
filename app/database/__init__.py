@@ -88,6 +88,7 @@ class DB():
 
                 case Fields.CREDITS | Fields.GENRES:
                     values = map(self.__ignore_case, value)
+                    log.debug(f'Test: {list(values)[0]}')
                     query[key] = { '$in': list(values) }
 
 
@@ -96,15 +97,18 @@ class DB():
                     if not field.value in query:
                         query['media'] = { '$elemMatch': {} }
 
+                    finder: dict[str, str] = {}
+
                     if field == Fields.PRICE:
-                        query['media']['$elemMatch'][key] = {
-                            '$lte': value
-                        }
+                        finder = { '$lte': value }
 
                     else:
-                        query['media']['$elemMatch'][key] = {
-                            '$regex': value,  '$options': 'i'
+                        finder = {
+                            '$regex': value,
+                            '$options': 'i'
                         }
+
+                    query['media']['$elemMatch'][key] = finder
 
 
                 case _:

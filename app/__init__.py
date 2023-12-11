@@ -13,8 +13,8 @@ class App:
     
         log.info('Creating app...')
 
-        self._scraper = Scraper(proxy, headless)
-        self._db = DB()
+        self.__scraper = Scraper(proxy, headless)
+        self.__db = DB()
 
         log.info('Application Created!\n')
 
@@ -25,8 +25,8 @@ class App:
 
         log.info(f'Running app on [{table.value.title}]')
 
-        entries = self._scraper.run(table, limit)
-        self._db.add_entries(entries)
+        entries = self.__scraper.run(table, limit)
+        self.__db.add_entries(entries)
     
         log.info('Run finished.\n')
 
@@ -35,11 +35,7 @@ class App:
 
         log.info('Closing app...')
 
-        self._scraper.quit()
-        self._db.quit()
+        self.__scraper.quit()
+        self.__db.quit()
 
         log.info('Application closed.\n')
-
-
-    def test(self, tables: list[Tables]):
-        for table in tables: self.run(table)
