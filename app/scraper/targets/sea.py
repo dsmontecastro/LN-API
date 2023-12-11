@@ -157,7 +157,7 @@ def __process(driver: WebDriver, medium: str, entry: Entry) -> Entry | None:
                 if metas > 4: blurb = f'{meta[4].text}\n'
                 if metas > 5:
                     for m in meta[5:]:
-                        blurb += m.text
+                        blurb += '\n' + m.text
 
                 # Meta: Credits
                 credits: list[Person] = []
