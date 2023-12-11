@@ -74,8 +74,6 @@ $bg: darken($color: $color, $amount: 50%);
                 color: white;
                 font-size: larger;
 
-                list-style-type: none;
-
                 p {
                     margin: 3%;
                 }
@@ -149,7 +147,7 @@ $bg: darken($color: $color, $amount: 50%);
                 @extend .col;
                 @extend .center;
                 flex: 0 1 40%;
-                padding: 2% 0;
+                padding: 3% 0;
                 gap: 5%;
 
                 width: 100%;
@@ -158,9 +156,9 @@ $bg: darken($color: $color, $amount: 50%);
                 background-color: $color;
 
                 p {
-                    flex: 0 0 30%;
                     margin: 0;
-                    font-size: large;
+                    flex: 0 0 30%;
+                    font-size: x-large;
                 }
 
                 #rows {

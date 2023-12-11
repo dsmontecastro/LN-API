@@ -26,22 +26,34 @@
                     <a href='{{ entry.url }}'> Original Site </a>
                 </div>
 
+
                 <div id='credits'>
+
                     {% for person in entry.credits %}
-                    <div>
-                        <strong>{{ person.position | capitalize }}:</strong>
-                        <p>{{ person.name }}</p>
-                    </div>
+
+                    <p>
+                        <b>{{ person.position | capitalize }}:</b>
+                        <br /> {{ person.name }}
+                    </p>
+
                     {% endfor %}
+
                 </div>
 
+
                 <div id='genres'>
+
                     {% for genre in entry.genres %}
-                    {% set href = request.root_url + 'api/show/all?genre=' + genre %}
+
+                    {% set query = genre | lower | replace(' ', '_') %}
+                    {% set href = request.root_url + 'api/show/all?genre=' + query %}
+
                     <a class='genre' href='{{ href }}'>
                         {{ genre | capitalize }}
                     </a>
+
                     {% endfor %}
+
                 </div>
 
             </div>

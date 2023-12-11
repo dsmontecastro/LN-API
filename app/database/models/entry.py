@@ -30,7 +30,7 @@ class Fields(Enum):
             cls.TITLE.value: '{string}',
             cls.CREDITS.value: '{string} (repeatable)',
             cls.GENRES.value: '{string} (repeatable)',
-            cls.FORMAT.value: '{string}',
+            cls.FORMAT.value: '{audio/digital/print}',
             cls.PRICE.value: '${X.X}',
             cls.ISBN.value: '{ISBN-Code}'
         }
