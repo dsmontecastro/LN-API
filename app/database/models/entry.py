@@ -3,47 +3,19 @@ from dateutil.parser import parse as dparse
 from datetime import datetime, date as Date
 
 from .media import Media
+from .field import Fields
 from .table import Tables
 from .person import Person
-
-class Opts(Enum):
-    LIMIT = 'limit'
-    ORDER = 'order'
-    SORT_BY = 'sort_by'
-
-class Fields(Enum):
-
-    DATE = 'date'
-    TABLE = 'table'
-    TITLE = 'title'
-    CREDITS = 'credits'
-    GENRES = 'genres'
-    FORMAT = 'format'
-    PRICE = 'price'
-    ISBN = 'isbn'
-
-    @classmethod
-    def queries(cls):
-        return {
-            cls.TITLE.value: '{string}',
-            cls.DATE.value: '{YYYY-MM-DD} (equal/more than)',
-            cls.TITLE.value: '{string}',
-            cls.CREDITS.value: '{string} (repeatable)',
-            cls.GENRES.value: '{string} (repeatable)',
-            cls.FORMAT.value: '[audio/digital/physical]',
-            cls.PRICE.value: '${X.X} (equal/less than)',
-            cls.ISBN.value: '{ISBN-Code}'
-        }
 
 
 class Entry(object):
 
     def __init__(self, table: Tables,
-        url = '',
-        date = '',
-        title = '',
-        cover = '',
-        blurb = '',
+        url: str = '',
+        date: str = '',
+        title: str = '',
+        cover: str = '',
+        blurb: str = '',
         genres: list[str] = [],
         media: list[Media] = [],
         credits: list[Person] = []
@@ -51,10 +23,10 @@ class Entry(object):
         self.table: Tables = table
 
         # Raw Strings
-        self.url: str = url
-        self.title: str = title
-        self.cover: str = cover
-        self.blurb: str = blurb
+        self.url = url
+        self.title = title
+        self.cover = cover
+        self.blurb = blurb
 
         # Lists
         self.genres: list[str] = genres
