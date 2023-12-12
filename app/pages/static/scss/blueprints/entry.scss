@@ -1,7 +1,7 @@
 $bg: darken($color: $color, $amount: 50%);
 
 
-#entry-body {
+#entry {
 
     @extend .row;
     display: flex;
@@ -10,7 +10,7 @@ $bg: darken($color: $color, $amount: 50%);
 
     width: 100%;
     max-height: 90vh;
-    min-height: 75vh;
+    min-height: 80vh;
 
 
     img {
@@ -19,7 +19,7 @@ $bg: darken($color: $color, $amount: 50%);
 
         width: 100%;
         height: 100%;
-        padding: 1% 0;
+        padding: 1%;
 
         object-fit: contain;
 

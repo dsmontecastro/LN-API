@@ -5,7 +5,7 @@
 {% set URL = request.root_url %}
 
 
-<div id='show' class='main'>
+<div id='main'>
 
     <div id='header'>
 
@@ -14,19 +14,38 @@
     </div>
 
 
-    <div id='grid'>
+    <div id='api' class='content'>
 
-        {% for entry in entries %}
+        <form id='queries'>
 
-        {% set name = entry.title %}
-        {% set href = '/entry/show/' + entry._id | string %}
+            {% for query in queries %}
 
-        <a href='{{ href }}'>
-            <img class='cover' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
-            {{ entry.date }}
-        </a>
+            <label> {{ query | capitalize }} </label>
 
-        {% endfor %}
+            <!-- <input /> -->
+
+            {% endfor %}
+
+            <button type='submit'> Search </button>
+
+        </form>
+
+
+        <div id='grid'>
+
+            {% for entry in entries %}
+
+            {% set name = entry.title %}
+            {% set href = '/entry/show/' + entry._id | string %}
+
+            <a href='{{ href }}'>
+                <img class='cover' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>
+                {{ entry.date }}
+            </a>
+
+            {% endfor %}
+
+        </div>
 
     </div>
 
