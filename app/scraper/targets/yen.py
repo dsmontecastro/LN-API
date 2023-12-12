@@ -4,7 +4,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-from ._common import CSS, PTH, T_FAST, T_POLL, error, sleep, wait_for
+from ._common import CSS, PTH, T_FAST, T_POLL, code_isbn, error, sleep, wait_for
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -109,8 +109,8 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
         for page in driver.find_elements(CSS, 'div.releases-append > div.book-section > div > a'):
 
             # Check if FORMAT is some book (Novel/Audio)
-            format = page.find_element(CSS, 'span.upper').text
-            if (format.lower() == 'audio' or format.lower() == 'novels'):
+            format = page.find_element(CSS, 'span.upper').text.lower()
+            if (format == 'audio' or format == 'novels'):
 
                 # Check if Book Page URL is valid
                 url = _attr(page, 'href')
@@ -202,12 +202,15 @@ def __process(driver: WebDriver, url: str) -> Entry | None:
                     try:
 
                         format = _attr(formats[i]).lower()
-                        if 'hardback' in format: format = 'physical'
+                        if 'back' in format: format = 'physical'
+
+                        isbn = _attr(isbns[i])
+                        isbn = code_isbn(isbn)
 
                         media.append(
                             Media(
+                                isbn = isbn,
                                 format = format,
-                                isbn = _attr(isbns[i]),
                                 price = _getPrice(_attr(prices[i])),
                             )
                         )

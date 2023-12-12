@@ -1,7 +1,7 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from ._common import CSS, error
+from ._common import CSS, code_isbn, error
 
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -75,8 +75,9 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
 
             if url: # If URL for Book Page is valid
         
-                isbn = item.find_element(CSS, __td('ISBN')).text
                 format = item.find_element(CSS, __td('Format')).text.lower()
+                isbn = item.find_element(CSS, __td('ISBN')).text
+                isbn = code_isbn(isbn)
 
                 if 'audio' in format: format = 'audio'
                 if 'print' in format: format = 'physical'
