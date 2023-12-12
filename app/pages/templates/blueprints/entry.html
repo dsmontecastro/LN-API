@@ -6,7 +6,7 @@
 
     <div id='header'>
 
-        {{ entry.title }}
+        {{ entry.title | replace(' vol', ' Vol') }}
 
     </div>
 
@@ -62,7 +62,7 @@
             <div id='right'>
 
                 <div id='blurb'>
-                    {{ entry.blurb }}
+                    {{ entry.blurb | trim }}
                 </div>
 
                 <div id='media'>
@@ -73,9 +73,9 @@
 
                         {% for m in entry.media %}
 
-                        {% set price = m.price %}
-                        {% if not price %}
-                        {% set price = '$-.-' %}
+                        {% set price = m.price | string %}
+                        {% if price == 'NaN' %}
+                        {% set price = '-.-' %}
                         {% endif %}
 
                         {% set isbn = m.isbn %}
@@ -84,7 +84,7 @@
                         {% endif %}
 
                         <div class='medium'>
-                            {{ m.format | capitalize }}: {{ price }}
+                            {{ m.format | capitalize }}: ${{ price }}
                             <br />
                             {{ isbn | upper }}
                         </div>
