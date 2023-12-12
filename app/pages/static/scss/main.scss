@@ -6,7 +6,7 @@
     // font-family: 'Courier New', Courier, monospace;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-    .main {
+    #main {
 
         @extend .col;
         @extend .center;
@@ -36,6 +36,11 @@
 
             box-shadow: inset -5px -5px $color;
 
+        }
+
+        .content {
+            max-height: 90vh;
+            min-height: 80vh;
         }
 
         @import 'blueprints/index.scss';

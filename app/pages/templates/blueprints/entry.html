@@ -2,7 +2,7 @@
 
 {% block main %}
 
-<div id='entry' class='main'>
+<div id='main'>
 
     <div id='header'>
 
@@ -11,7 +11,7 @@
     </div>
 
 
-    <div id='entry-body'>
+    <div id='entry' class='content'>
 
 
         <img src='{{ entry.cover }}' alt='{{ entry.title }}' />
@@ -80,7 +80,7 @@
 
                         {% set isbn = m.isbn %}
                         {% if not isbn %}
-                        {% set isbn = '-' %}
+                        {% set isbn = '[ NOT PROVIDED ]' %}
                         {% endif %}
 
                         <div class='medium'>

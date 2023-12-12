@@ -5,7 +5,7 @@
 {% set URL = request.root_url %}
 
 
-<div id='index' class='main'>
+<div id='main'>
 
     <div id='header'>
 
@@ -18,105 +18,107 @@
     </div>
 
 
-    {% if message %}
+    <div id='index' class='content'>
 
-    <div id='description'>
-        <b> ⚠ -- &nbsp; </b>
-        <p> {{ message }} </p>
-        <b> &nbsp; -- ⚠ </b>
-    </div>
+        {% if message %}
 
-    {% endif %}
+        <div id='error'>
+            <b> ⚠ -- &nbsp; </b>
+            <p> {{ message }} </p>
+            <b> &nbsp; -- ⚠ </b>
+        </div>
 
-
-    <div id='api'>
-
-        <div id='routes'>
-
-            <p> API Routes: <i> /api/json/{table_code} </i> </p>
-
-            <table>
-
-                <colgroup>
-                    <col span='1' style='width: 70%'>
-                    <col span='1' style='width: 30%'>
-                </colgroup>
+        {% endif %}
 
 
-                <tbody>
+        <div id='instructions'>
 
-                    <tr>
-                        <th> Table </th>
-                        <th> Code </th>
-                    </tr>
+            <div id='routes' class='box'>
 
-                    {% for route in routes %}
+                <p> API Routes: <i> /api/json/{table_code} </i> </p>
 
-                    {% set code = route.name %}
-                    {% set name = route.value.title %}
-                    {% set link = URL + 'api/json/' + code | lower %}
+                <table>
 
-                    <tr>
+                    <colgroup>
+                        <col span='1' style='width: 70%'>
+                        <col span='1' style='width: 30%'>
+                    </colgroup>
 
-                        <td> {{ name }} </td>
 
-                        <td>
-                            <a href='{{ link }}'>
-                                {{ code }}
-                            </a>
-                        </td>
+                    <tbody>
 
-                    </tr>
+                        <tr>
+                            <th> Table </th>
+                            <th> Code </th>
+                        </tr>
 
-                    {% endfor %}
+                        {% for route in routes %}
 
-                </tbody>
-            </table>
+                        {% set code = route.name %}
+                        {% set name = route.value.title %}
+                        {% set link = URL + 'api/json/' + code | lower %}
+
+                        <tr>
+
+                            <td> {{ name }} </td>
+
+                            <td>
+                                <a href='{{ link }}'>
+                                    {{ code }}
+                                </a>
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div id='filters' class='box'>
+
+                <p> Filters </p>
+
+                <table>
+
+                    <colgroup>
+                        <col span='1' style='width: 20%'>
+                        <col span='1' style='width: 80%'>
+                    </colgroup>
+
+
+                    <tbody>
+
+                        <tr>
+                            <th> Field </th>
+                            <th> Query </th>
+                        </tr>
+
+                        {% for query in queries %}
+
+                        {% set type = query.value | replace('_', '') %}
+
+                        <tr>
+                            <td> {{ query }} </td>
+                            <td>
+                                <p> ?{{ query }}={{ queries[query] }} </p>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+            </div>
 
         </div>
 
-
-        <div id='filters'>
-
-            <p> Filters </p>
-
-            <table>
-
-                <colgroup>
-                    <col span='1' style='width: 20%'>
-                    <col span='1' style='width: 80%'>
-                </colgroup>
-
-
-                <tbody>
-
-                    <tr>
-                        <th> Field </th>
-                        <th> Query </th>
-                    </tr>
-
-                    {% for query in queries %}
-
-                    {% set type = query.value | replace('_', '') %}
-
-                    <tr>
-                        <td> {{ query }} </td>
-                        <td>
-                            <p> ?{{ query }}={{ queries[query] }} </p>
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-            </table>
-
-
-        </div>
-
-
     </div>
-
 
 </div>
 
