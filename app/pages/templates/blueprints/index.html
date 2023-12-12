@@ -35,7 +35,7 @@
 
             <div id='routes' class='box'>
 
-                <p> API Routes: <i> /api/json/{table_code} </i> </p>
+                <p> <b> API ROUTES: <i> /api/json/{table_code} </i> </b> </p>
 
                 <table>
 
@@ -80,7 +80,7 @@
 
             <div id='filters' class='box'>
 
-                <p> Filters </p>
+                <p> <b> FILTERS </b> </p>
 
                 <table>
 
@@ -99,12 +99,10 @@
 
                         {% for query in queries %}
 
-                        {% set type = query.value | replace('_', '') %}
-
                         <tr>
                             <td> {{ query }} </td>
                             <td>
-                                <p> ?{{ query }}={{ queries[query] }} </p>
+                                <p> ?{{ query }}={{ queries[query].query }} </p>
                             </td>
                         </tr>
 

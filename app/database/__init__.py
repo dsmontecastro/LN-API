@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 from re import compile, IGNORECASE
 
 from ..common.logger import log
-from .models.entry import Entry, Fields, Opts
+from .models.entry import Entry
+from .models.field import Fields, Opts
 
 
 class DB():

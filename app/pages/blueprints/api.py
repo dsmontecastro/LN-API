@@ -61,7 +61,7 @@ def page(mode: str, table_code: str):
 
 # region : URL Parameter Handler -----------------------------------------------------------------------------
 
-from app.database.models.entry import Fields, Opts
+from app.database.models.field import Fields, Opts
 
 LIMIT = Opts.LIMIT.value
 ORDER = Opts.ORDER.value
