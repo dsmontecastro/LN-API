@@ -3,7 +3,8 @@ from jinja2 import TemplateNotFound
 from json import dumps as to_json
 from typing import Any
 
-from ._mode import MODE
+from ._common import MODE, Encoder
+
 from ..singletons import db
 from ...common.logger import log
 from ...database.models.table import Tables
@@ -35,7 +36,7 @@ def page(mode: str, table_code: str):
                 }
 
                 return Response(
-                    to_json(results, default = str),
+                    to_json(results, cls = Encoder),
                     mimetype = 'application/json'
                 )
 
@@ -54,7 +55,8 @@ def page(mode: str, table_code: str):
                     message = 'Given MODE does not exist...'
                 ))
 
-    except (KeyError, TemplateNotFound): abort(404)
+    except KeyError: abort(500)
+    except TemplateNotFound: abort(404)
 
 # endregion --------------------------------------------------------------------------------------------------
 

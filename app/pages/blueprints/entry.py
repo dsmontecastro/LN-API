@@ -2,7 +2,8 @@ from flask import Blueprint, Response, render_template, abort
 from jinja2 import TemplateNotFound
 from json import dumps as to_json
 
-from ._mode import MODE
+from ._common import MODE, Encoder
+
 from ..singletons import db
 from ...common.logger import log
 
@@ -25,7 +26,7 @@ def page(mode: str, id: str):
 
             case MODE.JSON:
                 return Response(
-                    to_json(entry, default = str),
+                    to_json(entry, cls = Encoder),
                     mimetype = 'application/json'
                 )
 
@@ -41,6 +42,7 @@ def page(mode: str, id: str):
                     message = 'Given MODE does not exist...'
                 ))
 
-    except (TypeError, TemplateNotFound): abort(404)
+    except TypeError: abort(500)
+    except TemplateNotFound: abort(404)
 
 # endregion --------------------------------------------------------------------------------------------------
