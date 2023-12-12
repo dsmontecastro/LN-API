@@ -143,7 +143,7 @@ def __process(driver: WebDriver, entry: Entry) -> Entry | None:
                 entry.blurb = blurb
                 entry.cover = cover
                 entry.credits = credits
-                entry.media[0].price = price
+                entry.media[0].set_price(price)
             
                 return entry
 
