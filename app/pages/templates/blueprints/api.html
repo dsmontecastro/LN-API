@@ -16,15 +16,22 @@
 
     <div id='api' class='content'>
 
-        <form id='queries'>
+        <form id='filters'>
 
-            {% for query in queries %}
+            <div id='queries'>
 
-            <label> {{ query | capitalize }} </label>
+                {% for query in queries %}
 
-            <!-- <input /> -->
+                {% set type = queries[query].input %}
 
-            {% endfor %}
+                <div id='query-{{ query }}' class='query'>
+                    <label> {{ query | capitalize }} </label>
+                    <input type='{{ type }}' />
+                </div>
+
+                {% endfor %}
+
+            </div>
 
             <button type='submit'> Search </button>
 
@@ -35,7 +42,7 @@
 
             {% for entry in entries %}
 
-            {% set name = entry.title %}
+            {% set name = entry.title | replace(' vol', ' Vol') %}
             {% set href = '/entry/show/' + entry._id | string %}
 
             <a href='{{ href }}'>
