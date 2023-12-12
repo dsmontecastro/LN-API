@@ -60,11 +60,13 @@
 
 
         #routes {
-            flex: 0 1 40%;
+            flex: 0 1 45%;
+            font-size: larger;
         }
 
         #filters {
-            flex: 0 1 60%;
+            flex: 0 1 55%;
+            font-size: larger;
         }
 
 
@@ -73,6 +75,10 @@
             @extend .col;
             flex: 1 1 auto;
             align-items: center;
+
+            p {
+                font-size: x-large;
+            }
 
             table {
 

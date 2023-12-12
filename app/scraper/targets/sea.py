@@ -65,6 +65,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
     log.debug(f'> {TABLE}')
 
     entries: list[Entry] = []
+    limit //= 2
 
     try: entries += __preprocess(driver, limit, MODE.DIGITAL)
     except TimeoutException:

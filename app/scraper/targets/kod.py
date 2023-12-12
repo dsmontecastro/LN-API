@@ -49,10 +49,7 @@ def _getGenre(tag: str) -> str:
 
 
 def _getTitle(title: str) -> str:
-    par = 0
-    try: par = title.index(' (')
-    except ValueError: par = len(title)
-    return title[:par]
+    return title.replace('(light novel)', '')
 
 
 def _addMedia(elem: WebElement, date: str) -> Media | None:
