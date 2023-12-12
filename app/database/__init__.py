@@ -1,5 +1,6 @@
 import os, datetime, pymongo as mongo
 from bson.objectid import ObjectId
+from bson import Decimal128
 
 from typing import Any
 from dotenv import load_dotenv
@@ -9,6 +10,9 @@ from ..common.logger import log
 from .models.entry import Entry
 from .models.field import Fields, Opts
 
+
+MEDIA = 'media'
+type Query = dict[str, Any]
 
 class DB():
 
@@ -62,7 +66,7 @@ class DB():
         except: return None
 
 
-    def query(self, params: dict[str, Any]):
+    def query(self, params: Query):
 
         limit: int = params.pop(Opts.LIMIT.value)
         sort_by: str = params.pop(Opts.SORT_BY.value)
@@ -71,9 +75,12 @@ class DB():
         if not bool(params.pop(Opts.ORDER.value)): order = -1
 
 
-        query: dict[str, Any] = {}
+        query: list[Query] = []
+        query.append({ Fields.DATE.value: { '$gte': datetime.datetime.now().strftime('%Y-%m-%d') }})
         
-        query[Fields.DATE.value] = { '$gte': datetime.datetime.now().strftime('%Y-%m-%d') }
+        credits: list[Query] = []
+        media: Query = {}
+        cost: Query = {}
 
 
         for key in params.keys():
@@ -84,24 +91,32 @@ class DB():
             match(field):
 
                 case Fields.DATE:
-                    query[key] = { '$gte': value }
+                    query[0] = { key: { '$gte': value } }
 
 
-                case Fields.CREDITS | Fields.GENRES:
-                    values = map(self.__ignore_case, value)
-                    log.debug(f'Test: {list(values)[0]}')
-                    query[key] = { '$in': list(values) }
+                case Fields.GENRES:
+                    values = map(self.__regex, value)
+                    query.append({ key: { '$in': list(values) } })
+
+
+                case Fields.CREDITS:
+                    values = map(self.__regex, value)
+                    for name in values:
+                        credits.append({
+                            key + '.name' : name
+                        })
 
 
                 case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
-    
-                    if not field.value in query:
-                        query['media'] = { '$elemMatch': {} }
 
-                    finder: dict[str, str] = {}
+                    finder: Query = {}
 
                     if field == Fields.PRICE:
-                        finder = { '$lte': value }
+                        try:
+                            price = Decimal128(value)
+                        except:
+                            price = Decimal128('NaN')
+                        finder = { '$lte': price }
 
                     else:
                         finder = {
@@ -109,19 +124,25 @@ class DB():
                             '$options': 'i'
                         }
 
-                    query['media']['$elemMatch'][key] = finder
+                    media[key] = finder
 
 
                 case _:
                     value = str(value).replace('_', ' ')
-                    query[key] = { '$regex': value,  '$options': 'i' }
+                    query.append({ key: { '$regex': value,  '$options': 'i' } })
 
 
-        results = self.__table.find(query)
+
+        if credits: query.append({ '$or': credits })
+        if media: query.append({ 'media': { '$elemMatch': media } })
+        if cost: query.append(cost)
+        log.debug(f'Query: {query}')
+
+        results = self.__table.find({ '$and': query })
         results.sort(sort_by, order).limit(limit)
 
         return list(results)
 
 
-    def __ignore_case(self, string: str):
+    def __regex(self, string: str):
         return compile(string, flags = IGNORECASE)
