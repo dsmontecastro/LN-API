@@ -5,7 +5,7 @@ logging.getLogger('selenium').setLevel(logging.CRITICAL)
 logging.getLogger('urllib3').setLevel(logging.CRITICAL)
 
 
-FILE = 'logs.txt'
+FILE = 'logs.log'
 NAME = 'base_logger'
 FRMT = '%(asctime)s : [%(levelname)s] : %(message)s'
 

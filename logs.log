@@ -1,0 +1,565 @@
+2023-12-12 22:14:53,987 : [WARNING] :  * Debugger is active!
+2023-12-12 22:14:53,995 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:15:04,473 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\common\\logger.py', reloading
+2023-12-12 22:15:05,886 : [WARNING] :  * Debugger is active!
+2023-12-12 22:15:05,893 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:18:49,172 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\main.py', reloading
+2023-12-12 22:18:57,174 : [INFO] : Creating app...
+2023-12-12 22:18:57,174 : [INFO] : > Creating driver...
+2023-12-12 22:18:57,890 : [WARNING] :  * Debugger is active!
+2023-12-12 22:18:57,898 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:19:04,745 : [INFO] : > Driver successfully created!
+2023-12-12 22:19:04,824 : [INFO] : Application Created!
+
+2023-12-12 22:19:04,824 : [INFO] : Running app on [All Tables]
+2023-12-12 22:19:04,824 : [DEBUG] : > Tables.CIW
+2023-12-12 22:19:08,089 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Cross Infinite World', '$options': 'i'}}]
+2023-12-12 22:19:08,295 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:08] "GET /api/show/ciw HTTP/1.1" 200 -
+2023-12-12 22:19:08,428 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:08] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:08,432 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:08] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:10,520 : [DEBUG] : >>> Text: 
+2023-12-12 22:19:10,520 : [DEBUG] : >>> Price: NaN
+2023-12-12 22:19:12,171 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'J-Novel Club', '$options': 'i'}}]
+2023-12-12 22:19:12,175 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:12] "GET /api/show/jnc HTTP/1.1" 200 -
+2023-12-12 22:19:12,236 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:12] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:12,274 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:12] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:13,352 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Kodansha', '$options': 'i'}}]
+2023-12-12 22:19:13,357 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:13] "GET /api/show/kod HTTP/1.1" 200 -
+2023-12-12 22:19:13,426 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:13] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:13,457 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:13] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:14,276 : [DEBUG] : >> https://crossinfworld.com/The-Dragons-Soulmate-is-
+2023-12-12 22:19:14,323 : [DEBUG] : >>> Text: $7.99
+2023-12-12 22:19:14,323 : [DEBUG] : >>> Price: 7.99
+2023-12-12 22:19:14,323 : [DEBUG] : > Tables.JNC
+2023-12-12 22:19:14,762 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:14] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:19:14,799 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:14] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:14,888 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:14] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:22,798 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Cross Infinite World', '$options': 'i'}}]
+2023-12-12 22:19:22,803 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:22] "GET /api/show/ciw HTTP/1.1" 200 -
+2023-12-12 22:19:22,914 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:22] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:22,980 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:22] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:26,416 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': 'Cross Infinite World', '$options': 'i'}}]
+2023-12-12 22:19:26,421 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:26] "GET /api/show/ciw?date=0 HTTP/1.1" 200 -
+2023-12-12 22:19:26,485 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:26] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:26,505 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:26] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:27,703 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:27] "GET /entry/show/657868c5edf9219388e76e39 HTTP/1.1" 200 -
+2023-12-12 22:19:27,774 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:27] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:19:27,811 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:19:27] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:19:56,755 : [DEBUG] : >> https://j-novel.club/series/the-magician-who-rose-
+2023-12-12 22:19:57,176 : [DEBUG] : >>> Text: 
+2023-12-12 22:19:57,177 : [DEBUG] : >>> Price: NaN
+2023-12-12 22:19:57,177 : [DEBUG] : > Tables.KOD
+2023-12-12 22:20:03,115 : [DEBUG] : >> https://kodansha.us/product/spring-comes-riding-in
+2023-12-12 22:20:13,379 : [DEBUG] : >>> Text: 
+2023-12-12 22:20:13,379 : [DEBUG] : >>> Price: NaN
+2023-12-12 22:20:13,399 : [DEBUG] : >>> Text: 
+2023-12-12 22:20:13,399 : [DEBUG] : >>> Price: NaN
+2023-12-12 22:20:13,430 : [DEBUG] : > Tables.SEA
+2023-12-12 22:20:45,483 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:45] "GET /entry/show/657868c5edf9219388e76e39 HTTP/1.1" 200 -
+2023-12-12 22:20:45,524 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:45] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:20:45,543 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:45] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:20:46,394 : [DEBUG] : >> https://webcache.googleusercontent.com/search?q=ca
+2023-12-12 22:20:48,110 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:48] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:20:48,199 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:48] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:20:48,225 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:48] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:20:49,937 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:49] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:20:50,020 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:50] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:20:50,041 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:20:50] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:20:56,494 : [DEBUG] : >>> Text: $15.99
+2023-12-12 22:20:56,494 : [DEBUG] : >>> Price: 15.99
+2023-12-12 22:21:01,004 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:21:01] "GET /entry/json/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:21:35,804 : [DEBUG] : >> https://webcache.googleusercontent.com/search?q=ca
+2023-12-12 22:21:45,896 : [DEBUG] : >>> Text: $14.99
+2023-12-12 22:21:45,896 : [DEBUG] : >>> Price: 14.99
+2023-12-12 22:21:45,925 : [DEBUG] : > Tables.YEN
+2023-12-12 22:22:16,968 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:16] "GET /favicon.ico HTTP/1.1" 200 -
+2023-12-12 22:22:18,106 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:22:18,167 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:22:18,190 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:22:18,835 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:22:18,880 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:22:18,903 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:18] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:22:21,311 : [DEBUG] : >> https://yenpress.com/titles/9781975372651-the-girl
+2023-12-12 22:22:31,040 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:31] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:22:31,088 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:31] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:22:31,118 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:31] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:22:36,275 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:36] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:22:36,353 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:36] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:22:36,377 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:22:36] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:22:41,418 : [DEBUG] : >>> Text: $8.99
+2023-12-12 22:22:41,418 : [DEBUG] : >>> Price: 8.99
+2023-12-12 22:22:41,438 : [DEBUG] : >>> Text: $15.00
+2023-12-12 22:22:41,438 : [DEBUG] : >>> Price: 15.00
+2023-12-12 22:22:41,438 : [INFO] : > Total: 6 entries
+2023-12-12 22:22:41,438 : [DEBUG] : > Upserting: https://crossinfworld.com/The-Dragons-Soulmate-is-a-Mushroom-Princess.html
+2023-12-12 22:22:41,439 : [INFO] : >> Upserted: Mushroom Princess Vol.1
+2023-12-12 22:22:41,442 : [DEBUG] : > Validation: [1, None]
+2023-12-12 22:22:41,442 : [DEBUG] : > Upserting: https://j-novel.club/v/the-magician-who-rose-from-failure-volume-6
+2023-12-12 22:22:41,442 : [INFO] : >> Upserted: The Magician Who Rose Fro
+2023-12-12 22:22:41,443 : [DEBUG] : > Validation: [0, ObjectId('65786cb1edf9219388e77257')]
+2023-12-12 22:22:41,444 : [DEBUG] : > Upserting: https://kodansha.us/product/spring-comes-riding-in-a-carriage
+2023-12-12 22:22:41,444 : [INFO] : >> Upserted: Spring Comes Riding in a 
+2023-12-12 22:22:41,444 : [DEBUG] : > Validation: [1, None]
+2023-12-12 22:22:41,444 : [DEBUG] : > Upserting: https://sevenseasentertainment.com/books/the-saints-magic-power-is-omnipotent-light-novel-vol-9/
+2023-12-12 22:22:41,444 : [INFO] : >> Upserted: The Saint’s Magic Power i
+2023-12-12 22:22:41,445 : [DEBUG] : > Validation: [0, ObjectId('65786cb1edf9219388e7725a')]
+2023-12-12 22:22:41,445 : [DEBUG] : > Upserting: https://sevenseasentertainment.com/books/disciple-of-the-lich-or-how-i-was-cursed-by-the-gods-and-dropped-into-the-abyss-light-novel-vol-6/
+2023-12-12 22:22:41,445 : [INFO] : >> Upserted: Disciple of the Lich: Or 
+2023-12-12 22:22:41,445 : [DEBUG] : > Validation: [0, ObjectId('65786cb1edf9219388e7725c')]
+2023-12-12 22:22:41,445 : [DEBUG] : > Upserting: https://yenpress.com/titles/9781975372651-the-girl-i-saved-on-the-train-turned-out-to-be-my-childhood-friend-vol-5-light-novel
+2023-12-12 22:22:41,445 : [INFO] : >> Upserted: The Girl I Saved on the T
+2023-12-12 22:22:41,446 : [DEBUG] : > Validation: [0, ObjectId('65786cb1edf9219388e7725e')]
+2023-12-12 22:22:41,446 : [INFO] : Run finished.
+
+2023-12-12 22:22:41,446 : [INFO] : Closing app...
+2023-12-12 22:22:44,299 : [INFO] : Application closed.
+
+2023-12-12 22:23:06,351 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:23:06] "GET /entry/json/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:23:57,969 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 22:24:03,609 : [WARNING] :  * Debugger is active!
+2023-12-12 22:24:03,619 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:24:04,470 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:24:04,565 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:04] "GET /api/show/all HTTP/1.1" 200 -
+2023-12-12 22:24:04,663 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:04] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:24:04,670 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:04] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:24:16,402 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:24:16,409 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:16] "GET /api/show/all?date=0 HTTP/1.1" 200 -
+2023-12-12 22:24:16,453 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:16] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:24:16,498 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:16] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:24:30,785 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:24:30,791 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:30] "GET /api/show/all?date=0&price=15 HTTP/1.1" 200 -
+2023-12-12 22:24:30,859 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:30] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:24:30,881 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:30] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:24:33,972 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:33] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:24:34,182 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:34] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:24:34,290 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:34] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:24:38,041 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:24:38,049 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:38] "GET /api/show/all?date=0&price=15.99 HTTP/1.1" 200 -
+2023-12-12 22:24:38,112 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:38] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:24:38,141 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:24:38] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:05,509 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 22:26:12,938 : [WARNING] :  * Debugger is active!
+2023-12-12 22:26:12,993 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:26:13,180 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:26:13,354 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:13] "GET /api/show/all?date=0&price=15.99 HTTP/1.1" 200 -
+2023-12-12 22:26:13,503 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:13] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:26:13,507 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:13] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:22,315 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:26:22,319 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:22] "GET /api/show/all?date=0&price=7.99 HTTP/1.1" 200 -
+2023-12-12 22:26:22,381 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:22] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:26:22,402 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:22] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:25,345 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:26:25,351 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:25] "GET /api/show/all?date=0&price=5.99 HTTP/1.1" 200 -
+2023-12-12 22:26:25,401 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:25] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:26:25,442 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:25] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:26,785 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:26] "GET /entry/show/657868c5edf9219388e76e39 HTTP/1.1" 200 -
+2023-12-12 22:26:26,803 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:26] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:26:26,857 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:26] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:40,124 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:26:40,130 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:40] "GET /api/show/all?price=5.99 HTTP/1.1" 200 -
+2023-12-12 22:26:40,187 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:40] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:26:40,208 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:40] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:26:55,492 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:26:55] "GET /favicon.ico HTTP/1.1" 200 -
+2023-12-12 22:27:26,447 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:27:26] "GET /api/show/all?date=0&price=$5.99 HTTP/1.1" 200 -
+2023-12-12 22:27:26,511 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:27:26] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:27:26,529 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:27:26] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:30:36,685 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 22:30:42,763 : [WARNING] :  * Debugger is active!
+2023-12-12 22:30:42,771 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:33:32,930 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Seven Seas Ent.', '$options': 'i'}}]
+2023-12-12 22:33:33,047 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:33] "GET /api/show/sea HTTP/1.1" 200 -
+2023-12-12 22:33:33,212 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:33] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:33:33,216 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:33] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:33:34,027 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:34] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:33:34,080 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:34] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:33:34,143 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:34] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:33:47,534 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:33:47] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:35:27,689 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:35:33,725 : [WARNING] :  * Debugger is active!
+2023-12-12 22:35:33,733 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:35:33,884 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:35:33] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:35:34,008 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:35:34] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:35:34,011 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:35:34] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:35:51,530 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:35:52,753 : [WARNING] :  * Debugger is active!
+2023-12-12 22:35:52,764 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:35:52,816 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:35:52] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:36:07,452 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:36:13,386 : [WARNING] :  * Debugger is active!
+2023-12-12 22:36:13,394 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:36:13,812 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:36:13] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:36:13,944 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:36:13] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:36:13,948 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:36:13] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:36:17,846 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:36:19,019 : [WARNING] :  * Debugger is active!
+2023-12-12 22:36:19,026 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:41:23,356 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 22:41:29,318 : [WARNING] :  * Debugger is active!
+2023-12-12 22:41:29,336 : [INFO] :  * Debugger PIN: 144-345-485
+2023-12-12 22:41:37,805 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\api.py', reloading
+2023-12-12 22:41:39,298 : [WARNING] :  * Debugger is active!
+2023-12-12 22:41:39,308 : [INFO] :  * Debugger PIN: 144-345-485
+2023-12-12 22:41:43,636 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\api.py', reloading
+2023-12-12 22:41:44,960 : [WARNING] :  * Debugger is active!
+2023-12-12 22:41:44,968 : [INFO] :  * Debugger PIN: 144-345-485
+2023-12-12 22:41:57,591 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:41:59,492 : [WARNING] :  * Debugger is active!
+2023-12-12 22:41:59,499 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:42:05,337 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:42:05] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:42:05,469 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:42:05] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:42:05,473 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:42:05] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:43:59,709 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 22:44:05,809 : [WARNING] :  * Debugger is active!
+2023-12-12 22:44:05,819 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:44:07,841 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:07] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:44:07,971 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:07] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:44:07,981 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:07] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:44:17,520 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 22:44:18,962 : [WARNING] :  * Debugger is active!
+2023-12-12 22:44:18,969 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:44:19,269 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:19] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:44:19,373 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:19] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:44:19,377 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:19] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:44:22,221 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Seven Seas Ent.', '$options': 'i'}}]
+2023-12-12 22:44:22,267 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:22] "GET /api/show/sea HTTP/1.1" 200 -
+2023-12-12 22:44:22,310 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:22] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:44:22,399 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:22] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:44:52,654 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:52] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:44:52,697 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:52] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:44:52,727 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:44:52] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:45:42,985 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\__init__.py', reloading
+2023-12-12 22:45:50,019 : [WARNING] :  * Debugger is active!
+2023-12-12 22:45:50,041 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:45:50,149 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:45:50] "[35m[1mGET /entry/json/65786cb1edf9219388e7725c HTTP/1.1[0m" 500 -
+2023-12-12 22:45:50,237 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:45:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-12-12 22:46:02,012 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:46:02] "[35m[1mGET /entry/json/65786cb1edf9219388e7725c HTTP/1.1[0m" 500 -
+2023-12-12 22:47:42,340 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:47:42,340 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:47:42,341 : [INFO] :  * Restarting with stat
+2023-12-12 22:47:43,707 : [WARNING] :  * Debugger is active!
+2023-12-12 22:47:43,718 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:48:11,317 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\api.py', reloading
+2023-12-12 22:48:12,196 : [INFO] :  * Restarting with stat
+2023-12-12 22:48:17,451 : [WARNING] :  * Debugger is active!
+2023-12-12 22:48:17,458 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:49:18,242 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:49:18,242 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:49:18,245 : [INFO] :  * Restarting with stat
+2023-12-12 22:49:19,481 : [WARNING] :  * Debugger is active!
+2023-12-12 22:49:19,490 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:49:40,657 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:49:41,103 : [INFO] :  * Restarting with stat
+2023-12-12 22:49:41,989 : [WARNING] :  * Debugger is active!
+2023-12-12 22:49:41,998 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:49:45,258 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:49:45,569 : [INFO] :  * Restarting with stat
+2023-12-12 22:49:46,313 : [WARNING] :  * Debugger is active!
+2023-12-12 22:49:46,321 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:49:49,375 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:49:49,376 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:49:49,377 : [INFO] :  * Restarting with stat
+2023-12-12 22:49:50,018 : [WARNING] :  * Debugger is active!
+2023-12-12 22:49:50,025 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:50:46,953 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\__init__.py', reloading
+2023-12-12 22:50:47,204 : [INFO] :  * Restarting with stat
+2023-12-12 22:50:48,153 : [WARNING] :  * Debugger is active!
+2023-12-12 22:50:48,161 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:51:09,185 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:51:09,718 : [INFO] :  * Restarting with stat
+2023-12-12 22:51:10,506 : [WARNING] :  * Debugger is active!
+2023-12-12 22:51:10,513 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:51:19,462 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:51:19,462 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:51:19,463 : [INFO] :  * Restarting with stat
+2023-12-12 22:51:20,095 : [WARNING] :  * Debugger is active!
+2023-12-12 22:51:20,103 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:51:48,630 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\api.py', reloading
+2023-12-12 22:51:49,187 : [INFO] :  * Restarting with stat
+2023-12-12 22:51:49,844 : [WARNING] :  * Debugger is active!
+2023-12-12 22:51:49,852 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:51:58,283 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:51:58,544 : [INFO] :  * Restarting with stat
+2023-12-12 22:51:59,192 : [WARNING] :  * Debugger is active!
+2023-12-12 22:51:59,200 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:52:04,489 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:52:04,869 : [INFO] :  * Restarting with stat
+2023-12-12 22:52:10,488 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:52:10,488 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:52:10,489 : [INFO] :  * Restarting with stat
+2023-12-12 22:52:11,152 : [WARNING] :  * Debugger is active!
+2023-12-12 22:52:11,161 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:52:35,182 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:52:35] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:52:36,757 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:52:36] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:52:58,182 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:52:58,782 : [INFO] :  * Restarting with stat
+2023-12-12 22:52:59,472 : [WARNING] :  * Debugger is active!
+2023-12-12 22:52:59,480 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:52:59,532 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:52:59] "GET /entry/json/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:53:08,759 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:08] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:53:08,874 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:08] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:53:08,886 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:08] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:53:15,257 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:15] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:53:15,340 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:15] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:53:15,405 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:15] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:53:18,965 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:53:18] "GET /entry/json/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:54:08,688 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\common\\logger.py', reloading
+2023-12-12 22:54:09,199 : [INFO] :  * Restarting with stat
+2023-12-12 22:54:09,902 : [WARNING] :  * Debugger is active!
+2023-12-12 22:54:09,909 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:54:15,235 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 22:54:15,235 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 22:54:15,236 : [INFO] :  * Restarting with stat
+2023-12-12 22:54:16,116 : [WARNING] :  * Debugger is active!
+2023-12-12 22:54:16,127 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:55:52,187 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\common\\logger.py', reloading
+2023-12-12 22:55:52,738 : [INFO] :  * Restarting with stat
+2023-12-12 22:55:53,498 : [WARNING] :  * Debugger is active!
+2023-12-12 22:55:53,506 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:55:57,480 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:55:57] "GET /entry/show/65742b647f137c9e49beb07f HTTP/1.1" 200 -
+2023-12-12 22:55:57,586 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:55:57] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:55:57,590 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:55:57] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:56:01,930 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Yen Press', '$options': 'i'}}]
+2023-12-12 22:56:01,973 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:01] "GET /api/show/yen HTTP/1.1" 200 -
+2023-12-12 22:56:04,614 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:04] "GET /entry/show/65786cb1edf9219388e7725e HTTP/1.1" 200 -
+2023-12-12 22:56:04,681 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:04] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:56:04,738 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:04] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:56:05,634 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Cross Infinite World', '$options': 'i'}}]
+2023-12-12 22:56:05,637 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:05] "GET /api/show/ciw HTTP/1.1" 200 -
+2023-12-12 22:56:05,708 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:05] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:56:05,741 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:05] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:56:06,706 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:56:06,712 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:06] "GET /api/show/all HTTP/1.1" 200 -
+2023-12-12 22:56:06,764 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:06] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:56:06,818 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:06] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:56:07,444 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:07] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:56:07,462 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:07] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:56:07,501 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:07] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:56:52,923 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:52] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:56:52,977 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:52] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:56:53,016 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:56:53] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:57:16,023 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:57:16,804 : [INFO] :  * Restarting with stat
+2023-12-12 22:57:18,835 : [WARNING] :  * Debugger is active!
+2023-12-12 22:57:18,843 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:57:19,026 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:19] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:57:19,187 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:19] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:57:19,191 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:19] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:57:20,275 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:20] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:57:20,335 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:20] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:57:20,355 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:20] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:57:25,221 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\entry.py', reloading
+2023-12-12 22:57:26,278 : [INFO] :  * Restarting with stat
+2023-12-12 22:57:30,681 : [WARNING] :  * Debugger is active!
+2023-12-12 22:57:30,691 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:57:32,905 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\api.py', reloading
+2023-12-12 22:57:33,121 : [INFO] :  * Restarting with stat
+2023-12-12 22:57:34,055 : [WARNING] :  * Debugger is active!
+2023-12-12 22:57:34,068 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 22:57:36,440 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:36] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:57:36,612 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:36] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:57:36,617 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:36] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:57:37,804 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': 'Cross Infinite World', '$options': 'i'}}]
+2023-12-12 22:57:37,843 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:37] "GET /api/show/ciw HTTP/1.1" 200 -
+2023-12-12 22:57:37,912 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:37] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:57:37,965 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:37] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:57:39,060 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:57:39,094 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:39] "GET /api/show/all HTTP/1.1" 200 -
+2023-12-12 22:57:39,148 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:39] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:57:39,171 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:57:39] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:58:58,736 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:58:58] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:58:58,758 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:58:58] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:58:58,795 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:58:58] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:00,618 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:00] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:59:00,654 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:00] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:00,677 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:00] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:01,731 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:01] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:59:01,787 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:01] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:01,822 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:01] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:03,390 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:03] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:59:03,414 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:03] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:03,476 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:03] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:38,240 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:59:38,248 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:38] "GET /api/show/all?price=15.99 HTTP/1.1" 200 -
+2023-12-12 22:59:38,310 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:38] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:38,337 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:38] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:40,144 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:40] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 22:59:40,163 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:40] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:40,197 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:40] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:42,927 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:42] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 22:59:42,950 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:42] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:43,000 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:43] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:45,573 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:45] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 22:59:45,596 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:45] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:45,645 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:45] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:48,143 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:48] "GET /entry/show/65786cb1edf9219388e7725e HTTP/1.1" 200 -
+2023-12-12 22:59:48,179 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:48] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:48,226 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:48] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:53,222 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 22:59:53,227 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:53] "GET /api/show/all?price=7.99 HTTP/1.1" 200 -
+2023-12-12 22:59:53,277 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:53] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:53,357 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:53] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 22:59:54,555 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:54] "GET /entry/show/65786cb1edf9219388e7725e HTTP/1.1" 200 -
+2023-12-12 22:59:54,580 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:54] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 22:59:54,620 : [INFO] : 127.0.0.1 - - [12/Dec/2023 22:59:54] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:00:19,022 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 23:00:19,026 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:00:19] "GET /api/show/all?price=7.99 HTTP/1.1" 200 -
+2023-12-12 23:00:19,079 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:00:19] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:00:19,129 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:00:19] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:01,458 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}]
+2023-12-12 23:01:01,462 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:01] "GET /api/show/all?price=7.99&date=0 HTTP/1.1" 200 -
+2023-12-12 23:01:01,520 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:01] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:01,575 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:01] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:15,776 : [DEBUG] : Query: [{'date': {'$gte': '0'}}, {'table': {'$regex': '', '$options': 'i'}}, {'title': {'$regex': 'a', '$options': 'i'}}]
+2023-12-12 23:01:15,859 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:15] "GET /api/show/all?price=7.99&date=0&title=a HTTP/1.1" 200 -
+2023-12-12 23:01:15,899 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:15] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:15,934 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:15] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:25,869 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'format': {'$regex': 'physical', '$options': 'i'}}}}]
+2023-12-12 23:01:25,924 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:25] "GET /api/show/all?price=7.99&format=physical HTTP/1.1" 200 -
+2023-12-12 23:01:25,965 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:25] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:25,994 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:25] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:40,233 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 23:01:40,927 : [INFO] :  * Restarting with stat
+2023-12-12 23:01:46,260 : [WARNING] :  * Debugger is active!
+2023-12-12 23:01:46,267 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:01:46,328 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'format': {'$regex': 'physical', '$options': 'i'}, 'price': {'$lte': Decimal128('7.99')}}}}]
+2023-12-12 23:01:46,329 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('7.99')}}}}]
+2023-12-12 23:01:46,393 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:46] "GET /api/show/all?price=7.99&format=physical HTTP/1.1" 200 -
+2023-12-12 23:01:46,394 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:46] "GET /api/show/all?price=7.99 HTTP/1.1" 200 -
+2023-12-12 23:01:46,510 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:46] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:46,514 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:46] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:50,410 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('8.99')}}}}]
+2023-12-12 23:01:50,419 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:50] "GET /api/show/all?price=8.99 HTTP/1.1" 200 -
+2023-12-12 23:01:50,467 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:50] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:50,496 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:50] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:51,728 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:51] "GET /entry/show/65786cb1edf9219388e7725e HTTP/1.1" 200 -
+2023-12-12 23:01:51,778 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:51] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:51,813 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:51] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:56,806 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('20.99')}}}}]
+2023-12-12 23:01:56,814 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:56] "GET /api/show/all?price=20.99 HTTP/1.1" 200 -
+2023-12-12 23:01:56,864 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:56] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:56,895 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:56] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:01:58,265 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:58] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 23:01:58,282 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:58] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:01:58,325 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:01:58] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:02:04,071 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('20.99')}}}}]
+2023-12-12 23:02:04,079 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:04] "GET /api/show/all?price=20.99 HTTP/1.1" 200 -
+2023-12-12 23:02:04,135 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:04] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:02:04,165 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:04] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:02:07,066 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('0')}}}}]
+2023-12-12 23:02:07,071 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:07] "GET /api/show/all?price=0 HTTP/1.1" 200 -
+2023-12-12 23:02:07,122 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:07] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:02:07,150 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:07] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:02:40,638 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 23:02:41,207 : [INFO] :  * Restarting with stat
+2023-12-12 23:02:41,979 : [WARNING] :  * Debugger is active!
+2023-12-12 23:02:41,986 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:02:42,126 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:42] "GET /api/show/all?price=- HTTP/1.1" 200 -
+2023-12-12 23:02:42,273 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:42] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:02:42,278 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:02:42] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:03:49,911 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\database\\__init__.py', reloading
+2023-12-12 23:03:50,355 : [INFO] :  * Restarting with stat
+2023-12-12 23:03:56,089 : [WARNING] :  * Debugger is active!
+2023-12-12 23:03:56,097 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:03:56,174 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('NaN')}}}}]
+2023-12-12 23:03:56,290 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:56] "GET /api/show/all?price=- HTTP/1.1" 200 -
+2023-12-12 23:03:56,410 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:56] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:03:56,413 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:56] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:03:57,773 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:57] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:03:57,794 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:57] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:03:57,830 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:57] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:03:59,226 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:59] "GET /entry/show/657868d8edf9219388e76e71 HTTP/1.1" 200 -
+2023-12-12 23:03:59,245 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:59] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:03:59,282 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:03:59] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:05:45,807 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:05:45] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:05:45,824 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:05:45] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:05:45,857 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:05:45] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:01,198 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:01] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:06:01,252 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:01] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:01,268 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:01] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:08,403 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:08] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:06:08,450 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:08] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:08,463 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:08] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:26,834 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:26] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:06:26,868 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:26] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:26,892 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:26] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:38,373 : [DEBUG] : Query: [{'date': {'$gte': '2023-12-12'}}, {'table': {'$regex': '', '$options': 'i'}}, {'media': {'$elemMatch': {'price': {'$lte': Decimal128('0')}}}}]
+2023-12-12 23:06:38,378 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:38] "GET /api/show/all?price=0 HTTP/1.1" 200 -
+2023-12-12 23:06:38,416 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:38] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:38,444 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:38] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:40,221 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:40] "GET /entry/show/65786cb1edf9219388e7725c HTTP/1.1" 200 -
+2023-12-12 23:06:40,327 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:40] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:40,335 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:40] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:06:44,374 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:44] "GET /entry/show/65786cb1edf9219388e7725e HTTP/1.1" 200 -
+2023-12-12 23:06:44,470 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:44] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:06:44,559 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:06:44] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:07:07,053 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:07] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:07:07,096 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:07] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:07:07,124 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:07] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:07:15,081 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:15] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:07:15,114 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:15] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:07:15,144 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:15] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:07:35,031 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 23:07:35,471 : [INFO] :  * Restarting with stat
+2023-12-12 23:07:41,475 : [WARNING] :  * Debugger is active!
+2023-12-12 23:07:41,507 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:07:41,760 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:41] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:07:41,890 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:41] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:07:41,909 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:41] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:07:47,806 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:47] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:07:47,869 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:47] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:07:47,900 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:47] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:07:53,151 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:53] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:07:53,191 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:53] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:07:53,204 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:07:53] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:08:04,551 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 23:08:05,055 : [INFO] :  * Restarting with stat
+2023-12-12 23:08:10,668 : [WARNING] :  * Debugger is active!
+2023-12-12 23:08:10,676 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:08:10,803 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:10] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:08:10,898 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:10] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:08:10,902 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:10] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:08:18,148 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 23:08:18,793 : [INFO] :  * Restarting with stat
+2023-12-12 23:08:19,543 : [WARNING] :  * Debugger is active!
+2023-12-12 23:08:19,552 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:08:19,621 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:19] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:08:19,754 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:19] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:08:19,759 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:19] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:08:55,195 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\pages\\blueprints\\_common.py', reloading
+2023-12-12 23:08:55,782 : [INFO] :  * Restarting with stat
+2023-12-12 23:08:57,785 : [WARNING] :  * Debugger is active!
+2023-12-12 23:08:57,793 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:08:57,966 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:57] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:08:58,085 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:58] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:08:58,089 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:08:58] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:09:24,022 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\common\\logger.py', reloading
+2023-12-12 23:09:24,297 : [INFO] :  * Restarting with stat
+2023-12-12 23:09:25,053 : [WARNING] :  * Debugger is active!
+2023-12-12 23:09:25,062 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:09:26,173 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:09:26] "GET /entry/show/65786cb1edf9219388e77257 HTTP/1.1" 200 -
+2023-12-12 23:09:26,294 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:09:26] "[36mGET /static/css/styles.css?f07c34e1 HTTP/1.1[0m" 304 -
+2023-12-12 23:09:26,298 : [INFO] : 127.0.0.1 - - [12/Dec/2023 23:09:26] "[36mGET /static/img/logo.svg HTTP/1.1[0m" 304 -
+2023-12-12 23:09:32,569 : [INFO] : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-12-12 23:09:32,569 : [INFO] : [33mPress CTRL+C to quit[0m
+2023-12-12 23:09:32,570 : [INFO] :  * Restarting with stat
+2023-12-12 23:09:33,204 : [WARNING] :  * Debugger is active!
+2023-12-12 23:09:33,212 : [INFO] :  * Debugger PIN: 258-848-991
+2023-12-12 23:09:57,290 : [INFO] :  * Detected change in 'D:\\Projects\\Python\\LN-API\\app\\common\\logger.py', reloading
+2023-12-12 23:09:57,819 : [INFO] :  * Restarting with stat
+2023-12-12 23:10:48,545 : [INFO] :  * Restarting with stat
+2023-12-12 23:11:52,242 : [INFO] :  * Restarting with stat
+2023-12-12 23:13:08,374 : [INFO] :  * Restarting with stat
+2023-12-12 23:13:53,050 : [INFO] :  * Restarting with stat
+2023-12-12 23:36:47,740 : [INFO] :  * Restarting with stat
+2023-12-12 23:44:01,136 : [INFO] :  * Restarting with stat
+2023-12-12 23:44:41,512 : [INFO] :  * Restarting with stat
+2023-12-12 23:45:54,185 : [INFO] :  * Restarting with stat
+2023-12-12 23:50:44,754 : [INFO] :  * Restarting with stat
+2023-12-12 23:53:33,527 : [INFO] :  * Restarting with stat
