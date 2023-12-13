@@ -86,57 +86,62 @@ class DB():
         for key in params.keys():
 
             value = params[key]
-            field = Fields[key.upper()]
 
-            match(field):
+            if value:
 
-                case Fields.DATE:
-                    query[0] = { key: { '$gte': value } }
+                field = Fields[key.upper()]
 
+                match(field):
 
-                case Fields.GENRES:
-                    values = map(self.__regex, value)
-                    query.append({ key: { '$in': list(values) } })
+                    case Fields.DATE:
+                        query[0] = { key: { '$gte': value } }
 
 
-                case Fields.CREDITS:
-                    values = map(self.__regex, value)
-                    for name in values:
-                        credits.append({
-                            key + '.name' : name
-                        })
+                    case Fields.GENRES:
+                        values = map(self.__regex, value)
+                        query.append({ key: { '$in': list(values) } })
 
 
-                case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
-
-                    finder: Query = {}
-
-                    if field == Fields.PRICE:
-                        try:
-                            price = Decimal128(value)
-                        except:
-                            price = Decimal128('NaN')
-                        finder = { '$lte': price }
-
-                    else:
-                        finder = {
-                            '$regex': value,
-                            '$options': 'i'
-                        }
-
-                    media[key] = finder
+                    case Fields.CREDITS:
+                        values = map(self.__regex, value)
+                        for name in values:
+                            credits.append({
+                                key + '.name' : name
+                            })
 
 
-                case _:
-                    value = str(value).replace('_', ' ')
-                    query.append({ key: { '$regex': value,  '$options': 'i' } })
+                    case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
+
+                        finder: Query = {}
+
+                        if field == Fields.PRICE:
+
+                            if '.' not in value: value += '.00'
+
+                            try: price = Decimal128(value)
+                            except: price = Decimal128('NaN')
+
+                            finder = { '$lte': price }
+
+
+                        else:
+                            finder = {
+                                '$regex': value,
+                                '$options': 'i'
+                            }
+
+                        media[key] = finder
+
+
+                    case _:
+                        value = str(value).replace('_', ' ')
+                        query.append({ key: { '$regex': value,  '$options': 'i' } })
 
 
 
         if credits: query.append({ '$or': credits })
         if media: query.append({ 'media': { '$elemMatch': media } })
         if cost: query.append(cost)
-        log.debug(f'Query: {query}')
 
         results = self.__table.find({ '$and': query })
         results.sort(sort_by, order).limit(limit)
@@ -145,4 +150,4 @@ class DB():
 
 
     def __regex(self, string: str):
-        return compile(string, flags = IGNORECASE)
+        return compile(string.strip(), flags = IGNORECASE)

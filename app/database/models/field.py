@@ -21,17 +21,18 @@ class Fields(Enum):
     def queries(cls):
         return {
             cls.TITLE.value:    Field('text', '{string}'),
-            cls.CREDITS.value:  Field('text', '{string} (repeatable)'),
-            cls.GENRES.value:   Field('text', '{string} (repeatable)'),
+            cls.CREDITS.value:  Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
+            cls.GENRES.value:   Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
             cls.DATE.value:     Field('date', '{YYYY-MM-DD} (equal/more than)'),
-            cls.FORMAT.value:   Field('text', '[audio/digital/physical]'),
-            cls.PRICE.value:    Field('decimal', '${X.X} (equal/less than)'),
-            cls.ISBN.value:     Field('text', '{ISBN-Code}')
+            cls.FORMAT.value:   Field('text', '[audio/digital/physical]', 'audio/digital/physical'),
+            cls.PRICE.value:    Field('decimal', '${X.X} (equal/less than)', '0.00'),
+            cls.ISBN.value:     Field('text', '{ISBN-Code}', 'XXX-X-XXXXXX-XXX-X')
         }
 
 
 class Field(object):
 
-    def __init__(self, input: str, query: str):
+    def __init__(self, input: str, query: str, value: str = ''):
         self.input = input
         self.query = query
+        self.value = value
