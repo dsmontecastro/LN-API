@@ -23,7 +23,7 @@ class DB():
 
         load_dotenv()
         host = os.environ.get('MONGO_HOST') or 'localhost'
-        port = int(os.environ.get('MONGO_PORT') or '80')
+        port = int(os.environ.get('MONGO_PORT') or '27017')
 
         self.__client = mongo.MongoClient(host, port)
         self.__database = self.__client[self.db_name]

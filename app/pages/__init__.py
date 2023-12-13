@@ -1,8 +1,8 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template
 from werkzeug.exceptions import HTTPException
 
 
-def create_app(config = None):
+def create_app():
 
     app = Flask(__name__, instance_relative_config = True)
     app.config.from_prefixed_env()
