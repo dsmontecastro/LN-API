@@ -89,8 +89,13 @@ def get_params(table: str) -> dict[Any, Any]:
                 value = request.args.getlist(field)
 
                 if value:
-                    values = map(replace_underscore, value)
-                    params[field] = list(values)
+
+                    if len(value) == 1:
+                        if value[0]: value = value[0].split(',')
+                        else: value = []
+
+                    values = list(map(replace_underscore, value))
+                    params[field] = values
 
             case _:
                 value = request.args.get(field)

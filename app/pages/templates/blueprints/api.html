@@ -22,11 +22,25 @@
 
                 {% for query in queries %}
 
-                {% set type = queries[query].input %}
+                {% set data = queries[query] %}
+                {% set value = data.value %}
+                {% set type = data.input %}
 
                 <div id='query-{{ query }}' class='query'>
                     <label> {{ query | capitalize }} </label>
-                    <input type='{{ type }}' />
+
+                    {% if query == 'format' %}
+                    <select name='format'>
+                        <option value=''> Any </option>
+                        {% for opt in value.split('/') %}
+                        <option value='{{ opt }}'> {{ opt | capitalize }} </option>
+                        {% endfor %}
+                    </select>
+
+                    {% else %}
+                    <input name='{{ query }}' type='{{ type }}' placeholder='{{ value }}' />
+                    {% endif %}
+
                 </div>
 
                 {% endfor %}
@@ -59,7 +73,3 @@
 </div>
 
 {% endblock %}
-
-<script>
-    const items = entries
-</script>
