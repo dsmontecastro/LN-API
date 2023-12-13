@@ -12,10 +12,7 @@ class Encoder(JSONEncoder):
 
     def default(self, o):
 
-        if isinstance(o, ObjectId):
-            return str(o)
-    
-        elif isinstance(o, Decimal128):
-            return o.to_decimal()
+        if isinstance(o, Decimal128) or isinstance(o, ObjectId):
+            return str(o)   
     
         return JSONEncoder.default(self, o)
