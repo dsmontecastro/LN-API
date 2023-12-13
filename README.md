@@ -1,4 +1,4 @@
 TO-DO:
 
-* Add SHOW JS
-  * Tag Sorting
+* Deploy
+* Make actual ReadMe
