@@ -5,7 +5,6 @@
 .coverage
 .pytest_cache
 .webassets-cache
-logs.log
 
 # PyCache
 *.pyc
@@ -20,3 +19,8 @@ instance
 
 # S/CSS
 app/pages/static/css
+
+
+# Files
+*.log
+*.old
