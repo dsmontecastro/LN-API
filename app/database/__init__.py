@@ -12,7 +12,6 @@ from .models.field import Fields, Opts
 
 
 MEDIA = 'media'
-type Query = dict[str, Any]
 
 class DB():
 
@@ -66,7 +65,7 @@ class DB():
         except: return None
 
 
-    def query(self, params: Query):
+    def query(self, params: dict[str, Any]):
 
         limit: int = params.pop(Opts.LIMIT.value)
         sort_by: str = params.pop(Opts.SORT_BY.value)
@@ -75,12 +74,12 @@ class DB():
         if not bool(params.pop(Opts.ORDER.value)): order = -1
 
 
-        query: list[Query] = []
+        query: list[dict[str, Any]] = []
         query.append({ Fields.DATE.value: { '$gte': datetime.datetime.now().strftime('%Y-%m-%d') }})
         
-        credits: list[Query] = []
-        media: Query = {}
-        cost: Query = {}
+        credits: list[dict[str, Any]] = []
+        media: dict[str, Any] = {}
+        cost: dict[str, Any] = {}
 
 
         for key in params.keys():
@@ -112,7 +111,7 @@ class DB():
 
                     case Fields.FORMAT | Fields.PRICE | Fields.ISBN:
 
-                        finder: Query = {}
+                        finder: dict[str, Any] = {}
 
                         if field == Fields.PRICE:
 
