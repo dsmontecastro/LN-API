@@ -14,8 +14,6 @@ from ...common.logger import log
 
 # region : Constants -----------------------------------------------------------------------------------------
 
-type ELEM = WebDriver | WebElement
-
 CSS = BY.CSS_SELECTOR
 PTH = BY.XPATH
 
@@ -56,12 +54,12 @@ def code_isbn(isbn: str):
     return isbn
 
 
-def sleep(elem: ELEM, time: int = T_POLL, func: Callable = lambda _: False):
+def sleep(elem: WebDriver | WebElement, time: int = T_POLL, func: Callable = lambda _: False):
     try: Waiter(elem, time, time).until(func)
     except TimeoutException: pass
 
 
-def wait_for(elem: ELEM, mode: str, cmd: str, time: int = T_FAST) -> WebElement | None:
+def wait_for(elem: WebDriver | WebElement, mode: str, cmd: str, time: int = T_FAST) -> WebElement | None:
     try:
 
         if not __mode_is_valid(mode):
@@ -76,7 +74,7 @@ def wait_for(elem: ELEM, mode: str, cmd: str, time: int = T_FAST) -> WebElement 
     except (ValueError, TimeoutException): return None
 
 
-def wait_many(elem: ELEM, mode: str, cmd: str, time: int = T_FAST) -> list[WebElement]:
+def wait_many(elem: WebDriver | WebElement, mode: str, cmd: str, time: int = T_FAST) -> list[WebElement]:
     try:
 
         if not __mode_is_valid(mode): raise ValueError
