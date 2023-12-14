@@ -17,9 +17,6 @@ htmlcov
 instance
 *.egg-info
 
-# S/CSS
-app/pages/static/css
-
 
 # Files
 *.log
