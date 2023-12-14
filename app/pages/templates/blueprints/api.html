@@ -37,6 +37,10 @@
                         {% endfor %}
                     </select>
 
+                    {% elif query == 'date' %}
+                    <input name='{{ query }}' type='{{ type }}' value='{{ today }}' />
+
+
                     {% else %}
                     <input name='{{ query }}' type='{{ type }}' placeholder='{{ value }}' />
                     {% endif %}
@@ -45,9 +49,15 @@
 
                 {% endfor %}
 
+                <button id='clear' class='query'>
+                    <a href='{{ request.base_url }}'>
+                        Clear
+                    </a>
+                </button>
+
             </div>
 
-            <button type='submit'> Search </button>
+            <button id='submit' type='submit'> Search </button>
 
         </form>
 

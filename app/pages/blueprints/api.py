@@ -1,6 +1,7 @@
 from flask import Blueprint, Response, abort, render_template, request
 from jinja2 import TemplateNotFound
 from json import dumps as to_json
+from datetime import date
 from typing import Any
 
 from ._common import MODE, Encoder
@@ -25,7 +26,6 @@ def page(mode: str, table_code: str):
         params = get_params(table_name)
         entries = db.query(params)
 
-
         match(MODE[mode.upper()]):
 
             case MODE.JSON:
@@ -42,10 +42,14 @@ def page(mode: str, table_code: str):
 
 
             case MODE.SHOW:
+
+                today = date.today()
+
                 return render_template(
                     'blueprints/api.html',
+                    entries = entries,
                     table = table_name,
-                    entries = entries
+                    today = today
                 )
 
 
