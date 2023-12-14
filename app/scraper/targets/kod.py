@@ -3,9 +3,10 @@ import string
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from ._common import CSS, PTH, code_isbn, error, wait_for, wait_many
+from ._common import CSS, PTH, error, wait_for, wait_many
 
 from ...common.logger import log
+from ...common.isbn import to_isbn
 from ...database.models.table import Tables
 from ...database.models.entry import Entry, Media, Person
 
@@ -73,7 +74,7 @@ def _addMedia(elem: WebElement, date: str) -> Media | None:
         for row in reversed(rows):
             if 'isbn' in row.find_element(CSS, f'{TITLE} > {TEXT}').text.lower():
                 isbn = row.find_element(CSS, f'{VALUE} > {TEXT}').text
-                isbn = code_isbn(isbn)
+                isbn = to_isbn(isbn)
 
         medium = Media(format, isbn, '')
 

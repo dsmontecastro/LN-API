@@ -4,9 +4,10 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-from ._common import CSS, PTH, T_FAST, T_POLL, code_isbn, error, sleep, wait_for
+from ._common import CSS, PTH, T_FAST, T_POLL, error, sleep, wait_for
 
 from ...common.logger import log
+from ...common.isbn import to_isbn
 from ...database.models.table import Tables
 from ...database.models.entry import Entry, Media, Person
 
@@ -205,7 +206,7 @@ def __process(driver: WebDriver, url: str) -> Entry | None:
                         if 'back' in format: format = 'physical'
 
                         isbn = _attr(isbns[i])
-                        isbn = code_isbn(isbn)
+                        isbn = to_isbn(isbn)
 
                         media.append(
                             Media(

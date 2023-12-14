@@ -63,6 +63,7 @@ def page(mode: str, table_code: str):
 
 # region : URL Parameter Handler -----------------------------------------------------------------------------
 
+from ...common.isbn import to_isbn
 from app.database.models.field import Fields, Opts
 
 LIMIT = Opts.LIMIT.value
@@ -96,6 +97,10 @@ def get_params(table: str) -> dict[Any, Any]:
 
                     values = list(map(replace_underscore, value))
                     params[field] = values
+
+            case Fields.ISBN:
+                value = request.args.get(field)
+                if value: params[field] = to_isbn(value)
 
             case _:
                 value = request.args.get(field)
