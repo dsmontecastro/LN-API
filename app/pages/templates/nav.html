@@ -41,4 +41,15 @@
 
     </ul>
 
+
+    <div id='to-json'>
+
+        {% set href = request.url | replace('show', 'json', 1) %}
+
+        <a href='{{ href }}'>
+            JSON
+        </a>
+
+    </div>
+
 </nav>
