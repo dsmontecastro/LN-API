@@ -6,7 +6,11 @@ from ..common.logger import log
 from ..database.models.entry import Entry
 from ..database.models.table import Tables
 
-from .targets import ciw, jnc, kod, sea, yen
+from .targets.ciw import scrape as CIW
+from .targets.jnc import scrape as JNC
+from .targets.kod import scrape as KOD
+from .targets.sea import scrape as SEA
+from .targets.yen import scrape as YEN
 
 
 class Scraper(object):
@@ -66,14 +70,14 @@ class Scraper(object):
 
         match(target):
             case Tables.CIW:
-                entries += ciw.scrape(self._driver, limit)
+                entries += CIW(self._driver, limit)
             case Tables.JNC:
-                entries += jnc.scrape(self._driver, limit)
+                entries += JNC(self._driver, limit)
             case Tables.KOD:
-                entries += kod.scrape(self._driver, limit)
+                entries += KOD(self._driver, limit)
             case Tables.SEA:
-                entries += sea.scrape(self._driver, limit)
+                entries += SEA(self._driver, limit)
             case Tables.YEN:
-                entries += yen.scrape(self._driver, limit)
+                entries += YEN(self._driver, limit)
 
         return entries
