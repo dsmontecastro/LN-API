@@ -2,6 +2,8 @@
 $color: #3A4149;
 $accent: #D5D7D9;
 
+@import '_breakpoints.scss';
+@import '_orientation.scss';
 @import '_shortcuts.scss';
 
 body {
