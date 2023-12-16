@@ -9,8 +9,6 @@
         <img src='{{ LOGO }}' alt='Home' />
     </a>
 
-    <hr />
-
     <ul id='nav-list'>
 
         {% for route in routes %}
@@ -27,11 +25,11 @@
 
             <a class='{{ is_active }}' href='{{ href }}' title='{{ title }}'>
 
-                <span class='{{ is_active }}'>
+                <span class='symbol {{ is_active }}'>
                     <b> {{ symbol }} </b>
                 </span>
 
-                <p> {{ code }} </p>
+                <p class='code'> {{ code }} </p>
 
             </a>
 
@@ -41,13 +39,12 @@
 
     </ul>
 
-
     <div id='to-json'>
 
         {% set href = request.url | replace('show', 'json', 1) %}
 
         <a href='{{ href }}'>
-            JSON
+            <b> JSON </b>
         </a>
 
     </div>

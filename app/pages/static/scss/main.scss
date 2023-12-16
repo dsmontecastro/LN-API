@@ -1,6 +1,7 @@
 #block {
 
-    @extend .max;
+    @extend .fill;
+
     flex-grow: 1;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
