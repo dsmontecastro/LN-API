@@ -2,11 +2,20 @@ nav {
 
     @extend .col;
 
-    width: 110px;
-    min-width: 7.5%;
-    padding: 1% 0 1% 0;
+    height: 100%;
 
     background-color: $color;
+
+
+    flex: 0 0 7.5%;
+    max-width: 7.5%;
+    padding: 1% 0;
+
+    @include portrait {
+        flex: 0 0 22.5%;
+        max-width: 22.5%;
+        padding: 10% 0;
+    }
 
 
     #nav-head {
@@ -14,7 +23,7 @@ nav {
         @extend .center;
         display: flex;
 
-        height: 15%;
+        height: 20%;
         margin: 5% auto;
 
         color: white;
@@ -23,22 +32,9 @@ nav {
         text-decoration: none;
 
         img {
-            width: 100%;
-            height: 100%;
+            @extend .fill;
             border-width: 5%;
         }
-
-    }
-
-
-    hr {
-
-        width: 85%;
-        height: 5px;
-        margin: 15% auto 10% auto;
-
-        color: white;
-        background-color: white;
 
     }
 
@@ -81,18 +77,26 @@ nav {
                     background-color: darken($color, 10%);
                 }
 
-                span {
+                span.symbol {
 
                     @extend .center;
-                    display: flex;
+                    grid-template: 1fr, 1fr;
+                    align-items: center;
+                    display: grid;
 
-                    width: 3vw;
-                    height: 3vw;
+                    height: 60%;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
 
                     color: $color;
                     background-color: $accent;
 
-                    border-radius: 50%;
+                    font-size: 1.5vw;
+
+                    @include portrait {
+                        font-size: 3vh;
+                    }
+
 
                     &.active {
                         background-color: white;
@@ -101,16 +105,20 @@ nav {
                 }
 
 
-                p {
+                p.code {
 
                     width: 15%;
                     margin: 5% 0 5% 10%;
 
-                    font-size: x-small;
+                    font-size: 1vmax;
                     font-family: monospace;
 
                     writing-mode: vertical-lr;
                     text-orientation: upright;
+
+                    @include portrait {
+                        display: none;
+                    }
 
                 }
 
@@ -121,29 +129,38 @@ nav {
     }
 
 
-    #nav-login {
+    #to-json {
 
         width: 100%;
-        height: 10%;
+        height: 4.5%;
+        margin: auto;
 
-        margin-top: auto;
-        text-align: center;
+        a {
 
-        color: white;
-        border-color: transparent;
-        background-color: transparent;
+            @extend .center;
 
-        img {
+            width: 75%;
+            height: 100%;
+            margin: auto;
 
-            width: 50%;
-            height: 50%;
+            text-align: center;
+            text-decoration: none;
+            font-family: monospace;
 
-            margin-top: 15%;
-            margin-right: 5%;
+            color: $color;
+            background-color: $accent;
+            border-radius: 5px;
 
             cursor: pointer;
 
+            font-size: clamp(1em, 1.75vmax, 4em);
+
+            @include portrait {
+                font-size: clamp(1em, 1.75vmax, 4em);
+            }
+
         }
+
 
     }
 
