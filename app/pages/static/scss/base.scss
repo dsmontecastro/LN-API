@@ -6,19 +6,19 @@ $accent: #D5D7D9;
 @import '_orientation.scss';
 @import '_shortcuts.scss';
 
+
+html {
+    @extend .fill;
+}
+
 body {
 
     @extend .row;
-
-    width: 100vw;
-    height: 100vh;
+    @extend .fill;
 
     margin: 0;
-
     background-color: white;
-
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-
 
     @import 'nav.scss';
     @import 'main.scss';
