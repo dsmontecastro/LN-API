@@ -23,9 +23,9 @@ class Fields(Enum):
             cls.TITLE.value:    Field('text', '{string}'),
             cls.CREDITS.value:  Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
             cls.GENRES.value:   Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
-            cls.DATE.value:     Field('date', '{YYYY-MM-DD} (equal/more than)'),
+            cls.DATE.value:     Field('date', '{YYYY-MM-DD} (>=)'),
             cls.FORMAT.value:   Field('text', '[audio/digital/physical]', 'audio/digital/physical'),
-            cls.PRICE.value:    Field('decimal', '${X.X} (equal/less than)', '0.00'),
+            cls.PRICE.value:    Field('decimal', '${X.X} (<=)', '0.00'),
             cls.ISBN.value:     Field('text', '{ISBN-Code}', 'XXX-X-XXXXXX-XXX-X')
         }
 

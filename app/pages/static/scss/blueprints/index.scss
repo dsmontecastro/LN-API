@@ -1,117 +1,158 @@
-#index {
+#error {
 
-    @extend .col;
-    @extend .fill;
-
-    gap: 2%;
-    flex: 0 1 40%;
-    justify-content: space-between;
+    @extend .center;
+    width: 100%;
 
 
-    #error {
+    #message {
 
-        @extend .center;
-        display: flex;
-        flex: 0 0 10%;
+        position: relative;
 
         width: 100%;
-        min-height: 0;
+        margin: 0 1%;
+        padding: 1.5vh 5.5vw;
+
+        text-align: center;
+        font-size: clamp(0.5rem, 2vmax, 3rem);
 
         color: white;
-        font-size: smaller;
-
-        border-radius: 3%;
         background-color: black;
+        border-radius: 10px;
 
-        strong {
-            margin: 0;
-            font-size: 2em;
-            vertical-align: middle;
+
+        button {
+
+            position: absolute;
+            right: 1.5vw;
+            top: 0.5vh;
+
+            font-size: clamp(1em, 2vmax, 6em);
+
+            color: white;
+            border: 0 none transparent;
+            background-color: transparent;
+
+            cursor: pointer;
+
         }
 
     }
 
+}
 
-    #instructions {
 
-        @extend .row;
-        @extend .fill;
-        justify-content: space-between;
+#index {
+
+    @extend .fill;
+    margin-top: 0.5vh;
+
+    display: flex;
+    flex-direction: row;
+
+    @include portrait {
+        flex-direction: column;
+    }
+
+
+    div {
+
+        @extend .col;
+        flex: 1 1 auto;
+        align-items: center;
+
+        width: 100%;
+        margin: 1% 1%;
+        padding: 2.25vh 3vw;
+
+        border-radius: 2vh;
+        background-color: $color;
+
+        // overflow-y: auto;
+
+
         flex-grow: 1;
-        gap: 2%;
+        flex-shrink: 1;
+
+        &#routes {
+            flex-basis: 40%;
+        }
+
+        &#filters {
+            flex-basis: 60%;
+        }
 
 
-        div {
+        p {
+            margin: 2vh 0;
+            font-size: clamp(0.7em, 2vmax, 3.25em);
+            line-break: loose;
+            color: $accent;
+        }
+
+
+        table {
+
+            flex: 1 1 100%;
 
             width: 100%;
-            margin: 1% 1%;
-            padding: 3% 0;
+            max-height: 90%;
 
-            border-radius: 5%;
-            background-color: $color;
+            margin: 1% auto;
+            padding: 0 2.5%;
 
-            p {
-                margin: 2% 0;
-                font-size: large;
-                color: $accent;
+
+            $font-size-landscape: clamp(0.25em, 1.5vmax, 2.75em);
+            $font-size-portrait: clamp(0.25em, 2vmax, 3em);
+
+            @include portrait {
+                min-height: 77vh;
             }
 
-        }
 
 
-        #routes {
-            flex: 0 1 45%;
-            font-size: larger;
-        }
+            th,
+            td {
 
-        #filters {
-            flex: 0 1 55%;
-            font-size: larger;
-        }
+                padding: 0.35vh 0;
+
+                text-align: center;
+                font-size: $font-size-landscape;
+
+                @include portrait {
+                    font-size: $font-size-portrait;
+                }
 
 
-        .box {
+                a:link {
+                    color: $accent;
+                }
 
-            @extend .col;
-            flex: 1 1 auto;
-            align-items: center;
 
-            p {
-                font-size: x-large;
-            }
+                P {
 
-            table {
+                    margin: 0;
 
-                width: 100%;
-                height: 90%;
+                    font-size: $font-size-landscape;
 
-                margin: 1% auto;
-                padding: 0 15%;
-
-                th,
-                td {
-
-                    padding: 1.5% 0;
-                    text-align: center;
-                    background-color: slategray;
-
-                    P {
-                        margin: 0;
-                        color: $accent;
-                        font-size: medium;
-                    }
-
-                    a {
-
-                        &:link {
-                            color: $accent;
-                        }
-
+                    @include portrait {
+                        font-size: $font-size-portrait;
                     }
 
                 }
 
             }
+
+
+            th {
+                color: $accent;
+                background-color: darken($color, 25%);
+            }
+
+            td {
+                color: $accent;
+                background-color: darken($color, 10%);
+            }
+
 
         }
 

@@ -18,106 +18,116 @@
     </div>
 
 
+    {% if message %}
+
+    <div id='error'>
+        <div id='message'>
+            <button onclick='close_err()'>
+                ✖
+            </button>
+            {{ message }}
+        </div>
+    </div>
+
+    {% endif %}
+
+
     <div id='index' class='content'>
 
-        {% if message %}
+        <div id='routes'>
 
-        <div id='error'>
-            <b> ⚠ -- &nbsp; </b>
-            <p> {{ message }} </p>
-            <b> &nbsp; -- ⚠ </b>
+            <p> <b> Route: <i> /api/json/{code} </i> </b> </p>
+
+            <table>
+
+                <colgroup>
+                    <col span='1' style='width: 70%'>
+                    <col span='1' style='width: 30%'>
+                </colgroup>
+
+
+                <tbody>
+
+                    <tr>
+                        <th> Source </th>
+                        <th> Code </th>
+                    </tr>
+
+                    {% for route in routes %}
+
+                    {% set code = route.name %}
+                    {% set name = route.value.title %}
+                    {% set link = URL + 'api/json/' + code | lower %}
+
+                    <tr>
+
+                        <td> {{ name }} </td>
+
+                        <td>
+                            <a href='{{ link }}'>
+                                {{ code }}
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
         </div>
 
-        {% endif %}
+
+        <div id='filters'>
+
+            <p> <b> FILTER PARAMETERS </b> </p>
+
+            <table>
+
+                <colgroup>
+                    <col span='1' style='width: 30%'>
+                    <col span='1' style='width: 80%'>
+                </colgroup>
 
 
-        <div id='instructions'>
+                <tbody>
 
-            <div id='routes' class='box'>
+                    <tr>
+                        <th> Field </th>
+                        <th> Query </th>
+                    </tr>
 
-                <p> <b> ROUTES: <i> /api/json/{table_code} </i> </b> </p>
+                    {% for query in queries %}
 
-                <table>
+                    <tr>
+                        <td> {{ query }} </td>
+                        <td>
+                            <p> ?{{ query }}={{ queries[query].query }} </p>
+                        </td>
+                    </tr>
 
-                    <colgroup>
-                        <col span='1' style='width: 70%'>
-                        <col span='1' style='width: 30%'>
-                    </colgroup>
+                    {% endfor %}
 
+                </tbody>
+            </table>
 
-                    <tbody>
-
-                        <tr>
-                            <th> Table </th>
-                            <th> Code </th>
-                        </tr>
-
-                        {% for route in routes %}
-
-                        {% set code = route.name %}
-                        {% set name = route.value.title %}
-                        {% set link = URL + 'api/json/' + code | lower %}
-
-                        <tr>
-
-                            <td> {{ name }} </td>
-
-                            <td>
-                                <a href='{{ link }}'>
-                                    {{ code }}
-                                </a>
-                            </td>
-
-                        </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-                </table>
-
-            </div>
-
-
-            <div id='filters' class='box'>
-
-                <p> <b> FILTERS </b> </p>
-
-                <table>
-
-                    <colgroup>
-                        <col span='1' style='width: 20%'>
-                        <col span='1' style='width: 80%'>
-                    </colgroup>
-
-
-                    <tbody>
-
-                        <tr>
-                            <th> Field </th>
-                            <th> Query </th>
-                        </tr>
-
-                        {% for query in queries %}
-
-                        <tr>
-                            <td> {{ query }} </td>
-                            <td>
-                                <p> ?{{ query }}={{ queries[query].query }} </p>
-                            </td>
-                        </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-                </table>
-
-
-            </div>
 
         </div>
 
     </div>
 
 </div>
+
+
+<script>
+
+    const error = document.getElementById( 'error' );
+
+    function close_err() {
+        error.style.display = 'none'
+    }
+
+</script>
 
 {% endblock %}
