@@ -22,8 +22,8 @@ nav {
 
         @extend .center;
         display: flex;
+        flex: 1 0 20%;
 
-        height: 20%;
         margin: 5% auto;
 
         color: white;
@@ -41,16 +41,20 @@ nav {
 
     #nav-list {
 
+        flex: 1 1 100%;
+
+        margin-top: 10%;
         padding: 0;
-        flex-grow: 1;
+
         text-align: center;
 
         list-style: none;
         list-style-position: inside;
 
+
         li {
 
-            height: 15%;
+            height: 10vh;
             margin: auto;
             font-size: large;
 
@@ -80,9 +84,6 @@ nav {
                 span.symbol {
 
                     @extend .center;
-                    grid-template: 1fr, 1fr;
-                    align-items: center;
-                    display: grid;
 
                     height: 60%;
                     aspect-ratio: 1;

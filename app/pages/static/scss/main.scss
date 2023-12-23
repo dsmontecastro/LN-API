@@ -16,6 +16,8 @@
         justify-content: flex-start;
         padding: 1vh 1vw;
 
+        overflow: hidden;
+
 
         #header {
 
@@ -25,7 +27,7 @@
 
             width: 100%;
             margin: 1% 0;
-            padding: 0 5% 1% 0;
+            padding: 0 5% 0.75% 0;
 
             text-align: right;
             vertical-align: middle;
@@ -44,7 +46,7 @@
 
 
         .content {
-            flex: 1 1 100%;
+            flex: 1 1 auto;
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -64,7 +66,7 @@
         color: $accent;
         text-align: center;
 
-        object-fit: contain;
+        object-fit: fill;
         background-color: $color;
 
     }
