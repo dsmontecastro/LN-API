@@ -14,14 +14,16 @@
     <div id='entry' class='content'>
 
 
-        <img src='{{ entry.cover }}' alt='{{ entry.title }}' />
+        <a id='cover' href='{{ entry.url }}'>
+            <img src='{{ entry.cover }}' alt='{{ entry.title }}' title='{{ entry.title }}' />
+        </a>
 
 
         <div id='info'>
 
-            <div id='details'>
+            <div id='text'>
 
-                <div id='major'>
+                <div id='release'>
                     <p> Release Date: {{ entry.date }} </p>
                     <a href='{{ entry.url }}'> Original Site </a>
                 </div>
@@ -41,35 +43,22 @@
                 </div>
 
 
-                <div id='genres'>
+                {% set blurb = entry.blurb %}
 
-                    {% for genre in entry.genres %}
-
-                    {% set query = genre | lower | replace(' ', '_') %}
-                    {% set href = request.root_url + 'api/show/all?genre=' + query %}
-
-                    <a class='genre' href='{{ href }}'>
-                        {{ genre | capitalize }}
-                    </a>
-
-                    {% endfor %}
-
-                </div>
+                {% if blurb %}
+                <div id='blurb'>{{ blurb | trim }}</div>
+                {% endif %}
 
             </div>
 
 
-            <div id='right'>
+            <div id='tags'>
 
-                <div id='blurb'>
-                    {{ entry.blurb | trim }}
-                </div>
-
-                <div id='media'>
+                <diV id='media'>
 
                     <p> Media </p>
 
-                    <div id='rows'>
+                    <div>
 
                         {% for m in entry.media %}
 
@@ -93,7 +82,30 @@
 
                     </div>
 
+                </diV>
+
+
+                <div id='genres'>
+
+                    <p> Genres </p>
+
+                    <div>
+
+                        {% for genre in entry.genres %}
+
+                        {% set query = genre | lower | replace(' ', '_') %}
+                        {% set href = request.root_url + 'api/show/all?genre=' + query %}
+
+                        <a class='genre' href='{{ href }}'>
+                            <span>{{ genre }}</span>
+                        </a>
+
+                        {% endfor %}
+
+                    </div>
+
                 </div>
+
 
             </div>
 
