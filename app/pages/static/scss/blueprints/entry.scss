@@ -1,18 +1,6 @@
 $bg: darken($color: $color, $amount: 50%);
 
 
-.flip {
-
-    flex-direction: row;
-
-    @include portrait {
-        flex-direction: column;
-    }
-
-}
-
-
-
 #entry {
 
     gap: 2%;

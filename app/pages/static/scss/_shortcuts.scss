@@ -18,3 +18,23 @@
     align-items: center;
     justify-content: center;
 }
+
+.flip {
+
+    flex-direction: row;
+
+    @include portrait {
+        flex-direction: column;
+    }
+
+}
+
+.flip-h {
+
+    flex-direction: column;
+
+    @include portrait {
+        flex-direction: row;
+    }
+
+}
