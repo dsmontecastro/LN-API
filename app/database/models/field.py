@@ -21,8 +21,8 @@ class Fields(Enum):
     def queries(cls):
         return {
             cls.TITLE.value:    Field('text', '{string}'),
-            cls.CREDITS.value:  Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
-            cls.GENRES.value:   Field('text', '{string} (repeatable)', 'Separate entries with commas (,)'),
+            cls.CREDITS.value:  Field('text', '{string} (repeatable)', 'Separate items w/ commas (,)'),
+            cls.GENRES.value:   Field('text', '{string} (repeatable)', 'Separate items w/ commas (,)'),
             cls.DATE.value:     Field('date', '{YYYY-MM-DD} (>=)'),
             cls.FORMAT.value:   Field('text', '[audio/digital/physical]', 'audio/digital/physical'),
             cls.PRICE.value:    Field('decimal', '${X.X} (<=)', '0.00'),

@@ -27,6 +27,7 @@
                 {% set type = data.input %}
 
                 <div id='query-{{ query }}' class='query'>
+
                     <label> {{ query | capitalize }} </label>
 
                     {% if query == 'format' %}
@@ -49,15 +50,21 @@
 
                 {% endfor %}
 
+            </div>
+
+
+            <div id='buttons'>
+
                 <button id='clear' class='query'>
                     <a href='{{ request.base_url }}'>
                         Clear
                     </a>
                 </button>
 
-            </div>
 
-            <button id='submit' type='submit'> Search </button>
+                <button id='submit' type='submit'> Search </button>
+
+            </div>
 
         </form>
 
@@ -66,8 +73,12 @@
 
             {% for entry in entries %}
 
-            {% set name = entry.title | replace(' vol', ' Vol') %}
             {% set href = '/entry/show/' + entry._id | string %}
+            {% set name = entry.title | replace(' vol', ' Vol') %}
+
+            {% if name | length > 75 %}
+            {% set name = name[:72] + '...' %}
+            {% endif %}
 
             <a href='{{ href }}'>
                 <img class='cover' src='{{ entry.cover }}' alt='{{ name }}' title='{{ name }}'>

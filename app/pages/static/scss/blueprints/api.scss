@@ -1,41 +1,69 @@
 #api {
 
-    @extend .col;
     @extend .fill;
+    @extend .col;
 
-    justify-content: space-around;
-    flex: 0 1 30%;
-    gap: 5%;
+    justify-content: space-between;
+    gap: 1%;
 
 
     #filters {
 
         @extend .row;
+        @extend .flip;
         @extend .center;
-        flex: 0 0 5%;
 
-        padding: 2% 0 0.5% 1.5%;
+        flex: 1 0 5%;
+        gap: 2vmin;
 
         color: white;
-        background-color: black;
+        background-color: darken($color, 10%);
+
+
+        padding: 2vh 1.5vw;
+        font-size: clamp(1em, 1.7vh, 2em);
+
+        input,
+        button,
+        select {
+            font-size: clamp(0.8em, 1.5vh, 5em);
+        }
+
+
+        @include portrait {
+
+            padding: 1.5vh 3vw;
+            font-size: clamp(0.8em, 1.75vh, 5em);
+
+            input,
+            button,
+            select {
+                font-size: clamp(0.8em, 1.75vh, 5em);
+            }
+        }
+
 
         #queries {
 
             @extend .row;
+            flex: 1 1 50%;
+            row-gap: 1.5vh;
             flex-wrap: wrap;
 
-            width: 100%;
+            @include landscape {
+                margin-right: 2%;
+            }
+
 
             .query {
 
                 @extend .row;
 
                 width: 15%;
-                margin-bottom: 1.5%;
                 text-align: center;
 
                 label {
-                    margin-right: 15px;
+                    margin-right: 1.5vw;
                 }
 
                 input {
@@ -45,46 +73,118 @@
             }
 
             #query-title {
-                flex: 1 0 100%;
+                flex: 0 0 100%;
             }
 
             #query-credits {
-                flex: 0 0 48.5%;
-                margin-right: 2.5%;
+
+                flex: 0 0 100%;
+
+                @include landscape {
+                    flex: 0 0 48.5%;
+                    margin-right: 2.5%;
+                }
+
             }
 
             #query-genres {
-                flex: 0 0 49%;
+
+                flex: 0 0 100%;
+
+                @include landscape {
+                    flex: 0 0 49%;
+                }
+
             }
 
             #query-date {
-                flex: 0 0 17%;
+
+                flex: 0 0 45%;
+
+                @include landscape {
+                    flex: 0 0 17%;
+                }
+
             }
 
-            #query-format,
-            #query-price {
-                flex: 0 0 20%;
+            #query-format {
+
+                flex: 1 0 50%;
                 margin-left: 5%;
-                text-align: center;
+
+                @include landscape {
+                    flex: 0 1 15%;
+                }
+
+            }
+
+            #query-price {
+
+                flex: 0 0 32%;
+
+                @include landscape {
+                    flex: 0 0 20%;
+                    margin-left: 3%;
+                }
+
             }
 
             #query-isbn {
 
-                flex: 0 0 28%;
-                margin-left: 5%;
+                flex: 0 0 65%;
+                margin-left: 3%;
 
-                label {
-                    text-transform: uppercase;
+                @include landscape {
+                    flex: 0 0 16%;
                 }
 
             }
 
         }
 
+        #buttons {
 
-        button {
+            @extend .flip-h;
+            @extend .fill;
+
+            justify-content: space-between;
+            display: flex;
             flex: 0 0 10%;
-            margin: 0 5%;
+
+            height: 100%;
+            padding: 1% 0;
+            gap: 15%;
+
+
+            #clear {
+
+                cursor: pointer;
+
+                flex: 1 1 50%;
+                width: 100%;
+
+                margin: 0 5%;
+
+                a {
+                    color: black;
+                    text-align: center;
+                    text-decoration: none;
+                }
+
+            }
+
+
+            #submit {
+
+                cursor: pointer;
+
+                flex: 1 1 50%;
+                width: 100%;
+
+                margin: 0 5%;
+
+            }
+
         }
 
     }
@@ -93,14 +193,19 @@
     #grid {
 
         @extend .fill;
-
-        flex: 0 1 90%;
+        flex: 1 1 100%;
         display: grid;
+
         overflow: auto;
 
         gap: 3% 2%;
         grid-auto-rows: 40vh;
         grid-template-columns: repeat(6, 1fr);
+
+        @include portrait {
+            grid-auto-rows: 30vh;
+            grid-template-columns: repeat(2, 1fr)
+        }
 
 
         a {
@@ -112,7 +217,7 @@
             padding: 5% 0;
             gap: 2%;
 
-            font-size: 2vh;
+            font-size: clamp(1em, 2vh, 2em);
             text-align: center;
             text-decoration: none;
 
@@ -122,7 +227,6 @@
             img.cover {
                 @extend .fill;
                 padding: 0 5%;
-
             }
 
         }
