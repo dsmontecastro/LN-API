@@ -92,6 +92,7 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
                 driver.get(url)
                 url = driver.current_url
                 volume = url.split('#')[-1]
+                volume_title = ' ' + volume.capitalize().replace('-', ' ')
 
 
                 # Check if Book Page exists
@@ -100,7 +101,7 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
                     log.debug(f'>> {url:.50s}')
 
                     # Primary Sections
-                    title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {volume.capitalize().replace('-', ' ')}'
+                    title = driver.find_element(CSS, 'div.fl45o3o > h1').text + volume_title
                     side = driver.find_element(CSS, 'div.fcoxyrb')
                     main = driver.find_element(CSS, f'#{volume}')
 
