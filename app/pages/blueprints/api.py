@@ -85,7 +85,9 @@ def get_params(table: str) -> dict[Any, Any]:
     if table == 'All Tables': table = ''
     params[Fields.TABLE.value] = table
 
-    for field in Fields.queries().keys():
+    for query in Fields.queries():
+
+        field = query.name
 
         match(Fields[field.upper()]):
 

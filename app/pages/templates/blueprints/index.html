@@ -101,9 +101,9 @@
                     {% for query in queries %}
 
                     <tr>
-                        <td> {{ query }} </td>
+                        <td> {{ query.name }} </td>
                         <td>
-                            <p> ?{{ query }}={{ queries[query].query }} </p>
+                            <p> ?{{ query.name }}={{ query.query }} </p>
                         </td>
                     </tr>
 
