@@ -21,10 +21,9 @@ class Book(object):
     def __init__(self, url = '', format = '', volume = ''):
         self.url: str = url
         self.format: str = format
-        self.volume: str = volume
     
     def __str__(self):
-        return f'{self.volume}:  @{self.url} [{self.format}]'
+        return f'@{self.url}: [{self.format}]'
 
 # endregion --------------------------------------------------------------------------------------------------
 
@@ -58,7 +57,6 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
         try: 
 
             url = item.get_attribute('href')
-            volume = item.find_element(CSS, 'div.f6nfde4 > div > span.fpcytuh').text.lower()
             format = item.find_element(CSS, 'div.f1qz2g98 > div > div.f1mwi361 > div.text').text
 
             # Create Item only if:
@@ -66,7 +64,7 @@ def scrape(driver: WebDriver, limit: int) -> list[Entry]:
             # > Format is 'complete' (not 'partial')
 
             if url and 'part' not in format.lower():
-                books.append(Book(url, format, volume))
+                books.append(Book(url, format))
 
         except Exception as e: error(e)
 
@@ -88,30 +86,23 @@ def __process(driver: WebDriver, book: Book) -> Entry | None:
         if url:
 
             format = book.format
-            volume = book.volume
 
             try:
 
                 driver.get(url)
-                log.debug(f'>> {driver.current_url:.50s}')
+                url = driver.current_url
+                volume = url.split('#')[-1]
+
 
                 # Check if Book Page exists
-                if not driver.current_url.endswith('404'):
+                if not url.endswith('404'):
+
+                    log.debug(f'>> {url:.50s}')
 
                     # Primary Sections
-                    title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {book.volume}'
+                    title = driver.find_element(CSS, 'div.fl45o3o > h1').text + f' {volume.capitalize().replace('-', ' ')}'
                     side = driver.find_element(CSS, 'div.fcoxyrb')
-
-                    # Finding Main
-                    anchors = driver.find_elements(CSS, 'div.f1vdb00x.novel h2 > a')
-                    anchors = list(filter(lambda a: volume in a.text.lower(), anchors))
-
-                    
-                    # Check if Main exists
-                    if not anchors: raise NoSuchElementException
-                    ancestors = anchors[0].find_elements(PTH, './ancestor::div[@class="f1k2es0r"]')
-                    main = ancestors[-1]
-
+                    main = driver.find_element(CSS, f'#{volume}')
 
                     # Main Elements
                     blurb = main.find_element(CSS, 'p').text
