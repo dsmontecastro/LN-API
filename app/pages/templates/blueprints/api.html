@@ -18,19 +18,36 @@
 
         <form id='filters'>
 
-            <div id='queries'>
+            <div id='filters-top'>
 
-                {% for query in queries %}
+                <div id='query-title' class='query'>
+                    <label> Title </label>
+                    <input name='title' type='text' />
+                </div>
 
-                {% set data = queries[query] %}
-                {% set value = data.value %}
-                {% set type = data.input %}
+                <button id='filters-expand' type='button'> ▼ </button>
 
-                <div id='query-{{ query }}' class='query'>
+            </div>
 
-                    <label> {{ query | capitalize }} </label>
 
-                    {% if query == 'format' %}
+            <div id='filters-mid'>
+
+                {% for query in queries[1:] %}
+
+                {% set name = query.name %}
+                {% set type = query.input %}
+                {% set value = query.value %}
+
+                {% set class = 'query' %}
+
+                <div id='query-{{ name }}' class='query'>
+
+                    <label> {{ name | capitalize }} </label>
+
+                    {% if name == 'title' %}
+                    <p> a </p>
+
+                    {% elif name == 'format' %}
                     <select name='format'>
                         <option value=''> Any </option>
                         {% for opt in value.split('/') %}
@@ -39,30 +56,55 @@
                     </select>
 
                     {% elif query == 'date' %}
-                    <input name='{{ query }}' type='{{ type }}' value='{{ today }}' />
+                    <input name='{{ name }}' type='{{ type }}' value='{{ today }}' />
 
 
                     {% else %}
-                    <input name='{{ query }}' type='{{ type }}' placeholder='{{ value }}' />
+                    <input name='{{ name }}' type='{{ type }}' placeholder='{{ value }}' min='0' />
                     {% endif %}
 
                 </div>
 
                 {% endfor %}
 
+                <!-- <div id='query-spacer' class='query'> </div> -->
+
             </div>
 
 
-            <div id='buttons'>
+            <div id='filters-bot'>
 
-                <button id='clear' class='query'>
-                    <a href='{{ request.base_url }}'>
-                        Clear
-                    </a>
-                </button>
+                <div id='filters-options'>
 
+                    <div id='options-limit' class='query'>
+                        <label> Limit </label>
+                        <input id='limit' name='limit' type='number' min='0' value='0' />
+                    </div>
 
-                <button id='submit' type='submit'> Search </button>
+                    <div id='options-sorting' class='query'>
+
+                        <label> Sorting </label>
+
+                        <select name='sort-by'>
+                            <option value=''> Sort By </option>
+                            {% for query in queries %}
+                            <option value='{{ query.name }}'> {{ query.name | capitalize }} </option>
+                            {% endfor %}
+                        </select>
+
+                        <select name='order'>
+                            <option value='1'> ASC </option>
+                            <option value='-1'> DSC </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div id='filters-buttons'>
+                    <button id='reset' type='reset'> Clear </button>
+                    <button id='submit' type='submit'> Search </button>
+                </div>
 
             </div>
 

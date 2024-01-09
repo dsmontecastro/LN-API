@@ -1,29 +1,29 @@
-.fill, body #block #main #api #grid a img.cover, body #block #main #api #grid a, body #block #main #api #grid, body #block #main #api #filters #buttons, body #block #main #api, body #block #main #entry #info div#tags #genres div .genre, body #block #main #entry #cover img, body #block #main #index, body #block #main, body #block, body nav #nav-head img, body, html {
+.fill, body #block #main #api #grid a img.cover, body #block #main #api #grid a, body #block #main #api #grid, body #block #main #api #filters #filters-bot #filters-buttons button, body #block #main #api #filters .query input, body #block #main #api, body #block #main #entry #info div#tags #genres div .genre, body #block #main #entry #cover img, body #block #main #index, body #block #main, body #block, body nav #nav-head img, body, html {
   width: 100%;
   height: 100%; }
 
-.col, body #block #main #api #grid a, body #block #main #api, body #block #main #entry #info div#tags > div, body #block #main #entry #info > div, body #block #main #index div, body #block #main, body nav {
+.col, body #block #main #api #grid a, body #block #main #api #filters #filters-bot, body #block #main #api #filters, body #block #main #api, body #block #main #entry #info div#tags > div, body #block #main #entry #info > div, body #block #main #index div, body #block #main, body nav {
   display: flex;
   flex-direction: column; }
 
-.row, body #block #main #api #filters #queries .query, body #block #main #api #filters #queries, body #block #main #api #filters, body #block #main #entry #info div#tags #media div, body nav #nav-list li a, body {
+.row, body #block #main #api #filters #filters-bot #filters-buttons, body #block #main #api #filters #filters-bot #filters-options, body #block #main #api #filters #filters-mid, body #block #main #api #filters #filters-top, body #block #main #api #filters .query, body #block #main #entry #info div#tags #media div, body nav #nav-list li a, body {
   display: flex;
   flex-direction: row; }
 
-.center, body #block img, body #block #main #api #filters, body #block #main #entry #info div#tags #genres div .genre, body #block #main #entry #info div#tags #genres, body #block #main #entry #info div#tags #media div, body #block #main #entry #info div#tags #media, body #block #main #entry #info > div, body #block #main #error, body nav #to-json a, body nav #nav-list li a span.symbol, body nav #nav-list li a, body nav #nav-head {
+.center, body #block img, body #block #main #api #filters #filters-bot #filters-buttons button, body #block #main #api #filters #filters-bot #filters-options > div, body #block #main #api #filters #filters-bot #filters-options, body #block #main #api #filters #filters-bot, body #block #main #api #filters, body #block #main #entry #info div#tags #genres div .genre, body #block #main #entry #info div#tags #genres, body #block #main #entry #info div#tags #media div, body #block #main #entry #info div#tags #media, body #block #main #entry #info > div, body #block #main #error, body nav #to-json a, body nav #nav-list li a span.symbol, body nav #nav-list li a, body nav #nav-head {
   display: flex;
   align-items: center;
   justify-content: center; }
 
-.flip, body #block #main #api #filters, body #block #main #entry #info, body #block #main #entry {
+.flip, body #block #main #api #filters #filters-bot, body #block #main #entry #info, body #block #main #entry {
   flex-direction: row; }
   @media screen and (orientation: portrait) {
-    .flip, body #block #main #api #filters, body #block #main #entry #info, body #block #main #entry {
+    .flip, body #block #main #api #filters #filters-bot, body #block #main #entry #info, body #block #main #entry {
       flex-direction: column; } }
-.flip-h, body #block #main #api #filters #buttons {
+.flip-h {
   flex-direction: column; }
   @media screen and (orientation: portrait) {
-    .flip-h, body #block #main #api #filters #buttons {
+    .flip-h {
       flex-direction: row; } }
 body {
   margin: 0;
@@ -360,19 +360,29 @@ body {
                   body #block #main #entry #info div#tags #genres div .genre {
                     grid-auto-rows: 10vh;
                     font-size: clamp(0.8em, 1.5vh, 1.75em); } }
+      body #block #main .hide {
+        display: none !important; }
       body #block #main #api {
         justify-content: space-between;
         gap: 1%; }
         body #block #main #api #filters {
-          flex: 1 0 5%;
-          gap: 2vmin;
+          flex: 1 0 auto;
+          gap: 2vh;
           color: white;
           background-color: #23282d;
           padding: 2vh 1.5vw;
           font-size: clamp(1em, 1.7vh, 2em); }
+          body #block #main #api #filters label {
+            margin-right: 5px; }
           body #block #main #api #filters input,
           body #block #main #api #filters button,
           body #block #main #api #filters select {
+            cursor: pointer;
+            color: white;
+            background-color: #3A4149;
+            border: 0 solid transparent;
+            padding-inline: 1%;
+            text-align: center;
             font-size: clamp(0.8em, 1.5vh, 5em); }
           @media screen and (orientation: portrait) {
             body #block #main #api #filters {
@@ -382,77 +392,89 @@ body {
               body #block #main #api #filters button,
               body #block #main #api #filters select {
                 font-size: clamp(0.8em, 1.75vh, 5em); } }
-          body #block #main #api #filters #queries {
-            flex: 1 1 50%;
-            row-gap: 1.5vh;
-            flex-wrap: wrap; }
-            @media screen and (orientation: landscape) {
-              body #block #main #api #filters #queries {
-                margin-right: 2%; } }
-            body #block #main #api #filters #queries .query {
-              width: 15%;
-              text-align: center; }
-              body #block #main #api #filters #queries .query label {
-                margin-right: 1.5vw; }
-              body #block #main #api #filters #queries .query input {
-                width: 100%; }
-            body #block #main #api #filters #queries #query-title {
-              flex: 0 0 100%; }
-            body #block #main #api #filters #queries #query-credits {
-              flex: 0 0 100%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-credits {
-                  flex: 0 0 48.5%;
-                  margin-right: 2.5%; } }
-            body #block #main #api #filters #queries #query-genres {
-              flex: 0 0 100%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-genres {
-                  flex: 0 0 49%; } }
-            body #block #main #api #filters #queries #query-date {
-              flex: 0 0 45%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-date {
-                  flex: 0 0 17%; } }
-            body #block #main #api #filters #queries #query-format {
-              flex: 1 0 50%;
-              margin-left: 5%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-format {
-                  flex: 0 1 15%; } }
-            body #block #main #api #filters #queries #query-price {
-              flex: 0 0 32%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-price {
-                  flex: 0 0 20%;
-                  margin-left: 3%; } }
-            body #block #main #api #filters #queries #query-isbn {
-              flex: 0 0 65%;
-              margin-left: 3%; }
-              @media screen and (orientation: landscape) {
-                body #block #main #api #filters #queries #query-isbn {
-                  flex: 0 0 16%; } }
-          body #block #main #api #filters #buttons {
+          body #block #main #api #filters .query {
+            flex-grow: 1;
+            flex-shrink: 1; }
+            body #block #main #api #filters .query label {
+              margin-right: clamp(5px, 2vw, 15px); }
+            body #block #main #api #filters .query input {
+              text-overflow: ellipsis; }
+          body #block #main #api #filters #filters-top {
             justify-content: space-between;
-            display: flex;
-            flex: 0 0 10%;
-            height: 100%;
-            padding: 1% 0;
-            gap: 15%; }
-            body #block #main #api #filters #buttons #clear {
-              cursor: pointer;
-              flex: 1 1 50%;
-              width: 100%;
-              margin: 0 5%; }
-              body #block #main #api #filters #buttons #clear a {
-                color: black;
-                text-align: center;
-                text-decoration: none; }
-            body #block #main #api #filters #buttons #submit {
-              cursor: pointer;
-              flex: 1 1 50%;
-              width: 100%;
-              margin: 0 5%; }
+            gap: 5%;
+            width: 100%;
+            height: clamp(0, min-content, 10vh); }
+            body #block #main #api #filters #filters-top #query-title {
+              height: 100%;
+              flex-basis: 100%; }
+            body #block #main #api #filters #filters-top #filters-expand {
+              font-size: 1.5vmax; }
+          body #block #main #api #filters #filters-mid {
+            flex: 1 1 50%;
+            flex-wrap: wrap;
+            gap: 2vh clamp(5px, 1.5vw, 2%);
+            width: 100%; }
+            body #block #main #api #filters #filters-mid #query-genres,
+            body #block #main #api #filters #filters-mid #query-credits {
+              max-width: none;
+              flex-basis: 49%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-mid #query-genres,
+                body #block #main #api #filters #filters-mid #query-credits {
+                  flex-basis: 100%; } }
+            body #block #main #api #filters #filters-mid #query-date {
+              min-width: 0;
+              flex-basis: 15%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-mid #query-date {
+                  flex-basis: 51%; } }
+              body #block #main #api #filters #filters-mid #query-date input {
+                min-width: 0;
+                max-width: 55%; }
+            body #block #main #api #filters #filters-mid #query-format {
+              flex-basis: 10%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-mid #query-format {
+                  flex-basis: 44%; } }
+            body #block #main #api #filters #filters-mid #query-price {
+              flex-basis: 10%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-mid #query-price {
+                  flex-basis: 20%; } }
+            body #block #main #api #filters #filters-mid #query-isbn {
+              flex-basis: 30%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-mid #query-isbn {
+                  flex-basis: 45%; } }
+          body #block #main #api #filters #filters-bot {
+            gap: 10vw;
+            width: 100%;
+            height: clamp(0, min-content, 10vh); }
+            @media screen and (orientation: portrait) {
+              body #block #main #api #filters #filters-bot {
+                width: 100%;
+                gap: 1vh; } }
+            body #block #main #api #filters #filters-bot > div {
+              height: 100%; }
+            body #block #main #api #filters #filters-bot #filters-options {
+              flex: 1 0 40%;
+              gap: 3%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-bot #filters-options {
+                  width: 100%; } }
+              body #block #main #api #filters #filters-bot #filters-options > div {
+                gap: 1%; }
+              body #block #main #api #filters #filters-bot #filters-options #options-limit {
+                flex: 1 1 30%; }
+            body #block #main #api #filters #filters-bot #filters-buttons {
+              flex: 1 1 90%;
+              gap: 10%; }
+              @media screen and (orientation: portrait) {
+                body #block #main #api #filters #filters-bot #filters-buttons {
+                  width: 90%; } }
+              body #block #main #api #filters #filters-bot #filters-buttons button {
+                flex: 1 1 50%;
+                cursor: pointer; }
         body #block #main #api #grid {
           flex: 1 1 100%;
           display: grid;

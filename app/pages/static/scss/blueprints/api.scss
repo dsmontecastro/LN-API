@@ -1,3 +1,11 @@
+$bg: darken($color, 10%);
+
+
+.hide {
+    display: none !important;
+}
+
+
 #api {
 
     @extend .fill;
@@ -9,24 +17,36 @@
 
     #filters {
 
-        @extend .row;
-        @extend .flip;
         @extend .center;
+        @extend .col;
 
-        flex: 1 0 5%;
-        gap: 2vmin;
+        flex: 1 0 auto;
+        gap: 2vh;
 
         color: white;
-        background-color: darken($color, 10%);
-
+        background-color: $bg;
 
         padding: 2vh 1.5vw;
         font-size: clamp(1em, 1.7vh, 2em);
 
+        label {
+            margin-right: 5px;
+        }
+
         input,
         button,
         select {
+
+            cursor: pointer;
+
+            color: white;
+            background-color: $color;
+            border: 0 solid transparent;
+
+            padding-inline: 1%;
+            text-align: center;
             font-size: clamp(0.8em, 1.5vh, 5em);
+
         }
 
 
@@ -43,145 +63,195 @@
         }
 
 
-        #queries {
+        .query {
+
+            @extend .row;
+
+            flex-grow: 1;
+            flex-shrink: 1;
+
+
+            label {
+                margin-right: clamp(5px, 2vw, 15px);
+            }
+
+            input {
+                @extend .fill;
+                text-overflow: ellipsis;
+            }
+
+        }
+
+
+        #filters-top {
+
+            @extend .row;
+            justify-content: space-between;
+            gap: 5%;
+
+            width: 100%;
+            height: clamp(0, min-content, 10vh);
+
+
+            #query-title {
+                height: 100%;
+                flex-basis: 100%;
+            }
+
+            #filters-expand {
+                font-size: 1.5vmax;
+            }
+
+        }
+
+
+        #filters-mid {
 
             @extend .row;
             flex: 1 1 50%;
-            row-gap: 1.5vh;
             flex-wrap: wrap;
+            gap: 2vh clamp(5px, 1.5vw, 2%);
 
-            @include landscape {
-                margin-right: 2%;
-            }
+            width: 100%;
 
 
-            .query {
-
-                @extend .row;
-
-                width: 15%;
-                text-align: center;
-
-                label {
-                    margin-right: 1.5vw;
-                }
-
-                input {
-                    width: 100%;
-                }
-
-            }
-
-            #query-title {
-                flex: 0 0 100%;
-            }
-
+            #query-genres,
             #query-credits {
 
-                flex: 0 0 100%;
+                max-width: none;
 
-                @include landscape {
-                    flex: 0 0 48.5%;
-                    margin-right: 2.5%;
-                }
+                flex-basis: 49%;
 
-            }
-
-            #query-genres {
-
-                flex: 0 0 100%;
-
-                @include landscape {
-                    flex: 0 0 49%;
+                @include portrait {
+                    flex-basis: 100%;
                 }
 
             }
 
             #query-date {
 
-                flex: 0 0 45%;
+                min-width: 0;
 
-                @include landscape {
-                    flex: 0 0 17%;
+                flex-basis: 15%;
+
+                @include portrait {
+                    flex-basis: 51%;
+                }
+
+                input {
+                    min-width: 0;
+                    max-width: 55%;
                 }
 
             }
 
             #query-format {
 
-                flex: 1 0 50%;
-                margin-left: 5%;
+                flex-basis: 10%;
 
-                @include landscape {
-                    flex: 0 1 15%;
+                @include portrait {
+                    flex-basis: 44%;
                 }
 
             }
 
             #query-price {
 
-                flex: 0 0 32%;
+                flex-basis: 10%;
 
-                @include landscape {
-                    flex: 0 0 20%;
-                    margin-left: 3%;
+                @include portrait {
+                    flex-basis: 20%;
                 }
 
             }
 
             #query-isbn {
 
-                flex: 0 0 65%;
-                margin-left: 3%;
+                flex-basis: 30%;
 
-                @include landscape {
-                    flex: 0 0 16%;
+                @include portrait {
+                    flex-basis: 45%;
                 }
 
             }
+
+            // #query-spacer {
+
+            //     flex-basis: 15%;
+
+            //     @include portrait {
+            //         display: none;
+            //     }
+
+            // }
 
         }
 
-        #buttons {
 
-            @extend .flip-h;
-            @extend .fill;
+        #filters-bot {
 
-            justify-content: space-between;
-            display: flex;
-            flex: 0 0 10%;
+            @extend .center;
+            @extend .flip;
+            @extend .col;
 
-            height: 100%;
-            padding: 1% 0;
-            gap: 15%;
+            gap: 10vw;
+            width: 100%;
+            height: clamp(0, min-content, 10vh);
 
-
-            #clear {
-
-                cursor: pointer;
-
-                flex: 1 1 50%;
+            @include portrait {
                 width: 100%;
+                gap: 1vh;
+            }
 
-                margin: 0 5%;
+            &>div {
+                height: 100%;
+            }
 
-                a {
-                    color: black;
-                    text-align: center;
-                    text-decoration: none;
+
+            #filters-options {
+
+                @extend .center;
+                @extend .row;
+
+                flex: 1 0 40%;
+                gap: 3%;
+
+                @include portrait {
+                    width: 100%;
+                }
+
+
+                &>div {
+                    @extend .center;
+                    gap: 1%;
+                }
+
+                #options-limit {
+                    flex: 1 1 30%;
                 }
 
             }
 
+            #filters-buttons {
 
-            #submit {
+                @extend .row;
+                flex: 1 1 90%;
+                gap: 10%;
 
-                cursor: pointer;
+                @include portrait {
+                    width: 90%;
+                }
 
-                flex: 1 1 50%;
-                width: 100%;
 
-                margin: 0 5%;
+                button {
+
+                    @extend .center;
+                    @extend .fill;
+
+                    flex: 1 1 50%;
+                    cursor: pointer;
+
+                }
 
             }
 
@@ -197,6 +267,7 @@
         display: grid;
 
         overflow: auto;
+        // background-color: transparent;
 
         gap: 3% 2%;
         grid-auto-rows: 40vh;
