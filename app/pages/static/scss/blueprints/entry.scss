@@ -194,22 +194,23 @@ $bg: darken($color: $color, $amount: 50%);
 
                     @extend .center;
                     @extend .row;
-                    gap: 5%;
+                    gap: 2%;
 
 
                     .medium {
 
                         flex: 0 1 25%;
-                        padding: 3% 7.5%;
+                        padding: 5% 1vw;
 
                         display: grid;
                         align-items: center;
                         grid-template: 1fr, 1fr;
 
-                        text-align: center;
                         background-color: $bg;
                         border-radius: 1vmax;
 
+                        text-align: center;
+                        white-space: nowrap;
                         font-size: clamp(0.5em, 0.9vmax, 1em);
 
                         @include portrait {
@@ -250,6 +251,7 @@ $bg: darken($color: $color, $amount: 50%);
                         @extend .fill;
 
                         padding: 3% 5%;
+                        max-height: 10vh;
 
                         text-align: center;
                         text-decoration: none;
