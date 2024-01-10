@@ -21,7 +21,7 @@ $bg: darken($color, 10%);
         @extend .col;
 
         flex: 1 0 auto;
-        gap: 2vh;
+        gap: clamp(1px, 2vh, 25px);
 
         color: white;
         background-color: $bg;
@@ -65,10 +65,13 @@ $bg: darken($color, 10%);
 
         .query {
 
+            @extend .center;
             @extend .row;
 
             flex-grow: 1;
             flex-shrink: 1;
+
+            height: 1.75em;
 
 
             label {
@@ -90,7 +93,6 @@ $bg: darken($color, 10%);
             gap: 5%;
 
             width: 100%;
-            height: clamp(0, min-content, 10vh);
 
 
             #query-title {
@@ -99,7 +101,15 @@ $bg: darken($color, 10%);
             }
 
             #filters-expand {
+
                 font-size: 1.5vmax;
+                background-color: $bg;
+                transition: transform 0.2s ease-in;
+
+                &.expanded {
+                    transform: rotate(180deg);
+                }
+
             }
 
         }
@@ -108,11 +118,27 @@ $bg: darken($color, 10%);
         #filters-mid {
 
             @extend .row;
-            flex: 1 1 50%;
+            flex: 1 1 0px;
             flex-wrap: wrap;
-            gap: 2vh clamp(5px, 1.5vw, 2%);
 
+            gap: 2vh clamp(5px, 1.5vw, 2%);
             width: 100%;
+
+
+            // Accordion Properties
+            min-height: 0px;
+            overflow: hidden;
+            transition: flex-basis 0.25s ease-in;
+
+            &.expanded {
+
+                flex-basis: 4.5em;
+
+                @include portrait {
+                    flex-basis: 11em;
+                }
+
+            }
 
 
             #query-genres,
@@ -131,8 +157,7 @@ $bg: darken($color, 10%);
             #query-date {
 
                 min-width: 0;
-
-                flex-basis: 15%;
+                flex-basis: 19%;
 
                 @include portrait {
                     flex-basis: 51%;
@@ -140,14 +165,14 @@ $bg: darken($color, 10%);
 
                 input {
                     min-width: 0;
-                    max-width: 55%;
+                    max-width: 75%;
                 }
 
             }
 
             #query-format {
 
-                flex-basis: 10%;
+                flex-basis: 15%;
 
                 @include portrait {
                     flex-basis: 44%;
@@ -174,16 +199,6 @@ $bg: darken($color, 10%);
                 }
 
             }
-
-            // #query-spacer {
-
-            //     flex-basis: 15%;
-
-            //     @include portrait {
-            //         display: none;
-            //     }
-
-            // }
 
         }
 

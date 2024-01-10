@@ -30,7 +30,7 @@
             </div>
 
 
-            <div id='filters-mid'>
+            <div id='filters-mid' class=''>
 
                 {% for query in queries[1:] %}
 
@@ -66,8 +66,6 @@
                 </div>
 
                 {% endfor %}
-
-                <!-- <div id='query-spacer' class='query'> </div> -->
 
             </div>
 
@@ -134,5 +132,19 @@
     </div>
 
 </div>
+
+
+
+<script>
+
+    const expand = document.getElementById( 'filters-expand' );
+    const mid = document.getElementById( 'filters-mid' );
+
+    expand.addEventListener( 'click', function () {
+        this.classList.toggle( 'expanded' );
+        mid.classList.toggle( 'expanded' );
+    } );
+
+</script>
 
 {% endblock %}
