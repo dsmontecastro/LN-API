@@ -38,6 +38,7 @@ $bg: darken($color, 10%);
         select {
 
             cursor: pointer;
+            height: 100%;
 
             color: white;
             background-color: $color;
@@ -125,7 +126,7 @@ $bg: darken($color, 10%);
             width: 100%;
 
 
-            // Accordion Properties
+            // Accordion
             min-height: 0px;
             overflow: hidden;
             transition: flex-basis 0.25s ease-in;
@@ -228,7 +229,7 @@ $bg: darken($color, 10%);
                 @extend .center;
                 @extend .row;
 
-                flex: 1 0 40%;
+                flex: 1 0 50%;
                 gap: 3%;
 
                 @include portrait {
@@ -242,7 +243,7 @@ $bg: darken($color, 10%);
                 }
 
                 #options-limit {
-                    flex: 1 1 30%;
+                    flex: 1 1 5em;
                 }
 
             }

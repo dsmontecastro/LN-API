@@ -175,25 +175,16 @@ body {
           flex: 1 1 auto;
           align-items: center;
           width: 100%;
-          margin: 1% 1%;
-          padding: 2.25vh 3vw;
-          border-radius: 2vh;
-          background-color: #3A4149;
           flex-grow: 1;
           flex-shrink: 1; }
           body #block #main #index div#routes {
             flex-basis: 40%; }
           body #block #main #index div#filters {
             flex-basis: 60%; }
-          body #block #main #index div p {
-            margin: 2vh 0;
-            font-size: clamp(0.7em, 2vmax, 3.25em);
-            line-break: loose;
-            color: #D5D7D9; }
           body #block #main #index div table {
             flex: 1 1 100%;
             width: 100%;
-            max-height: 90%;
+            max-height: 100%;
             margin: 1% auto;
             padding: 0 2.5%; }
             @media screen and (orientation: portrait) {
@@ -380,6 +371,7 @@ body {
           body #block #main #api #filters button,
           body #block #main #api #filters select {
             cursor: pointer;
+            height: 100%;
             color: white;
             background-color: #3A4149;
             border: 0 solid transparent;
@@ -471,7 +463,7 @@ body {
             body #block #main #api #filters #filters-bot > div {
               height: 100%; }
             body #block #main #api #filters #filters-bot #filters-options {
-              flex: 1 0 40%;
+              flex: 1 0 50%;
               gap: 3%; }
               @media screen and (orientation: portrait) {
                 body #block #main #api #filters #filters-bot #filters-options {
@@ -479,7 +471,7 @@ body {
               body #block #main #api #filters #filters-bot #filters-options > div {
                 gap: 1%; }
               body #block #main #api #filters #filters-bot #filters-options #options-limit {
-                flex: 1 1 30%; }
+                flex: 1 1 5em; }
             body #block #main #api #filters #filters-bot #filters-buttons {
               flex: 1 1 90%;
               gap: 10%; }
