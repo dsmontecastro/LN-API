@@ -3,7 +3,7 @@ from enum import Enum
 class Opts(Enum):
     LIMIT = 'limit'
     ORDER = 'order'
-    SORT_BY = 'sort_by'
+    SORT_BY = 'sort-by'
 
 
 class Fields(Enum):

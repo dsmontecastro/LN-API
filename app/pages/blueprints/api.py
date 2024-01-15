@@ -80,7 +80,7 @@ def get_params(table: str) -> dict[Any, Any]:
 
     params[LIMIT] = int(request.args.get(LIMIT) or '0')
     params[ORDER] = bool(request.args.get(ORDER)) or True
-    params[SORT_BY] = str(request.args.get(SORT_BY)) or Fields.DATE.value
+    params[SORT_BY] = request.args.get(SORT_BY) or Fields.DATE.value
 
     if table == 'All Tables': table = ''
     params[Fields.TABLE.value] = table
@@ -112,6 +112,8 @@ def get_params(table: str) -> dict[Any, Any]:
                 value = request.args.get(field)
                 if value: params[field] = value
 
+    log.debug(f'Order: {params[ORDER]}')
+    log.debug(f'Sort-By: {params[SORT_BY]}')
     return params
 
 
