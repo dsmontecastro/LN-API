@@ -36,8 +36,6 @@
 
         <div id='routes'>
 
-            <p> <b> Route: <i> /api/json/{code} </i> </b> </p>
-
             <table>
 
                 <colgroup>
@@ -45,13 +43,18 @@
                     <col span='1' style='width: 30%'>
                 </colgroup>
 
+                <thead>
+                    <th colspan="2">
+                        Route: <i> /api/json/{code}
+                    </th>
+                </thead>
 
                 <tbody>
 
-                    <tr>
+                    <thead>
                         <th> Source </th>
                         <th> Code </th>
-                    </tr>
+                    </thead>
 
                     {% for route in routes %}
 
@@ -81,8 +84,6 @@
 
         <div id='filters'>
 
-            <p> <b> FILTER PARAMETERS </b> </p>
-
             <table>
 
                 <colgroup>
@@ -92,6 +93,12 @@
 
 
                 <tbody>
+
+                    <thead>
+                        <th colspan="2">
+                            FILTER PARAMETERS
+                        </th>
+                    </thead>
 
                     <tr>
                         <th> Field </th>
